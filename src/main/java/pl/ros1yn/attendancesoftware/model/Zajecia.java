@@ -11,18 +11,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "student")
-public class Student {
+@Table(name = "zajecia")
+public class Zajecia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "index_number", nullable = false)
-    private int indexNumber;
+    private int id;
 
-    @Column(name = "nazwisko", nullable = false)
-    private String nazwisko;
+    @Column(name = "nazwa", nullable = false)
+    private String nazwa;
 
-    @Column(name = "imie", nullable = false)
-    private String imie;
+    @Column(name = "semestr", nullable = false)
+    private int semestr;
 
+    @Column(name = "rok", nullable = false)
+    private int rok;
 }

@@ -6,23 +6,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "student")
-public class Student {
+@Table(name = "lista_obecnosci")
+public class ListaObecnosci {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "index_number", nullable = false)
-    private int indexNumber;
+    @Column(name = "id")
+    private int id;
 
-    @Column(name = "nazwisko", nullable = false)
-    private String nazwisko;
+    @Column(name = "data", nullable = false)
+    private Date data;
 
-    @Column(name = "imie", nullable = false)
-    private String imie;
+    @Column(name = "id_zajec", nullable = false)
+    private int idZajec;
 
 }
