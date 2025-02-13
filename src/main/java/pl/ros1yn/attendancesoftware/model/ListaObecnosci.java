@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -21,10 +22,14 @@ public class ListaObecnosci {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "data", nullable = false)
-    private Date data;
+    @Column(name = "data")
+    private LocalDate data;
 
-    @Column(name = "id_zajec", nullable = false)
-    private int idZajec;
+    @ManyToOne
+    @JoinColumn(name = "id_zajec", referencedColumnName = "id")
+    private Zajecia zajecia;
+
+    @OneToMany(mappedBy = "listaObecnosci", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Obecnosc> obecnosci;
 
 }

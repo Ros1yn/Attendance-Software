@@ -16,6 +16,7 @@ public class Zajecia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "nazwa", nullable = false)

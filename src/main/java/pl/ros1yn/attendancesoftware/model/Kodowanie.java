@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "obecnosc")
-public class Obecnosc {
+@Table(name = "kodowanie")
+public class Kodowanie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,14 +20,14 @@ public class Obecnosc {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", referencedColumnName = "index_number")
+    @JoinColumn(name = "index_number", referencedColumnName = "index_number")
     private Student student;
 
-    @Column(name = "czy_obecny", nullable = false)
-    private Boolean czyObecny;
+    @ManyToOne
+    @JoinColumn(name = "id_zajec", referencedColumnName = "id")
+    private Zajecia zajecia;
 
-    //ilość + (plusów na zajęciach)
-    @Column(name = "aktywnosc", nullable = false)
-    private int aktywnosc;
+    @Column(name = "grupa", nullable = false)
+    private int grupa;
 
 }
