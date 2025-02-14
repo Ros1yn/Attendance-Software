@@ -28,8 +28,4 @@ public class ListaObecnosci {
     @ManyToOne
     @JoinColumn(name = "id_zajec", referencedColumnName = "id")
     private Zajecia zajecia;
-
-    @OneToMany(mappedBy = "listaObecnosci", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Obecnosc> obecnosci;
-
 }
