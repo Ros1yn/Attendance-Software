@@ -2,17 +2,13 @@ package pl.ros1yn.attendancesoftware.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Table(name = "lista_obecnosci")
 public class ListaObecnosci {
 
@@ -27,4 +23,28 @@ public class ListaObecnosci {
     @ManyToOne
     @JoinColumn(name = "id_zajec", referencedColumnName = "id")
     private Zajecia zajecia;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public Zajecia getZajecia() {
+        return zajecia;
+    }
+
+    public void setZajecia(Zajecia zajecia) {
+        this.zajecia = zajecia;
+    }
 }
