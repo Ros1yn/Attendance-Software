@@ -1,6 +1,9 @@
 package pl.ros1yn.attendancesoftware.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -11,9 +14,8 @@ import lombok.NoArgsConstructor;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "index_number", nullable = false)
-    private int indexNumber;
+    private Integer indexNumber;
 
     @Column(name = "nazwisko", nullable = false)
     private String nazwisko;
@@ -21,11 +23,12 @@ public class Student {
     @Column(name = "imie", nullable = false)
     private String imie;
 
+
     public int getIndexNumber() {
         return indexNumber;
     }
 
-    public void setIndexNumber(int indexNumber) {
+    public void setIndexNumber(Integer indexNumber) {
         this.indexNumber = indexNumber;
     }
 
@@ -44,4 +47,6 @@ public class Student {
     public void setImie(String imie) {
         this.imie = imie;
     }
+
+
 }
