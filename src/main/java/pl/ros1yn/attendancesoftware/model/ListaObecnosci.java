@@ -1,5 +1,6 @@
 package pl.ros1yn.attendancesoftware.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class ListaObecnosci {
     @JoinColumn(name = "id_zajec", referencedColumnName = "id")
     private Zajecia zajecia;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "listaObecnosci", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Obecnosc> obecnosci = new ArrayList<>();
 
