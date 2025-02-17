@@ -1,7 +1,6 @@
 package pl.ros1yn.attendancesoftware.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ros1yn.attendancesoftware.model.Obecnosc;
