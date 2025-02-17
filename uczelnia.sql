@@ -34,7 +34,7 @@ CREATE TABLE `kodowanie` (
   KEY `id_zajec` (`id_zajec`),
   CONSTRAINT `kodowanie_ibfk_1` FOREIGN KEY (`index_number`) REFERENCES `student` (`index_number`),
   CONSTRAINT `kodowanie_ibfk_2` FOREIGN KEY (`id_zajec`) REFERENCES `zajecia` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `kodowanie` (
 
 LOCK TABLES `kodowanie` WRITE;
 /*!40000 ALTER TABLE `kodowanie` DISABLE KEYS */;
+INSERT INTO `kodowanie` VALUES (1,1001,1,1),(2,1002,1,1),(3,1003,2,2),(4,1004,2,2),(5,1005,3,1),(6,1006,3,2),(7,1007,4,1),(8,1008,4,2),(9,1009,5,1),(10,1010,5,2);
 /*!40000 ALTER TABLE `kodowanie` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,7 +61,7 @@ CREATE TABLE `lista_obecnosci` (
   PRIMARY KEY (`id`),
   KEY `id_zajec` (`id_zajec`),
   CONSTRAINT `lista_obecnosci_ibfk_1` FOREIGN KEY (`id_zajec`) REFERENCES `zajecia` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,6 +70,7 @@ CREATE TABLE `lista_obecnosci` (
 
 LOCK TABLES `lista_obecnosci` WRITE;
 /*!40000 ALTER TABLE `lista_obecnosci` DISABLE KEYS */;
+INSERT INTO `lista_obecnosci` VALUES (1,'2024-02-10',1),(2,'2024-02-11',2),(3,'2024-02-12',3),(4,'2024-02-13',4),(5,'2024-02-14',5),(6,'2024-02-15',6),(7,'2024-02-16',7),(8,'2024-02-17',8),(9,'2024-02-18',9),(10,'2024-02-19',10);
 /*!40000 ALTER TABLE `lista_obecnosci` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,13 +83,16 @@ DROP TABLE IF EXISTS `obecnosc`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `obecnosc` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `student_id` int DEFAULT NULL,
+  `student_index_number` int DEFAULT NULL,
   `czy_obecny` tinyint(1) NOT NULL,
   `Aktywnosc` int DEFAULT NULL,
+  `lista_obecnosci_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `jindex` (`student_id`),
-  CONSTRAINT `obecnosc_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`index_number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `jindex` (`student_index_number`),
+  KEY `obecnosc_ibfk_2` (`lista_obecnosci_id`),
+  CONSTRAINT `obecnosc_ibfk_1` FOREIGN KEY (`student_index_number`) REFERENCES `student` (`index_number`),
+  CONSTRAINT `obecnosc_ibfk_2` FOREIGN KEY (`lista_obecnosci_id`) REFERENCES `lista_obecnosci` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,6 +101,7 @@ CREATE TABLE `obecnosc` (
 
 LOCK TABLES `obecnosc` WRITE;
 /*!40000 ALTER TABLE `obecnosc` DISABLE KEYS */;
+INSERT INTO `obecnosc` VALUES (1,1001,1,5,1),(2,1002,0,3,1),(3,1003,1,4,2),(4,1004,1,2,2),(5,1005,0,1,3),(6,1006,1,3,3),(8,1008,0,2,4),(9,1009,1,4,5),(10,1010,1,5,5),(18,162553,1,5,NULL);
 /*!40000 ALTER TABLE `obecnosc` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,6 +121,16 @@ CREATE TABLE `student` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `student`
+--
+
+LOCK TABLES `student` WRITE;
+/*!40000 ALTER TABLE `student` DISABLE KEYS */;
+INSERT INTO `student` VALUES (1001,'Kowalski','Jan'),(1002,'Nowak','Anna'),(1003,'Wiśniewski','Piotr'),(1004,'Dąbrowski','Ewa'),(1005,'Lewandowski','Kamil'),(1006,'Wójcik','Monika'),(1007,'Kamiński','Paweł'),(1008,'Zielińska','Karolina'),(1009,'Szymański','Tomasz'),(1010,'Woźniak','Marta'),(62687,'Gryczka','Łukasz'),(162553,'Kwiatkowski','Mateusz');
+/*!40000 ALTER TABLE `student` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `zajecia`
 --
 
@@ -127,7 +143,7 @@ CREATE TABLE `zajecia` (
   `semestr` int NOT NULL,
   `Rok` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,6 +152,7 @@ CREATE TABLE `zajecia` (
 
 LOCK TABLES `zajecia` WRITE;
 /*!40000 ALTER TABLE `zajecia` DISABLE KEYS */;
+INSERT INTO `zajecia` VALUES (1,'Matematyka',1,2024),(2,'Fizyka',1,2024),(3,'Informatyka',2,2024),(4,'Biologia',2,2024),(5,'Chemia',3,2024),(6,'Historia',3,2023),(7,'Geografia',4,2023),(8,'Język Angielski',4,2023),(9,'Język Niemiecki',5,2023),(10,'WF',5,2023);
 /*!40000 ALTER TABLE `zajecia` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -148,4 +165,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-14  1:49:23
+-- Dump completed on 2025-02-17 11:07:23
+    
