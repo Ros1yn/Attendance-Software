@@ -5,12 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "student")
+@Getter
+@Setter
 public class Student {
 
     @Id
@@ -22,31 +25,6 @@ public class Student {
 
     @Column(name = "imie", nullable = false)
     private String imie;
-
-
-    public Integer getIndexNumber() {
-        return indexNumber;
-    }
-
-    public void setIndexNumber(Integer indexNumber) {
-        this.indexNumber = indexNumber;
-    }
-
-    public String getNazwisko() {
-        return nazwisko;
-    }
-
-    public void setNazwisko(String nazwisko) {
-        this.nazwisko = nazwisko;
-    }
-
-    public String getImie() {
-        return imie;
-    }
-
-    public void setImie(String imie) {
-        this.imie = imie;
-    }
 
 
 }

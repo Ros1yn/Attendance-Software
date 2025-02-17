@@ -1,5 +1,6 @@
 package pl.ros1yn.attendancesoftware.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -10,16 +11,12 @@ import pl.ros1yn.attendancesoftware.utils.student.StudentUpdate;
 import java.util.Optional;
 
 @Component
+@AllArgsConstructor
 public class StudentService {
 
-    private final StudentRepository studentRepository;
+    private StudentRepository studentRepository;
 
-    private final StudentUpdate studentUpdate;
-
-    public StudentService(StudentRepository studentRepository, StudentUpdate studentUpdate) {
-        this.studentRepository = studentRepository;
-        this.studentUpdate = studentUpdate;
-    }
+    private StudentUpdate studentUpdate;
 
     public ResponseEntity<Iterable<Student>> getAllStudentsFromDB() {
 

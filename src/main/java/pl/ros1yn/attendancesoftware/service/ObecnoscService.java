@@ -1,5 +1,7 @@
 package pl.ros1yn.attendancesoftware.service;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -9,13 +11,11 @@ import pl.ros1yn.attendancesoftware.repository.ObecnoscRepository;
 import java.util.Optional;
 
 @Component
+@AllArgsConstructor
 public class ObecnoscService {
 
-    private final ObecnoscRepository obecnoscRepository;
+    private ObecnoscRepository obecnoscRepository;
 
-    public ObecnoscService(ObecnoscRepository obecnoscRepository) {
-        this.obecnoscRepository = obecnoscRepository;
-    }
 
     public ResponseEntity<Obecnosc> deleteObecnoscById(Integer id) {
 

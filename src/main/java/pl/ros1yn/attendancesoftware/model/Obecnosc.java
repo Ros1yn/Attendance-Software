@@ -2,12 +2,16 @@ package pl.ros1yn.attendancesoftware.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "obecnosc")
+@Getter
+@Setter
 public class Obecnosc {
 
     @Id
@@ -30,35 +34,5 @@ public class Obecnosc {
     @JoinColumn(name = "lista_obecnosci_id", referencedColumnName = "id")
     private ListaObecnosci listaObecnosci;
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Boolean getCzyObecny() {
-        return czyObecny;
-    }
-
-    public void setCzyObecny(Boolean czyObecny) {
-        this.czyObecny = czyObecny;
-    }
-
-    public int getAktywnosc() {
-        return aktywnosc;
-    }
-
-    public void setAktywnosc(int aktywnosc) {
-        this.aktywnosc = aktywnosc;
-    }
 }

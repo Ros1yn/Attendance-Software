@@ -2,7 +2,9 @@ package pl.ros1yn.attendancesoftware.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "lista_obecnosci")
+@Getter
+@Setter
 public class ListaObecnosci {
 
     @Id
@@ -29,35 +33,5 @@ public class ListaObecnosci {
     @OneToMany(mappedBy = "listaObecnosci", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Obecnosc> obecnosci = new ArrayList<>();
 
-    public List<Obecnosc> getObecnosci() {
-        return obecnosci;
-    }
 
-    public void setObecnosci(List<Obecnosc> obecnosci) {
-        this.obecnosci = obecnosci;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-
-    public Zajecia getZajecia() {
-        return zajecia;
-    }
-
-    public void setZajecia(Zajecia zajecia) {
-        this.zajecia = zajecia;
-    }
 }

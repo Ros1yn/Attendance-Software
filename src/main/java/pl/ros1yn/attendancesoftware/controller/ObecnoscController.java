@@ -1,5 +1,7 @@
 package pl.ros1yn.attendancesoftware.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ros1yn.attendancesoftware.model.Obecnosc;
@@ -7,16 +9,13 @@ import pl.ros1yn.attendancesoftware.repository.ObecnoscRepository;
 import pl.ros1yn.attendancesoftware.service.ObecnoscService;
 
 @RestController
+@AllArgsConstructor
 public class ObecnoscController {
 
-    private final ObecnoscRepository obecnoscRepository;
+    private ObecnoscRepository obecnoscRepository;
 
-    private final ObecnoscService obecnoscService;
+    private ObecnoscService obecnoscService;
 
-    public ObecnoscController(ObecnoscRepository obecnoscRepository, ObecnoscService obecnoscService) {
-        this.obecnoscRepository = obecnoscRepository;
-        this.obecnoscService = obecnoscService;
-    }
 
     @GetMapping("obecnosci")
     public ResponseEntity<Iterable<Obecnosc>> getAllObecnosci() {
