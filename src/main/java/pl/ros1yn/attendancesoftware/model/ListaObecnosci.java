@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -23,6 +25,17 @@ public class ListaObecnosci {
     @ManyToOne
     @JoinColumn(name = "id_zajec", referencedColumnName = "id")
     private Zajecia zajecia;
+
+    @OneToMany(mappedBy = "listaObecnosci", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Obecnosc> obecnosci = new ArrayList<>();
+
+    public List<Obecnosc> getObecnosci() {
+        return obecnosci;
+    }
+
+    public void setObecnosci(List<Obecnosc> obecnosci) {
+        this.obecnosci = obecnosci;
+    }
 
     public int getId() {
         return id;

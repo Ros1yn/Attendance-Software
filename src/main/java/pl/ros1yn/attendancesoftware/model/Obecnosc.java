@@ -13,10 +13,10 @@ public class Obecnosc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", referencedColumnName = "index_number")
+    @JoinColumn(name = "student_index_number", referencedColumnName = "index_number")
     private Student student;
 
     @Column(name = "czy_obecny", nullable = false)
@@ -26,11 +26,15 @@ public class Obecnosc {
     @Column(name = "aktywnosc", nullable = false)
     private int aktywnosc;
 
-    public int getId() {
+    @ManyToOne
+    @JoinColumn(name = "lista_obecnosci_id", referencedColumnName = "id")
+    private ListaObecnosci listaObecnosci;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

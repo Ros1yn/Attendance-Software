@@ -1,10 +1,11 @@
 package pl.ros1yn.attendancesoftware.service;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import pl.ros1yn.attendancesoftware.model.Student;
 import pl.ros1yn.attendancesoftware.repository.StudentRepository;
-import pl.ros1yn.attendancesoftware.utils.UriHelper;
+import pl.ros1yn.attendancesoftware.utils.student.StudentUpdate;
 
 import java.util.Optional;
 
@@ -13,11 +14,11 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    private final UriHelper uriHelper;
+    private final StudentUpdate studentUpdate;
 
-    public StudentService(StudentRepository studentRepository, UriHelper uriHelper) {
+    public StudentService(StudentRepository studentRepository, StudentUpdate studentUpdate) {
         this.studentRepository = studentRepository;
-        this.uriHelper = uriHelper;
+        this.studentUpdate = studentUpdate;
     }
 
     public ResponseEntity<Iterable<Student>> getAllStudentsFromDB() {
@@ -28,9 +29,9 @@ public class StudentService {
     }
 
     public ResponseEntity<Student> deleteStudentById(Integer id) {
-        Optional<Student> foundedStudent = studentRepository.findById(id);
+        Optional<Student> foudnedStudent = studentRepository.findById(id);
 
-        if (foundedStudent.isEmpty()) {
+        if (foudnedStudent.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
@@ -43,17 +44,27 @@ public class StudentService {
 
         Student savedStudent = studentRepository.save(student);
 
-        return ResponseEntity.created(uriHelper.getUri(savedStudent)).body(savedStudent);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
     }
 
     public ResponseEntity<Optional<Student>> getSingleStudentFromDB(Integer id) {
 
-        Optional<Student> findedStudent = studentRepository.findById(id);
+        Optional<Student> foundedStudent = studentRepository.findById(id);
 
-        if (findedStudent.isEmpty()) {
+        if (foundedStudent.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(findedStudent);
+        return ResponseEntity.ok(foundedStudent);
     }
+
+    public ResponseEntity<Student> updateFullStudent(Student student, Integer id) {
+
+        return studentRepository.findById(id)
+                .map(existingStudent -> studentUpdate.update(existingStudent, student))
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+
+    }
+
 }

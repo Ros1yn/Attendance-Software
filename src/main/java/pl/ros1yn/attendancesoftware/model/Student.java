@@ -24,7 +24,7 @@ public class Student {
     private String imie;
 
 
-    public int getIndexNumber() {
+    public Integer getIndexNumber() {
         return indexNumber;
     }
 

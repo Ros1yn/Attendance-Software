@@ -42,5 +42,10 @@ public class StudentController {
 
     }
 
+    //Update imienia i nazwiska
+    @PatchMapping("students/{indexNumber}")
+    public ResponseEntity<Student> updateStudent(@PathVariable Integer indexNumber, @RequestBody Student student) {
+        return studentService.updateFullStudent(student, indexNumber);
+    }
 
 }
