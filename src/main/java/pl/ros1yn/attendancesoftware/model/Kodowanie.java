@@ -1,17 +1,15 @@
 package pl.ros1yn.attendancesoftware.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
+@Table(name = "kodowanie")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "kodowanie")
 @Getter
 @Setter
+@ToString
 public class Kodowanie {
 
     @Id

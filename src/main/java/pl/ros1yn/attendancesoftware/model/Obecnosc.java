@@ -2,10 +2,7 @@ package pl.ros1yn.attendancesoftware.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @AllArgsConstructor
@@ -13,6 +10,7 @@ import lombok.Setter;
 @Table(name = "obecnosc")
 @Getter
 @Setter
+@ToString
 public class Obecnosc {
 
     @Id
@@ -27,7 +25,8 @@ public class Obecnosc {
     @Column(name = "czy_obecny", nullable = false)
     private Boolean czyObecny;
 
-    //ilość + (plusów na zajęciach)
+    //ilość + ("plusów") na zajęciach -> aktywnosc >= 0
+    //przy put zmiana na ilość większą od 0
     @Column(name = "aktywnosc", nullable = false)
     private int aktywnosc;
 

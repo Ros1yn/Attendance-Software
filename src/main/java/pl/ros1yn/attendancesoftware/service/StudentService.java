@@ -14,9 +14,9 @@ import java.util.Optional;
 @AllArgsConstructor
 public class StudentService {
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
-    private StudentUpdate studentUpdate;
+    private final StudentUpdate studentUpdate;
 
     public ResponseEntity<Iterable<Student>> getAllStudentsFromDB() {
 

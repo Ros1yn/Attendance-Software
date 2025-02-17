@@ -9,7 +9,7 @@ import pl.ros1yn.attendancesoftware.repository.StudentRepository;
 @AllArgsConstructor
 public class StudentUpdate {
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     public Student update(Student existingStudent, Student student) {
 

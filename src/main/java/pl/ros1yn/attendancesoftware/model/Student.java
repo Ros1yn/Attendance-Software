@@ -7,12 +7,14 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@RequiredArgsConstructor
 @Table(name = "student")
+@RequiredArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Student {
 
     @Id

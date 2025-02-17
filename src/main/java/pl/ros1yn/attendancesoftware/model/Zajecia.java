@@ -1,17 +1,17 @@
 package pl.ros1yn.attendancesoftware.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
+@Table(name = "zajecia")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "zajecia")
 @Getter
 @Setter
+@ToString
 public class Zajecia {
 
     @Id
@@ -28,4 +28,6 @@ public class Zajecia {
     @Column(name = "rok", nullable = false)
     private int rok;
 
+    @OneToMany(mappedBy = "zajecia")
+    private List<Kodowanie> kodowanie;
 }

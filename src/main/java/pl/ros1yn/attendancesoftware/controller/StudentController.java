@@ -1,5 +1,6 @@
 package pl.ros1yn.attendancesoftware.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ros1yn.attendancesoftware.model.Student;
@@ -8,34 +9,32 @@ import pl.ros1yn.attendancesoftware.service.StudentService;
 import java.util.Optional;
 
 @RestController
+@AllArgsConstructor
 public class StudentController {
 
     private final StudentService studentService;
 
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
 
-    @GetMapping("students")
+    @GetMapping("studenci")
     public ResponseEntity<Iterable<Student>> getAllStudents() {
 
         return studentService.getAllStudentsFromDB();
     }
 
-    @GetMapping("students/{indexNumber}")
+    @GetMapping("studenci/{indexNumber}")
     public ResponseEntity<Optional<Student>> getSingleStudent(@PathVariable Integer indexNumber) {
 
         return studentService.getSingleStudentFromDB(indexNumber);
 
     }
 
-    @DeleteMapping("students/{id}")
+    @DeleteMapping("studenci/{id}")
     public ResponseEntity<Student> deleteStudent(@PathVariable Integer id) {
 
         return studentService.deleteStudentById(id);
     }
 
-    @PostMapping("students")
+    @PostMapping("studenci")
     public ResponseEntity<Student> addStudent(@RequestBody Student student) {
 
         return studentService.addStudentToDB(student);
@@ -43,7 +42,7 @@ public class StudentController {
     }
 
     //Update imienia i nazwiska
-    @PatchMapping("students/{indexNumber}")
+    @PatchMapping("studenci/{indexNumber}")
     public ResponseEntity<Student> updateStudent(@PathVariable Integer indexNumber, @RequestBody Student student) {
         return studentService.updateFullStudent(student, indexNumber);
     }
