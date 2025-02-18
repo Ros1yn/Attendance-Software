@@ -2,7 +2,6 @@ package pl.ros1yn.attendancesoftware.lessons.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pl.ros1yn.attendancesoftware.lessons.DTO.LessonDTO;
 import pl.ros1yn.attendancesoftware.lessons.DTO.LessonSimpleDTO;

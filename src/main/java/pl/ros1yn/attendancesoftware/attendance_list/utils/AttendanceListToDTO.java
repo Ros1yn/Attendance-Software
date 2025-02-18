@@ -8,7 +8,6 @@ import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListDTO;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 import pl.ros1yn.attendancesoftware.lessons.DTO.LessonSimpleDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -17,7 +16,7 @@ public class AttendanceListToDTO {
 
     private final AttendanceToDTO attendanceToDTO;
 
-    public AttendanceListDTO convertToDTO(AttendanceList attendanceList){
+    public AttendanceListDTO convertToDTO(AttendanceList attendanceList) {
 
         List<AttendanceDTO> attendanceDTOList = attendanceList.getAttendanceList().stream()
                 .map(attendanceToDTO::convert)

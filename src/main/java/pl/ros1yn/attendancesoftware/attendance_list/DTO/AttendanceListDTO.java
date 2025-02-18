@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceDTO;
-import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
-import pl.ros1yn.attendancesoftware.lessons.DTO.LessonDTO;
 import pl.ros1yn.attendancesoftware.lessons.DTO.LessonSimpleDTO;
 
 import java.time.LocalDate;

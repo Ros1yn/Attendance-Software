@@ -3,7 +3,6 @@ package pl.ros1yn.attendancesoftware.attendance_list.service;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.ros1yn.attendancesoftware.attendance.utils.AttendanceToDTO;
 import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListDTO;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 import pl.ros1yn.attendancesoftware.attendance_list.repository.AttendanceListRepository;
@@ -26,7 +25,7 @@ public class AttendanceListService {
 
         List<AttendanceListDTO> attendanceListDTOList = new ArrayList<>();
 
-        for (AttendanceList attendanceListDTO : all){
+        for (AttendanceList attendanceListDTO : all) {
             attendanceListDTOList.add(attendanceListToDTO.convertToDTO(attendanceListDTO));
         }
 
