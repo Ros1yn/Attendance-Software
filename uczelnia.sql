@@ -75,13 +75,13 @@ INSERT INTO `lista_obecnosci` VALUES (1,'2024-02-10',1),(2,'2024-02-11',2),(3,'2
 UNLOCK TABLES;
 
 --
--- Table structure for table `obecnosc`
+-- Table structure for table `attendance`
 --
 
-DROP TABLE IF EXISTS `obecnosc`;
+DROP TABLE IF EXISTS `attendance`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `obecnosc` (
+CREATE TABLE `attendance` (
   `id` int NOT NULL AUTO_INCREMENT,
   `student_index_number` int DEFAULT NULL,
   `czy_obecny` tinyint(1) NOT NULL,
@@ -96,13 +96,13 @@ CREATE TABLE `obecnosc` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `obecnosc`
+-- Dumping data for table `attendance`
 --
 
-LOCK TABLES `obecnosc` WRITE;
-/*!40000 ALTER TABLE `obecnosc` DISABLE KEYS */;
-INSERT INTO `obecnosc` VALUES (1,1001,1,5,1),(2,1002,0,3,1),(3,1003,1,4,2),(4,1004,1,2,2),(5,1005,0,1,3),(6,1006,1,3,3),(8,1008,0,2,4),(9,1009,1,4,5),(10,1010,1,5,5),(18,162553,1,5,NULL);
-/*!40000 ALTER TABLE `obecnosc` ENABLE KEYS */;
+LOCK TABLES `attendance` WRITE;
+/*!40000 ALTER TABLE `attendance` DISABLE KEYS */;
+INSERT INTO `attendance` VALUES (1,1001,1,5,1),(2,1002,0,3,1),(3,1003,1,4,2),(4,1004,1,2,2),(5,1005,0,1,3),(6,1006,1,3,3),(8,1008,0,2,4),(9,1009,1,4,5),(10,1010,1,5,5),(18,162553,1,5,NULL);
+/*!40000 ALTER TABLE `attendance` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
