@@ -1,7 +1,10 @@
 package pl.ros1yn.attendancesoftware.lessons.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.ros1yn.attendancesoftware.coding.model.Coding;
 
 import java.util.List;
@@ -12,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Lesson {
 
     @Id

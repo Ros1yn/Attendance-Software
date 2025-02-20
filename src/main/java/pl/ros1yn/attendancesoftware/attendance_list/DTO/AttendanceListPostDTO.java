@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceDTO;
+import pl.ros1yn.attendancesoftware.attendance.DTO.AttendancePostDTO;
 import pl.ros1yn.attendancesoftware.lessons.DTO.LessonSimpleDTO;
 
 import java.time.LocalDate;
@@ -16,13 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AttendanceListDTO {
-
-    public AttendanceListDTO(LocalDate date, Integer lessonId, List<AttendanceDTO> attendances) {
-        this.localDate = date;
-        this.lessonSimpleDTO.setId(lessonId);
-        this.attendanceDTOs = attendances;
-    }
+public class AttendanceListPostDTO {
 
     private Integer id;
 
@@ -34,5 +28,7 @@ public class AttendanceListDTO {
     private LessonSimpleDTO lessonSimpleDTO;
 
     @JsonProperty("attendance_list")
-    private List<AttendanceDTO> attendanceDTOs;
+    private List<AttendancePostDTO> attendancePostDTOS;
+
+
 }

@@ -1,5 +1,6 @@
 package pl.ros1yn.attendancesoftware.attendance.DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,17 +9,11 @@ import pl.ros1yn.attendancesoftware.student.DTO.StudentDTO;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
-public class AttendanceDTO {
+@Setter
+public class AttendancePostDTO {
 
-    public AttendanceDTO(StudentDTO studentDTO, Boolean isAttendance) {
-        this.studentDTO = studentDTO;
-        this.isAttendance = isAttendance;
-    }
-
-    private Integer id;
+    @JsonProperty("student")
     private StudentDTO studentDTO;
     private Boolean isAttendance;
-
 }

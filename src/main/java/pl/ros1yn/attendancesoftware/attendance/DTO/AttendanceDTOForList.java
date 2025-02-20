@@ -1,5 +1,4 @@
-package pl.ros1yn.attendancesoftware.student.DTO;
-
+package pl.ros1yn.attendancesoftware.attendance.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,13 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-public class StudentDTO {
+public class AttendanceDTOForList {
 
     private Integer indexNumber;
-    private String name;
-    private String surname;
+    private Boolean isAttendance;
 
 }

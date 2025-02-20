@@ -64,9 +64,9 @@ public class CodingService {
 
     public ResponseEntity<CodingDTO> addCoding(CodingRequestDTO requestDTO) {
 
-        Student foundedStudent = codingAttendanceChecker.attendanceCheckerForStudent(requestDTO);
+        Student foundedStudent = codingAttendanceChecker.checkerForStudent(requestDTO);
 
-        Lesson foundedLesson = codingAttendanceChecker.attendanceCheckerForLesson(requestDTO);
+        Lesson foundedLesson = codingAttendanceChecker.checkerForLesson(requestDTO);
 
         Coding coding = codingAddNew.getNewCoding(requestDTO, foundedStudent, foundedLesson);
 
