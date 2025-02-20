@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListDTO;
 import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListPostDTO;
 import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListRequestDTO;
+import pl.ros1yn.attendancesoftware.attendance_list.service.AttendanceListDeleteService;
 import pl.ros1yn.attendancesoftware.attendance_list.service.AttendanceListGetService;
 import pl.ros1yn.attendancesoftware.attendance_list.service.AttendanceListPostService;
-import pl.ros1yn.attendancesoftware.attendance_list.service.AttendanceListDeleteService;
 
 import java.util.List;
 

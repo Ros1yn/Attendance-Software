@@ -18,21 +18,18 @@ import java.util.List;
 @Setter
 public class AttendanceListDTO {
 
+    private Integer id;
+    @JsonProperty("date")
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate localDate;
+    @JsonProperty("lesson")
+    private LessonSimpleDTO lessonSimpleDTO;
+    @JsonProperty("attendance_list")
+    private List<AttendanceDTO> attendanceDTOs;
+
     public AttendanceListDTO(LocalDate date, Integer lessonId, List<AttendanceDTO> attendances) {
         this.localDate = date;
         this.lessonSimpleDTO.setId(lessonId);
         this.attendanceDTOs = attendances;
     }
-
-    private Integer id;
-
-    @JsonProperty("date")
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate localDate;
-
-    @JsonProperty("lesson")
-    private LessonSimpleDTO lessonSimpleDTO;
-
-    @JsonProperty("attendance_list")
-    private List<AttendanceDTO> attendanceDTOs;
 }

@@ -12,13 +12,12 @@ import pl.ros1yn.attendancesoftware.student.DTO.StudentDTO;
 @Getter
 public class AttendanceDTO {
 
+    private Integer id;
+    private StudentDTO studentDTO;
+    private Boolean isAttendance;
     public AttendanceDTO(StudentDTO studentDTO, Boolean isAttendance) {
         this.studentDTO = studentDTO;
         this.isAttendance = isAttendance;
     }
-
-    private Integer id;
-    private StudentDTO studentDTO;
-    private Boolean isAttendance;
 
 }
