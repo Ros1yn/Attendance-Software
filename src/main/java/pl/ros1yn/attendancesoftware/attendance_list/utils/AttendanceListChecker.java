@@ -2,10 +2,13 @@ package pl.ros1yn.attendancesoftware.attendance_list.utils;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceDTOForList;
 import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListRequestDTO;
 import pl.ros1yn.attendancesoftware.exception.LessonNotFoundException;
+import pl.ros1yn.attendancesoftware.exception.StudentNotFoundException;
 import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
 import pl.ros1yn.attendancesoftware.lessons.repository.LessonRepository;
+import pl.ros1yn.attendancesoftware.student.model.Student;
 import pl.ros1yn.attendancesoftware.student.repository.StudentRepository;
 
 @Component
@@ -23,5 +26,9 @@ public class AttendanceListChecker {
                 .orElseThrow(lessonNotFoundException::throwException);
     }
 
+    public Student checkerForStudent(AttendanceDTOForList dtoForList) {
+        return studentRepository.findById(dtoForList.getIndexNumber())
+                .orElseThrow(StudentNotFoundException::new);
+    }
 
 }

@@ -1,4 +1,4 @@
-package pl.ros1yn.attendancesoftware.attendance_list.utils;
+package pl.ros1yn.attendancesoftware.attendance_list.mapper;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,9 +12,11 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class AttendanceListToDTO {
+public class AttendanceListMapper {
 
     private final AttendanceToDTO attendanceToDTO;
+
+    private final AttendanceListMapper attendanceListMapper;
 
     public AttendanceListDTO convertToDTO(AttendanceList attendanceList) {
 
@@ -35,6 +37,13 @@ public class AttendanceListToDTO {
                 lessonSimpleDTO,
                 attendanceDTOList
         );
+    }
+
+
+    public void transfer(Iterable<AttendanceList> all, List<AttendanceListDTO> attendanceListDTOList) {
+        for (AttendanceList attendanceListDTO : all) {
+            attendanceListDTOList.add(attendanceListMapper.convertToDTO(attendanceListDTO));
+        }
     }
 
 }
