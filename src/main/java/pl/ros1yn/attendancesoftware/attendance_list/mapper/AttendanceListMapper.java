@@ -16,8 +16,6 @@ public class AttendanceListMapper {
 
     private final AttendanceToDTO attendanceToDTO;
 
-    private final AttendanceListMapper attendanceListMapper;
-
     public AttendanceListDTO convertToDTO(AttendanceList attendanceList) {
 
         List<AttendanceDTO> attendanceDTOList = attendanceList.getAttendanceList().stream()
@@ -42,7 +40,7 @@ public class AttendanceListMapper {
 
     public void transfer(Iterable<AttendanceList> all, List<AttendanceListDTO> attendanceListDTOList) {
         for (AttendanceList attendanceListDTO : all) {
-            attendanceListDTOList.add(attendanceListMapper.convertToDTO(attendanceListDTO));
+            attendanceListDTOList.add(convertToDTO(attendanceListDTO));
         }
     }
 
