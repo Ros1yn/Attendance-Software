@@ -5,50 +5,54 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
-import pl.ros1yn.attendancesoftware.attendance.service.AttendanceService;
-
-import java.util.Optional;
+import pl.ros1yn.attendancesoftware.attendance.service.AttendanceDeleteService;
+import pl.ros1yn.attendancesoftware.attendance.service.AttendanceGetService;
+import pl.ros1yn.attendancesoftware.attendance.service.AttendancePostService;
+import pl.ros1yn.attendancesoftware.attendance.service.AttendanceUpdateService;
 
 @RestController
 @AllArgsConstructor
 public class AttendanceController {
 
-    private final AttendanceRepository attendanceRepository;
+    private final AttendanceDeleteService attendanceDeleteService;
 
-    private final AttendanceService attendanceService;
+    private final AttendanceGetService attendanceGetService;
+
+    private final AttendancePostService attendancePostService;
+
+    private final AttendanceUpdateService attendanceUpdateService;
 
 
     @GetMapping("attendance")
     public ResponseEntity<Iterable<Attendance>> getAllAttendances() {
-        return ResponseEntity.ok(attendanceRepository.findAll());
+        return attendanceGetService.getAllAttendances();
     }
 
     @GetMapping("attendance/{id}")
-    public ResponseEntity<Optional<Attendance>> getSingleAttendance(@PathVariable Integer id) {
-        return attendanceService.getAttendance(id);
+    public ResponseEntity<Attendance> getSingleAttendance(@PathVariable Integer id) {
+        return attendanceGetService.getAttendance(id);
     }
 
     @DeleteMapping("attendance/{id}")
     public ResponseEntity<Attendance> deleteAttendance(@PathVariable Integer id) {
-        return attendanceService.deleteAttendance(id);
+        return attendanceDeleteService.deleteAttendance(id);
     }
 
     @PostMapping("attendance")
     public ResponseEntity<Attendance> addAttendance(@RequestBody Attendance attendance) {
-
-        return attendanceService.addAttendance(attendance);
-    }
-
-    @PatchMapping("attendance/{id}")
-    public ResponseEntity<Attendance> updateFullAttendance(@PathVariable Integer id, @RequestBody Attendance attendance) {
-
-        return attendanceService.updateAttendance(id, attendance);
-
+        return attendancePostService.addAttendance(attendance);
     }
 
     @PutMapping("attendance/{id}")
+    public ResponseEntity<Attendance> updateFullAttendance(@PathVariable Integer id, @RequestBody Attendance attendance) {
+
+        return attendanceUpdateService.updateAttendance(id, attendance);
+
+    }
+
+    @PatchMapping("attendance/{id}")
     public ResponseEntity<Attendance> updateAttendancePartially(@PathVariable Integer id, @RequestBody Attendance attendance) {
-        return attendanceService.updatePartially(id, attendance);
+        return attendanceUpdateService.updatePartially(id, attendance);
     }
 
 
