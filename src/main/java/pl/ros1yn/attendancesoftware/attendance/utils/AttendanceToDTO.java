@@ -11,16 +11,14 @@ public class AttendanceToDTO {
 
     public AttendanceDTO convert(Attendance attendance) {
 
-        StudentDTO studentDTO = new StudentDTO(
-                attendance.getStudent().getIndexNumber(),
-                attendance.getStudent().getName(),
-                attendance.getStudent().getSurname()
-        );
-
         return new AttendanceDTO(
                 attendance.getId(),
-                studentDTO,
-                attendance.getIsAttendance()
+                new StudentDTO(
+                        attendance.getStudent().getIndexNumber(),
+                        attendance.getStudent().getName(),
+                        attendance.getStudent().getSurname()),
+                attendance.getIsAttendance(),
+                attendance.getActivity()
         );
     }
 }

@@ -3,8 +3,9 @@ package pl.ros1yn.attendancesoftware.attendance.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceDTO;
+import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
-import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendanceDeleteService;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendanceGetService;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendancePostService;
@@ -44,15 +45,15 @@ public class AttendanceController {
     }
 
     @PutMapping("attendance/{id}")
-    public ResponseEntity<Attendance> updateFullAttendance(@PathVariable Integer id, @RequestBody Attendance attendance) {
+    public ResponseEntity<AttendanceDTO> updateFullAttendance(@PathVariable Integer id, @RequestBody AttendanceUpdateDTO updateDTO) {
 
-        return attendanceUpdateService.updateAttendance(id, attendance);
+        return attendanceUpdateService.updateAttendance(id, updateDTO);
 
     }
 
     @PatchMapping("attendance/{id}")
-    public ResponseEntity<Attendance> updateAttendancePartially(@PathVariable Integer id, @RequestBody Attendance attendance) {
-        return attendanceUpdateService.updatePartially(id, attendance);
+    public ResponseEntity<AttendanceDTO> updateAttendancePartially(@PathVariable Integer id, @RequestBody AttendanceUpdateDTO updateDTO) {
+        return attendanceUpdateService.updatePartially(id, updateDTO);
     }
 
 

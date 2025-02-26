@@ -32,12 +32,12 @@ public class LessonController {
         return lessonService.deleteLesson(id);
     }
 
-    @PatchMapping("lesson/{id}")
+    @PutMapping("lesson/{id}")
     public ResponseEntity<Lesson> updateFullLesson(@PathVariable Integer id, @RequestBody LessonSimpleDTO lessonSimpleDTO) {
         return lessonService.fullUpdate(id, lessonSimpleDTO);
     }
 
-    @PutMapping("lesson/{id}")
+    @PatchMapping("lesson/{id}")
     public ResponseEntity<Lesson> updateLessonPartially(@PathVariable Integer id, @RequestBody LessonSimpleDTO lessonSimpleDTO) {
         return lessonService.updatePartially(id, lessonSimpleDTO);
     }

@@ -43,7 +43,7 @@ public class StudentController {
     }
 
     //name and surname update only
-    @PatchMapping("student/{indexNumber}")
+    @PutMapping("student/{indexNumber}")
     public ResponseEntity<Student> updateStudent(@PathVariable Integer indexNumber, @RequestBody Student student) {
         return studentService.updateFullStudent(student, indexNumber);
     }
