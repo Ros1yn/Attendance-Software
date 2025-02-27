@@ -1,16 +1,17 @@
 package pl.ros1yn.attendancesoftware.attendance.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AttendanceGetService {
 
     private final AttendanceRepository attendanceRepository;
+
 
     public ResponseEntity<Attendance> getAttendance(int listId) {
         return attendanceRepository.findById(listId)

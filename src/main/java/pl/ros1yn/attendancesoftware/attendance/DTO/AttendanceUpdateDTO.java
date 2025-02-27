@@ -1,14 +1,8 @@
 package pl.ros1yn.attendancesoftware.attendance.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class AttendanceUpdateDTO {
 
     private Integer indexNumber;

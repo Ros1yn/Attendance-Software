@@ -1,20 +1,38 @@
 package pl.ros1yn.attendancesoftware.attendance.mapper;
 
-import org.mapstruct.*;
-import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceDTO;
+import org.springframework.stereotype.Component;
+import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceResponse;
 import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
-import pl.ros1yn.attendancesoftware.student.utils.StudentMapperHelper;
+import pl.ros1yn.attendancesoftware.student.DTO.StudentDTO;
 
-@Mapper(componentModel = "spring", uses = StudentMapperHelper.class)
-public interface AttendanceMapper {
 
-    @Mapping(target = "student", source = "indexNumber", qualifiedByName = "mapIndexToStudent")
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateAttendanceFromUpdateDTO(AttendanceUpdateDTO updateDTO, @MappingTarget Attendance attendance);
+//todo
+@Component
+public class AttendanceMapper {
 
-    @Mapping(target = "studentDTO", source = "student")
-    AttendanceDTO toDTO(Attendance attendance);
+
+    public void updateAttendanceFromPatchDTO(AttendanceUpdateDTO updateDTO, Attendance attendance) {
+
+    }
+
+    public void updateAttendanceFromPutDTO(AttendanceUpdateDTO updateDTO, Attendance attendance) {
+
+    }
+
+    public AttendanceResponse mapToAttendanceResponse(Attendance attendance) {
+
+        StudentDTO studentDTO = new StudentDTO(
+                attendance.getStudent().getIndexNumber(),
+                attendance.getStudent().getName(),
+                attendance.getStudent().getSurname());
+
+        return AttendanceResponse.builder()
+                .studentDTO(studentDTO)
+                .isAttendance(attendance.getIsAttendance())
+                .activity(attendance.getActivity())
+                .build();
+    }
 
 
 }

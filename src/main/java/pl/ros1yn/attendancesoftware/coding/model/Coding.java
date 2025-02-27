@@ -12,6 +12,7 @@ import pl.ros1yn.attendancesoftware.student.model.Student;
 @Getter
 @Setter
 @ToString
+@Builder
 public class Coding {
 
     @Id

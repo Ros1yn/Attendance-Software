@@ -19,11 +19,10 @@ public class AttendanceListChecker {
 
     private final LessonRepository lessonRepository;
 
-    private final LessonNotFoundException lessonNotFoundException;
 
     public Lesson checkerForLesson(AttendanceListRequestDTO requestDTO) {
         return lessonRepository.findById(requestDTO.getLessonId())
-                .orElseThrow(lessonNotFoundException::throwException);
+                .orElseThrow(LessonNotFoundException::new);
     }
 
     public Student checkerForStudent(AttendanceDTOForList dtoForList) {

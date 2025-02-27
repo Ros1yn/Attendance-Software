@@ -18,8 +18,6 @@ public class CodingAttendanceChecker {
 
     private final LessonRepository lessonRepository;
 
-    private final LessonNotFoundException lessonNotFoundException;
-
     public Student checkerForStudent(CodingRequestDTO requestDTO) {
         return studentRepository.findById(requestDTO.getIndexNumber())
                 .orElseThrow(StudentNotFoundException::new);
@@ -28,6 +26,6 @@ public class CodingAttendanceChecker {
 
     public Lesson checkerForLesson(CodingRequestDTO requestDTO) {
         return lessonRepository.findById(requestDTO.getLessonId())
-                .orElseThrow(lessonNotFoundException::throwException);
+                .orElseThrow(LessonNotFoundException::new);
     }
 }

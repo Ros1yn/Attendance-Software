@@ -10,10 +10,11 @@ import pl.ros1yn.attendancesoftware.student.model.Student;
 public class CodingAddNew {
 
     public Coding getNewCoding(CodingRequestDTO requestDTO, Student foundedStudent, Lesson foundedLesson) {
-        Coding coding = new Coding();
-        coding.setStudent(foundedStudent);
-        coding.setLesson(foundedLesson);
-        coding.setGroup(requestDTO.getGroup());
-        return coding;
+
+        return Coding.builder()
+                .student(foundedStudent)
+                .lesson(foundedLesson)
+                .group(requestDTO.getGroup())
+                .build();
     }
 }

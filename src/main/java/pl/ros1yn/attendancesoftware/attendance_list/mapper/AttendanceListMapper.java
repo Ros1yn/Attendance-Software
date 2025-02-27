@@ -2,8 +2,8 @@ package pl.ros1yn.attendancesoftware.attendance_list.mapper;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceDTO;
-import pl.ros1yn.attendancesoftware.attendance.utils.AttendanceToDTO;
+import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceResponse;
+import pl.ros1yn.attendancesoftware.attendance.mapper.AttendanceMapper;
 import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListDTO;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 import pl.ros1yn.attendancesoftware.lessons.DTO.LessonSimpleDTO;
@@ -14,12 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 public class AttendanceListMapper {
 
-    private final AttendanceToDTO attendanceToDTO;
+    private final AttendanceMapper attendanceMapper;
 
     public AttendanceListDTO convertToDTO(AttendanceList attendanceList) {
 
-        List<AttendanceDTO> attendanceDTOList = attendanceList.getAttendanceList().stream()
-                .map(attendanceToDTO::convert)
+        List<AttendanceResponse> attendanceResponseList = attendanceList.getAttendanceList().stream()
+                .map(attendanceMapper::mapToAttendanceResponse)
                 .toList();
 
         LessonSimpleDTO lessonSimpleDTO = new LessonSimpleDTO(
@@ -33,7 +33,7 @@ public class AttendanceListMapper {
                 attendanceList.getId(),
                 attendanceList.getDate(),
                 lessonSimpleDTO,
-                attendanceDTOList
+                attendanceResponseList
         );
     }
 

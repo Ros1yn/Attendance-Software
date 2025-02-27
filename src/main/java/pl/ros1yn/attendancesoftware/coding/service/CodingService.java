@@ -33,7 +33,7 @@ public class CodingService {
         Iterable<Coding> codings = codingRepository.findAll();
 
         List<CodingDTO> codingsDTO = new ArrayList<>();
-
+        //zmienic na foreach
         for (Coding coding : codings) {
             codingsDTO.add(codingToDTO.convertToDTO(coding));
         }

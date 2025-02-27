@@ -7,12 +7,13 @@ import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 import pl.ros1yn.attendancesoftware.student.model.Student;
 
 @Entity
+@Table(name = "obecnosc")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "obecnosc")
 @Getter
 @Setter
 @ToString
+@Builder
 public class Attendance {
 
     @Id

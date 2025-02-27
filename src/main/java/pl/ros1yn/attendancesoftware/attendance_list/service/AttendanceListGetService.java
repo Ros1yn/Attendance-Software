@@ -31,6 +31,7 @@ public class AttendanceListGetService {
     }
 
     public ResponseEntity<AttendanceListDTO> getSingleAttendanceList(Integer id) {
+
         return attendanceListRepository.findById(id)
                 .map(attendanceListMapper::convertToDTO)
                 .map(ResponseEntity::ok)
