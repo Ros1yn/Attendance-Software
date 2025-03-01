@@ -14,8 +14,8 @@ public class AttendancePostService {
     private final AttendanceRepository attendanceRepository;
 
     public ResponseEntity<Attendance> addAttendance(Attendance attendance) {
-        Attendance savedAttendance = attendanceRepository.save(attendance);
 
+        Attendance savedAttendance = attendanceRepository.save(attendance);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedAttendance);
     }
 }

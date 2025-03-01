@@ -16,12 +16,11 @@ public class AttendanceFromRequest {
     public Attendance createNewAttendance(AttendanceDTOForList dtoForList, AttendanceList savedList) {
         Student student = attendanceListChecker.checkerForStudent(dtoForList);
 
-        Attendance attendance = new Attendance();
-        attendance.setStudent(student);
-        attendance.setIsAttendance(dtoForList.getIsAttendance());
-        attendance.setAttendanceList(savedList);
-        attendance.setActivity(0);
-
-        return attendance;
+        return Attendance.builder()
+                .student(student)
+                .isAttendance(dtoForList.getIsAttendance())
+                .attendanceList(savedList)
+                .activity(0)
+                .build();
     }
 }

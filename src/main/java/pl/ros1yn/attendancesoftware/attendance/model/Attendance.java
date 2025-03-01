@@ -35,6 +35,4 @@ public class Attendance {
     @ManyToOne
     @JoinColumn(name = "lista_obecnosci_id", referencedColumnName = "id")
     private AttendanceList attendanceList;
-
-
 }

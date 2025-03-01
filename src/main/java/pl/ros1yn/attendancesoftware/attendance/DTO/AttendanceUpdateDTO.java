@@ -6,9 +6,7 @@ import lombok.Data;
 public class AttendanceUpdateDTO {
 
     private Integer indexNumber;
-
     private Boolean isAttendance;
-
     private Integer activity;
-
+    private Integer listId;
 }

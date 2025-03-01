@@ -17,13 +17,9 @@ import pl.ros1yn.attendancesoftware.attendance.service.AttendanceUpdateService;
 public class AttendanceController {
 
     private final AttendanceDeleteService attendanceDeleteService;
-
     private final AttendanceGetService attendanceGetService;
-
     private final AttendancePostService attendancePostService;
-
     private final AttendanceUpdateService attendanceUpdateService;
-
 
     @GetMapping("/")
     public ResponseEntity<Iterable<Attendance>> getAllAttendances() {
@@ -31,7 +27,7 @@ public class AttendanceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Attendance> getSingleAttendance(@PathVariable Integer id) {
+    public ResponseEntity<AttendanceResponse> getSingleAttendance(@PathVariable Integer id) {
         return attendanceGetService.getAttendance(id);
     }
 
@@ -47,7 +43,6 @@ public class AttendanceController {
 
     @PutMapping("/{id}")
     public ResponseEntity<AttendanceResponse> updateFullAttendance(@PathVariable Integer id, @RequestBody AttendanceUpdateDTO updateDTO) {
-
         return attendanceUpdateService.updateAttendance(id, updateDTO);
 
     }
@@ -56,7 +51,5 @@ public class AttendanceController {
     public ResponseEntity<AttendanceResponse> updateAttendancePartially(@PathVariable Integer id, @RequestBody AttendanceUpdateDTO updateDTO) {
         return attendanceUpdateService.updatePartially(id, updateDTO);
     }
-
-
 }
 

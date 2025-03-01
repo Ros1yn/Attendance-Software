@@ -17,21 +17,10 @@ public class AttendanceDeleteService {
     public ResponseEntity<Attendance> deleteAttendance(Integer id) {
 
         Optional<Attendance> optionalAttendance = attendanceRepository.findById(id);
-
         if (optionalAttendance.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-
         attendanceRepository.deleteById(id);
-
         return ResponseEntity.noContent().build();
     }
-
-
-
-
-
-
-
-
 }
