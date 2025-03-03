@@ -21,6 +21,7 @@ public class AttendanceDeleteService {
             return ResponseEntity.notFound().build();
         }
         attendanceRepository.deleteById(id);
+
         return ResponseEntity.noContent().build();
     }
 }

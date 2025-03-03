@@ -35,7 +35,7 @@ public class CodingService {
         List<CodingDTO> codingsDTO = new ArrayList<>();
         //zmienic na foreach
         for (Coding coding : codings) {
-            codingsDTO.add(codingToDTO.convertToDTO(coding));
+            codingsDTO.add(codingToDTO.mapToDTO(coding));
         }
 
         return ResponseEntity.ok(codingsDTO);
@@ -44,7 +44,7 @@ public class CodingService {
     public ResponseEntity<CodingDTO> getSingleCoding(Integer id) {
 
         return codingRepository.findById(id)
-                .map(codingToDTO::convertToDTO)
+                .map(codingToDTO::mapToDTO)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -72,7 +72,7 @@ public class CodingService {
 
         Coding savedCoding = codingRepository.save(coding);
 
-        return ResponseEntity.ok(codingToDTO.convertToDTO(savedCoding));
+        return ResponseEntity.ok(codingToDTO.mapToDTO(savedCoding));
 
     }
 

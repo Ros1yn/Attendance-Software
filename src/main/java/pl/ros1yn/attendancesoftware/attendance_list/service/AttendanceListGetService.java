@@ -3,7 +3,7 @@ package pl.ros1yn.attendancesoftware.attendance_list.service;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListDTO;
+import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListResponse;
 import pl.ros1yn.attendancesoftware.attendance_list.mapper.AttendanceListMapper;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 import pl.ros1yn.attendancesoftware.attendance_list.repository.AttendanceListRepository;
@@ -19,21 +19,19 @@ public class AttendanceListGetService {
 
     private final AttendanceListMapper attendanceListMapper;
 
-    public ResponseEntity<List<AttendanceListDTO>> getAllAttendanceLists() {
+    public ResponseEntity<List<AttendanceListResponse>> getAllAttendanceLists() {
 
         Iterable<AttendanceList> all = attendanceListRepository.findAll();
+        List<AttendanceListResponse> attendanceListResponses = new ArrayList<>();
+        all.forEach(attendanceList -> attendanceListResponses.add(attendanceListMapper.mapToResponseDTO(attendanceList)));
 
-        List<AttendanceListDTO> attendanceListDTOList = new ArrayList<>();
-
-        attendanceListMapper.transfer(all, attendanceListDTOList);
-
-        return ResponseEntity.ok(attendanceListDTOList);
+        return ResponseEntity.ok(attendanceListResponses);
     }
 
-    public ResponseEntity<AttendanceListDTO> getSingleAttendanceList(Integer id) {
+    public ResponseEntity<AttendanceListResponse> getSingleAttendanceList(Integer id) {
 
         return attendanceListRepository.findById(id)
-                .map(attendanceListMapper::convertToDTO)
+                .map(attendanceListMapper::mapToResponseDTO)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

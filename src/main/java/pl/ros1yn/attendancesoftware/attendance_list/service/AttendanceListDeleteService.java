@@ -3,7 +3,7 @@ package pl.ros1yn.attendancesoftware.attendance_list.service;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListDTO;
+import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListResponse;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 import pl.ros1yn.attendancesoftware.attendance_list.repository.AttendanceListRepository;
 
@@ -15,7 +15,7 @@ public class AttendanceListDeleteService {
 
     private final AttendanceListRepository attendanceListRepository;
 
-    public ResponseEntity<AttendanceListDTO> deleteAttendanceList(Integer id) {
+    public ResponseEntity<AttendanceListResponse> deleteAttendanceList(Integer id) {
 
         Optional<AttendanceList> optionalAttendanceList = attendanceListRepository.findById(id);
 

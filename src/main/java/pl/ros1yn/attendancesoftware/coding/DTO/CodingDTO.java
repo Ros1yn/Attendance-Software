@@ -1,17 +1,17 @@
 package pl.ros1yn.attendancesoftware.coding.DTO;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import pl.ros1yn.attendancesoftware.lessons.DTO.LessonSimpleDTO;
+import lombok.*;
+import pl.ros1yn.attendancesoftware.lessons.DTO.LessonDTO;
 import pl.ros1yn.attendancesoftware.student.DTO.StudentDTO;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CodingDTO {
 
     private Integer id;
@@ -21,6 +21,6 @@ public class CodingDTO {
     private StudentDTO studentDTO;
 
     @JsonProperty("lesson")
-    private LessonSimpleDTO lessonSimpleDTO;
+    private LessonDTO lessonDTO;
 
 }

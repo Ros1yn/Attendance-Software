@@ -14,6 +14,7 @@ public class AttendanceFromRequest {
     private final AttendanceListChecker attendanceListChecker;
 
     public Attendance createNewAttendance(AttendanceDTOForList dtoForList, AttendanceList savedList) {
+
         Student student = attendanceListChecker.checkerForStudent(dtoForList);
 
         return Attendance.builder()

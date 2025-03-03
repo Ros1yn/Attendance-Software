@@ -56,7 +56,6 @@ public class AttendanceMapper {
                         .build())
                 .isAttendance(attendance.getIsAttendance())
                 .activity(attendance.getActivity())
-                .date(attendance.getAttendanceList().getDate())
                 .build();
     }
 }
