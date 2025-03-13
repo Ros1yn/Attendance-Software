@@ -42,7 +42,6 @@ public class AttedanceListUpdateService {
         return ResponseEntity.ok(attendanceListMapper.mapToResponseDTO(savedNewAttendanceList));
     }
 
-    //todo zrobić metodę @PatchMapping
     public ResponseEntity<AttendanceListResponse> updateAttendanceListPartially(Integer id, AttendanceListRequestDTO requestDTO) {
 
         AttendanceList attendanceList = attendanceListRepository.findById(id)
