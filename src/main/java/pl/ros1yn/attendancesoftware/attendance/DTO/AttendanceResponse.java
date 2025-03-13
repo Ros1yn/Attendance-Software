@@ -21,7 +21,7 @@ public class AttendanceResponse {
     private Integer id;
     @JsonProperty("student")
     private StudentDTO studentDTO;
-    private Boolean isAttendance;
+    private String isAttendance;
     private Integer activity;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;

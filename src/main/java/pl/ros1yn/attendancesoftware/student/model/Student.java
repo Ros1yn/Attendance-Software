@@ -27,5 +27,4 @@ public class Student {
     @Column(name = "imie", nullable = false)
     private String name;
 
-
 }

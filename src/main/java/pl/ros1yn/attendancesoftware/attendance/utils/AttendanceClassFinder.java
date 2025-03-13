@@ -15,7 +15,7 @@ import pl.ros1yn.attendancesoftware.student.repository.StudentRepository;
 
 @Component
 @AllArgsConstructor
-public class ClassFinderForAttendance {
+public class AttendanceClassFinder {
 
     private final AttendanceRepository attendanceRepository;
     private final StudentRepository studentRepository;
@@ -29,10 +29,6 @@ public class ClassFinderForAttendance {
     public Student findStudent(AttendanceUpdateDTO updateDTO) {
         return studentRepository.findById(updateDTO.getIndexNumber())
                 .orElseThrow(StudentNotFoundException::new);
-    }
-
-    public Student findStudentOrNull(AttendanceUpdateDTO updateDTO){
-        return updateDTO.getIndexNumber() == null ? null : studentRepository.findById(updateDTO.getIndexNumber()).orElseThrow(StudentNotFoundException::new);
     }
 
     public AttendanceList findAttendanceList(AttendanceUpdateDTO updateDTO) {

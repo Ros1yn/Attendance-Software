@@ -15,44 +15,40 @@ import java.util.List;
 @RestController
 @RequestMapping("attendancelist")
 @AllArgsConstructor
-public class AttendanceListController {
+class AttendanceListController {
 
     private final AttendanceListDeleteService attendanceListDeleteService;
-
     private final AttendanceListPostService attendanceListPostService;
-
     private final AttendanceListGetService attendanceListGetService;
-
     private final AttedanceListUpdateService attedanceListUpdateService;
 
     @GetMapping("/")
-    public ResponseEntity<List<AttendanceListResponse>> getAllAttendenceLists() {
+    ResponseEntity<List<AttendanceListResponse>> getAllAttendenceLists() {
         return attendanceListGetService.getAllAttendanceLists();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AttendanceListResponse> getSingleAttendanceList(@PathVariable Integer id) {
+    ResponseEntity<AttendanceListResponse> getSingleAttendanceList(@PathVariable Integer id) {
         return attendanceListGetService.getSingleAttendanceList(id);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<AttendanceListResponse> deleteAttendanceList(@PathVariable Integer id) {
+    ResponseEntity<AttendanceListResponse> deleteAttendanceList(@PathVariable Integer id) {
         return attendanceListDeleteService.deleteAttendanceList(id);
     }
 
     @PostMapping("/")
-    public ResponseEntity<AttendanceListResponse> addNewAttendanceList(@RequestBody AttendanceListRequestDTO attendanceListDTO) {
+    ResponseEntity<AttendanceListResponse> addNewAttendanceList(@RequestBody AttendanceListRequestDTO attendanceListDTO) {
         return attendanceListPostService.addNewAttendanceList(attendanceListDTO);
     }
 
-    //todo Put and Patch
     @PutMapping("/{id}")
-    public ResponseEntity<AttendanceListResponse> updateAttendanceList(@PathVariable Integer id, @RequestBody AttendanceListRequestDTO requestDTO) {
-        return attedanceListUpdateService.updateAttendance(id, requestDTO);
+    ResponseEntity<AttendanceListResponse> updateAttendanceList(@PathVariable Integer id, @RequestBody AttendanceListRequestDTO requestDTO) {
+        return attedanceListUpdateService.updateAttendanceList(id, requestDTO);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<AttendanceListResponse> updateAttendanceListPartially(@PathVariable Integer id, @RequestBody AttendanceListRequestDTO requestDTO) {
+    ResponseEntity<AttendanceListResponse> updateAttendanceListPartially(@PathVariable Integer id, @RequestBody AttendanceListRequestDTO requestDTO) {
         return attedanceListUpdateService.updateAttendanceListPartially(id, requestDTO);
     }
 }

@@ -26,7 +26,7 @@ public class Attendance {
     private Student student;
 
     @Column(name = "czy_obecny", nullable = false)
-    private Boolean isAttendance;
+    private String isAttendance;
 
     @Column(name = "aktywnosc", nullable = false)
     private Integer activity;

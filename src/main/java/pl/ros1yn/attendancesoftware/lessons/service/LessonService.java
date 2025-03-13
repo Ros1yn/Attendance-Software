@@ -5,11 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.ros1yn.attendancesoftware.lessons.DTO.LessonDTO;
 import pl.ros1yn.attendancesoftware.lessons.DTO.LessonSimpleDTO;
+import pl.ros1yn.attendancesoftware.lessons.mapper.LessonMapper;
 import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
 import pl.ros1yn.attendancesoftware.lessons.repository.LessonRepository;
 import pl.ros1yn.attendancesoftware.lessons.utils.LessonFullUpdate;
 import pl.ros1yn.attendancesoftware.lessons.utils.LessonPartiallyUpdate;
-import pl.ros1yn.attendancesoftware.lessons.utils.LessonToDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class LessonService {
 
     private final LessonRepository lessonRepository;
 
-    private final LessonToDTO lessonToDTO;
+    private final LessonMapper lessonMapper;
 
     private final LessonPartiallyUpdate lessonPartiallyUpdate;
 
@@ -33,7 +33,7 @@ public class LessonService {
         List<LessonDTO> convertedLessons = new ArrayList<>();
 
         for (Lesson lesson : allLessons) {
-            convertedLessons.add(lessonToDTO.convertToDTO(lesson));
+            convertedLessons.add(lessonMapper.mapToDTO(lesson));
         }
 
         return ResponseEntity.ok(convertedLessons);
@@ -42,7 +42,7 @@ public class LessonService {
     public ResponseEntity<LessonDTO> getSingleLesson(Integer id) {
 
         return lessonRepository.findById(id)
-                .map(lessonToDTO::convertToDTO)
+                .map(lessonMapper::mapToDTO)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

@@ -8,7 +8,7 @@ import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.mapper.AttendanceMapper;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
-import pl.ros1yn.attendancesoftware.attendance.utils.ClassFinderForAttendance;
+import pl.ros1yn.attendancesoftware.attendance.utils.AttendanceClassFinder;
 
 @Service
 @AllArgsConstructor
@@ -16,7 +16,7 @@ public class AttendanceUpdateService {
 
     private final AttendanceRepository attendanceRepository;
     private final AttendanceMapper attendanceMapper;
-    private final ClassFinderForAttendance finderForAttendance;
+    private final AttendanceClassFinder finderForAttendance;
 
     public ResponseEntity<AttendanceResponse> updateAttendance(Integer id, AttendanceUpdateDTO updateDTO) {
 

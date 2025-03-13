@@ -12,6 +12,6 @@ import lombok.Setter;
 public class AttendanceDTOForList {
 
     private Integer indexNumber;
-    private Boolean isAttendance;
+    private String isAttendance;
 
 }

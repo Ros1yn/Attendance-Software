@@ -37,7 +37,7 @@ public class AttendanceList {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "attendanceList", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Attendance> attendanceList = new ArrayList<>();
+    private List<Attendance> attendances = new ArrayList<>();
 
 
 }

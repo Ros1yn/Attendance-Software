@@ -30,15 +30,12 @@ public class CodingService {
     private final CodingAddNew codingAddNew;
 
     public ResponseEntity<List<CodingDTO>> getAllCodings() {
+
         Iterable<Coding> codings = codingRepository.findAll();
+        List<CodingDTO> codingDTOList = new ArrayList<>();
+        codings.forEach(coding -> codingDTOList.add(codingToDTO.mapToDTO(coding)));
 
-        List<CodingDTO> codingsDTO = new ArrayList<>();
-        //zmienic na foreach
-        for (Coding coding : codings) {
-            codingsDTO.add(codingToDTO.mapToDTO(coding));
-        }
-
-        return ResponseEntity.ok(codingsDTO);
+        return ResponseEntity.ok(codingDTOList);
     }
 
     public ResponseEntity<CodingDTO> getSingleCoding(Integer id) {

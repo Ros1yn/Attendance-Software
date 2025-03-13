@@ -39,7 +39,7 @@ public class AttendanceListPostService {
 
         List<Attendance> attendances = attendencesListFromRequest.createAttendancesList(requestDTO, savedList);
         attendanceRepository.saveAll(attendances);
-        attendanceList.setAttendanceList(attendances);
+        attendanceList.setAttendances(attendances);
 
         AttendanceListResponse attendanceListResponse = attendanceListMapper.mapToResponseDTO(savedList);
 
