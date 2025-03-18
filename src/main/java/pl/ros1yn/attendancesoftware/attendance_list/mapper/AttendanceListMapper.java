@@ -17,7 +17,6 @@ public class AttendanceListMapper {
 
     private final AttendanceMapper attendanceMapper;
     private final LessonMapper lessonMapper;
-    private final StudentRepository studentRepository;
 
     public AttendanceListResponse mapToResponseDTO(AttendanceList attendanceList) {
 
