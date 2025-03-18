@@ -7,7 +7,6 @@ import pl.ros1yn.attendancesoftware.attendance.mapper.AttendanceMapper;
 import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListResponse;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 import pl.ros1yn.attendancesoftware.lessons.mapper.LessonMapper;
-import pl.ros1yn.attendancesoftware.student.repository.StudentRepository;
 
 import java.util.List;
 
