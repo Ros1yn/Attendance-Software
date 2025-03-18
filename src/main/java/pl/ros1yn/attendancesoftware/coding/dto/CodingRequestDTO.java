@@ -1,4 +1,5 @@
-package pl.ros1yn.attendancesoftware.attendance.DTO;
+package pl.ros1yn.attendancesoftware.coding.dto;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +10,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AttendanceDTOForList {
+public class CodingRequestDTO {
 
     private Integer indexNumber;
-    private String isAttendance;
+    private Integer group;
+    private Integer lessonId;
 
 }

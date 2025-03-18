@@ -3,7 +3,7 @@ package pl.ros1yn.attendancesoftware.attendance_list.utils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
-import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListRequestDTO;
+import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListRequestDTO;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 
 import java.util.List;

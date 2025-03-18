@@ -1,7 +1,7 @@
 package pl.ros1yn.attendancesoftware.student.mapper;
 
 import org.springframework.stereotype.Component;
-import pl.ros1yn.attendancesoftware.student.DTO.StudentDTO;
+import pl.ros1yn.attendancesoftware.student.dto.StudentDTO;
 import pl.ros1yn.attendancesoftware.student.model.Student;
 
 @Component

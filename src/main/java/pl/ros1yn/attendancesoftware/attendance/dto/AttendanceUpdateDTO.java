@@ -1,4 +1,4 @@
-package pl.ros1yn.attendancesoftware.attendance.DTO;
+package pl.ros1yn.attendancesoftware.attendance.dto;
 
 import lombok.Data;
 

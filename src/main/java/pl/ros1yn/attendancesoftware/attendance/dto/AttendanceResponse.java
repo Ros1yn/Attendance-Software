@@ -1,11 +1,11 @@
-package pl.ros1yn.attendancesoftware.attendance.DTO;
+package pl.ros1yn.attendancesoftware.attendance.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
-import pl.ros1yn.attendancesoftware.student.DTO.StudentDTO;
+import pl.ros1yn.attendancesoftware.student.dto.StudentDTO;
 
 import java.time.LocalDate;
 

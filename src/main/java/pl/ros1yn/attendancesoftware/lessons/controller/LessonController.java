@@ -3,42 +3,47 @@ package pl.ros1yn.attendancesoftware.lessons.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.ros1yn.attendancesoftware.lessons.DTO.LessonDTO;
-import pl.ros1yn.attendancesoftware.lessons.DTO.LessonSimpleDTO;
+import pl.ros1yn.attendancesoftware.lessons.dto.LessonDTO;
+import pl.ros1yn.attendancesoftware.lessons.dto.LessonSimpleDTO;
 import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
-import pl.ros1yn.attendancesoftware.lessons.service.LessonService;
+import pl.ros1yn.attendancesoftware.lessons.service.LessonDeleteService;
+import pl.ros1yn.attendancesoftware.lessons.service.LessonGetService;
+import pl.ros1yn.attendancesoftware.lessons.service.LessonUpdateService;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("lesson")
 @AllArgsConstructor
-public class LessonController {
+class LessonController {
 
-    private final LessonService lessonService;
+    private final LessonDeleteService lessonDeleteService;
+    private final LessonGetService lessonGetService;
+    private final LessonUpdateService lessonUpdateService;
 
-    @GetMapping("lesson")
-    public ResponseEntity<List<LessonDTO>> getAllLessons() {
-        return lessonService.getAllLessons();
+    @GetMapping("/")
+    ResponseEntity<List<LessonDTO>> getAllLessons() {
+        return lessonGetService.getAllLessons();
     }
 
-    @GetMapping("lesson/{id}")
-    public ResponseEntity<LessonDTO> getSingleLesson(@PathVariable Integer id) {
-        return lessonService.getSingleLesson(id);
+    @GetMapping("/{id}")
+    ResponseEntity<LessonDTO> getSingleLesson(@PathVariable Integer id) {
+        return lessonGetService.getSingleLesson(id);
     }
 
     //Do naprawy
-    @DeleteMapping("lesson/{id}")
-    public ResponseEntity<LessonDTO> deleteLesson(@PathVariable Integer id) {
-        return lessonService.deleteLesson(id);
+    @DeleteMapping("/{id}")
+    ResponseEntity<LessonDTO> deleteLesson(@PathVariable Integer id) {
+        return lessonDeleteService.deleteLesson(id);
     }
 
-    @PutMapping("lesson/{id}")
-    public ResponseEntity<Lesson> updateFullLesson(@PathVariable Integer id, @RequestBody LessonSimpleDTO lessonSimpleDTO) {
-        return lessonService.fullUpdate(id, lessonSimpleDTO);
+    @PutMapping("/{id}")
+    ResponseEntity<Lesson> updateFullLesson(@PathVariable Integer id, @RequestBody LessonSimpleDTO lessonSimpleDTO) {
+        return lessonUpdateService.fullUpdate(id, lessonSimpleDTO);
     }
 
-    @PatchMapping("lesson/{id}")
-    public ResponseEntity<Lesson> updateLessonPartially(@PathVariable Integer id, @RequestBody LessonSimpleDTO lessonSimpleDTO) {
-        return lessonService.updatePartially(id, lessonSimpleDTO);
+    @PatchMapping("/{id}")
+    ResponseEntity<Lesson> updateLessonPartially(@PathVariable Integer id, @RequestBody LessonSimpleDTO lessonSimpleDTO) {
+        return lessonUpdateService.updatePartially(id, lessonSimpleDTO);
     }
 }

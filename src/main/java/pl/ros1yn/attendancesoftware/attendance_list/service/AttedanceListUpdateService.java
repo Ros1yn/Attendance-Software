@@ -1,75 +1,79 @@
 package pl.ros1yn.attendancesoftware.attendance_list.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceDTOForList;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
-import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListRequestDTO;
-import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListResponse;
+import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListRequestDTO;
+import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListResponse;
 import pl.ros1yn.attendancesoftware.attendance_list.mapper.AttendanceListMapper;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
-import pl.ros1yn.attendancesoftware.attendance_list.repository.AttendanceListRepository;
 import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendanceUpdateHelper;
-import pl.ros1yn.attendancesoftware.exception.AttendanceListNotFoundException;
-import pl.ros1yn.attendancesoftware.exception.AttendanceListRequestExceptionHandler;
-import pl.ros1yn.attendancesoftware.exception.LessonNotFoundException;
 import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
-import pl.ros1yn.attendancesoftware.lessons.repository.LessonRepository;
+import pl.ros1yn.attendancesoftware.student.model.Student;
+import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class AttedanceListUpdateService {
 
-    private final AttendanceListRepository attendanceListRepository;
     private final AttendanceListMapper attendanceListMapper;
     private final AttendanceUpdateHelper updateHelper;
-    private final LessonRepository lessonRepository;
+    private final ClassFinder classFinder;
 
+    @Transactional
     public ResponseEntity<AttendanceListResponse> updateAttendanceList(Integer id, AttendanceListRequestDTO requestDTO) {
 
-        AttendanceList attendanceList = attendanceListRepository.findById(id)
-                .orElseThrow(AttendanceListNotFoundException::new);
+        AttendanceList attendanceList = classFinder.findAttendanceList(id);
         List<Attendance> attendances = attendanceList.getAttendances();
+
         attendanceList.setDate(requestDTO.getDate());
+
         Lesson lesson = updateHelper.setNewLesson(requestDTO);
         attendanceList.setLesson(lesson);
+
         AttendanceList savedNewAttendanceList = updateHelper.getUpdatedAttendanceList(requestDTO, attendanceList, attendances);
+
+        log.debug("Attendance list has been fully updated");
 
         return ResponseEntity.ok(attendanceListMapper.mapToResponseDTO(savedNewAttendanceList));
     }
 
+    @Transactional
     public ResponseEntity<AttendanceListResponse> updateAttendanceListPartially(Integer id, AttendanceListRequestDTO requestDTO) {
 
-        AttendanceList attendanceList = attendanceListRepository.findById(id)
-                .orElseThrow(AttendanceListNotFoundException::new);
-        if (requestDTO.getLessonId() != null) {
-            Lesson lesson = lessonRepository.findById(requestDTO.getLessonId())
-                    .orElseThrow(LessonNotFoundException::new);
-            attendanceList.setLesson(lesson);
-        }
-        if (requestDTO.getDate() != null) {
-            attendanceList.setDate(requestDTO.getDate());
-        }
-        if (requestDTO.getAttendances() != null) {
-            if (requestDTO.getAttendances().size() == attendanceList.getAttendances().size()) {
-                List<Attendance> attendances = attendanceList.getAttendances();
-                List<Attendance> updatedAttendanceList = new ArrayList<>();
-                IntStream.range(0, requestDTO.getAttendances().size())
-                        .mapToObj(i -> attendanceListMapper.mapFromRequestDTOToAttendance(requestDTO, i, attendances))
-                        .forEach(updatedAttendanceList::add);
-                attendanceList.setAttendances(updatedAttendanceList);
-            } else
-                throw new AttendanceListRequestExceptionHandler("The Size of the list must be the same as existing one");
-        }
+        AttendanceList attendanceList = classFinder.findAttendanceList(id);
 
-        AttendanceList savedList = attendanceListRepository.save(attendanceList);
+        Optional.ofNullable(requestDTO.getLessonId())
+                .map(classFinder::findLesson)
+                .ifPresent(attendanceList::setLesson);
 
-        return ResponseEntity.ok(attendanceListMapper.mapToResponseDTO(savedList));
+        Optional.ofNullable(requestDTO.getDate())
+                .ifPresent(attendanceList::setDate);
+
+        Optional.ofNullable(requestDTO.getAttendances())
+                .filter(newAttendanceList -> newAttendanceList.size() == attendanceList.getAttendances().size())
+                .ifPresent(newAttendanceList -> newAttendanceList.forEach(existingAttendance -> updateAttendance(existingAttendance, attendanceList.getAttendances())));
+
+        log.debug("Attendance list has been partially updated");
+
+        return ResponseEntity.ok(attendanceListMapper.mapToResponseDTO(attendanceList));
     }
 
+    private void updateAttendance(AttendanceDTOForList requestAttendance, List<Attendance> attendances) {
+
+        Attendance existingAttendance = classFinder.findAttendanceByIdFromList(requestAttendance.getAttendanceId(), attendances);
+        Student student = classFinder.findStudent(requestAttendance.getIndexNumber());
+        existingAttendance.setStudent(student);
+        existingAttendance.setIsAttendance(requestAttendance.getIsAttendance());
+        existingAttendance.setActivity(requestAttendance.getActivity());
+    }
 
 }

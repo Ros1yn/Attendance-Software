@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pl.ros1yn.attendancesoftware.exception.StudentNotFoundException;
 import pl.ros1yn.attendancesoftware.student.model.Student;
 import pl.ros1yn.attendancesoftware.student.repository.StudentRepository;
 import pl.ros1yn.attendancesoftware.student.utils.StudentUpdate;
@@ -18,13 +19,11 @@ import java.util.Optional;
 public class StudentService {
 
     private final StudentRepository studentRepository;
-
     private final StudentUpdate studentUpdate;
 
     public ResponseEntity<List<Student>> getAllStudents() {
 
         Iterable<Student> allStudents = studentRepository.findAll();
-
         List<Student> studentList = new ArrayList<>();
 
         for (Student student : allStudents) {
@@ -37,13 +36,12 @@ public class StudentService {
     }
 
     public ResponseEntity<Student> deleteStudent(Integer id) {
-        Optional<Student> optionalStudent = studentRepository.findById(id);
 
+        Optional<Student> optionalStudent = studentRepository.findById(id);
         if (optionalStudent.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-
-        studentRepository.deleteById(id);
+        optionalStudent.ifPresent(studentRepository::delete);
 
         return ResponseEntity.noContent().build();
     }
@@ -51,19 +49,14 @@ public class StudentService {
     public ResponseEntity<Student> addStudent(Student student) {
 
         Student savedStudent = studentRepository.save(student);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
     }
 
-    public ResponseEntity<Optional<Student>> getSingleStudent(Integer id) {
+    public ResponseEntity<Student> getSingleStudent(Integer id) {
 
-        Optional<Student> optionalStudent = studentRepository.findById(id);
-
-        if (optionalStudent.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(optionalStudent);
+        Student student = studentRepository.findById(id)
+                .orElseThrow(StudentNotFoundException::new);
+        return ResponseEntity.ok(student);
     }
 
     public ResponseEntity<Student> updateFullStudent(Student student, Integer id) {

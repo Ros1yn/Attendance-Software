@@ -2,8 +2,8 @@ package pl.ros1yn.attendancesoftware.attendance_list.utils;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceDTOForList;
-import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListRequestDTO;
+import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceDTOForList;
+import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListRequestDTO;
 import pl.ros1yn.attendancesoftware.exception.LessonNotFoundException;
 import pl.ros1yn.attendancesoftware.exception.StudentNotFoundException;
 import pl.ros1yn.attendancesoftware.lessons.model.Lesson;

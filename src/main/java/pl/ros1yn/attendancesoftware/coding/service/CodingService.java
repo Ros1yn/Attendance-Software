@@ -3,57 +3,47 @@ package pl.ros1yn.attendancesoftware.coding.service;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.ros1yn.attendancesoftware.coding.DTO.CodingDTO;
-import pl.ros1yn.attendancesoftware.coding.DTO.CodingRequestDTO;
+import pl.ros1yn.attendancesoftware.coding.dto.CodingDTO;
+import pl.ros1yn.attendancesoftware.coding.dto.CodingRequestDTO;
+import pl.ros1yn.attendancesoftware.coding.mapper.CodingMapper;
 import pl.ros1yn.attendancesoftware.coding.model.Coding;
 import pl.ros1yn.attendancesoftware.coding.repository.CodingRepository;
-import pl.ros1yn.attendancesoftware.coding.utils.CodingAddNew;
-import pl.ros1yn.attendancesoftware.coding.utils.CodingAttendanceChecker;
-import pl.ros1yn.attendancesoftware.coding.utils.CodingToDTO;
+import pl.ros1yn.attendancesoftware.exception.CodingNotFoundException;
 import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
 import pl.ros1yn.attendancesoftware.student.model.Student;
+import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class CodingService {
 
     private final CodingRepository codingRepository;
-
-    private final CodingToDTO codingToDTO;
-
-    private final CodingAttendanceChecker codingAttendanceChecker;
-
-    private final CodingAddNew codingAddNew;
+    private final CodingMapper codingMapper;
+    private final ClassFinder classFinder;
 
     public ResponseEntity<List<CodingDTO>> getAllCodings() {
 
         Iterable<Coding> codings = codingRepository.findAll();
         List<CodingDTO> codingDTOList = new ArrayList<>();
-        codings.forEach(coding -> codingDTOList.add(codingToDTO.mapToDTO(coding)));
+
+        codings.forEach(coding -> codingDTOList.add(codingMapper.mapToDTO(coding)));
 
         return ResponseEntity.ok(codingDTOList);
     }
 
     public ResponseEntity<CodingDTO> getSingleCoding(Integer id) {
-
         return codingRepository.findById(id)
-                .map(codingToDTO::mapToDTO)
+                .map(codingMapper::mapToDTO)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(CodingNotFoundException::new);
     }
 
     public ResponseEntity<CodingDTO> deleteCoding(Integer id) {
 
-        Optional<Coding> optionalCoding = codingRepository.findById(id);
-
-        if (optionalCoding.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
+        classFinder.findCoding(id);
         codingRepository.deleteById(id);
 
         return ResponseEntity.noContent().build();
@@ -61,17 +51,12 @@ public class CodingService {
 
     public ResponseEntity<CodingDTO> addCoding(CodingRequestDTO requestDTO) {
 
-        Student foundedStudent = codingAttendanceChecker.checkerForStudent(requestDTO);
-
-        Lesson foundedLesson = codingAttendanceChecker.checkerForLesson(requestDTO);
-
-        Coding coding = codingAddNew.getNewCoding(requestDTO, foundedStudent, foundedLesson);
-
+        Student student = classFinder.findStudent(requestDTO.getIndexNumber());
+        Lesson lesson = classFinder.findLesson(requestDTO.getLessonId());
+        Coding coding = codingMapper.getNewCoding(requestDTO, student, lesson);
         Coding savedCoding = codingRepository.save(coding);
 
-        return ResponseEntity.ok(codingToDTO.mapToDTO(savedCoding));
+        return ResponseEntity.ok(codingMapper.mapToDTO(savedCoding));
 
     }
-
-
 }

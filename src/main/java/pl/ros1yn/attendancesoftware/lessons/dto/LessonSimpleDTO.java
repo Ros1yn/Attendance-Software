@@ -1,4 +1,4 @@
-package pl.ros1yn.attendancesoftware.lessons.DTO;
+package pl.ros1yn.attendancesoftware.lessons.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

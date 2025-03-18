@@ -1,7 +1,7 @@
 package pl.ros1yn.attendancesoftware.lessons.mapper;
 
 import org.springframework.stereotype.Component;
-import pl.ros1yn.attendancesoftware.lessons.DTO.LessonDTO;
+import pl.ros1yn.attendancesoftware.lessons.dto.LessonDTO;
 import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
 
 @Component

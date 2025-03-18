@@ -7,44 +7,42 @@ import pl.ros1yn.attendancesoftware.student.model.Student;
 import pl.ros1yn.attendancesoftware.student.service.StudentService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-public class StudentController {
+class StudentController {
 
     private final StudentService studentService;
 
 
     @GetMapping("student")
-    public ResponseEntity<List<Student>> getAllStudents() {
+    ResponseEntity<List<Student>> getAllStudents() {
 
         return studentService.getAllStudents();
     }
 
     @GetMapping("student/{indexNumber}")
-    public ResponseEntity<Optional<Student>> getSingleStudent(@PathVariable Integer indexNumber) {
+    ResponseEntity<Student> getSingleStudent(@PathVariable Integer indexNumber) {
 
         return studentService.getSingleStudent(indexNumber);
 
     }
 
     @DeleteMapping("student/{id}")
-    public ResponseEntity<Student> deleteStudent(@PathVariable Integer id) {
+    ResponseEntity<Student> deleteStudent(@PathVariable Integer id) {
 
         return studentService.deleteStudent(id);
     }
 
     @PostMapping("student")
-    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
+    ResponseEntity<Student> addStudent(@RequestBody Student student) {
 
         return studentService.addStudent(student);
 
     }
 
-    //name and surname update only
     @PutMapping("student/{indexNumber}")
-    public ResponseEntity<Student> updateStudent(@PathVariable Integer indexNumber, @RequestBody Student student) {
+    ResponseEntity<Student> updateStudent(@PathVariable Integer indexNumber, @RequestBody Student student) {
         return studentService.updateFullStudent(student, indexNumber);
     }
 
