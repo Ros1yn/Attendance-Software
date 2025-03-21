@@ -3,8 +3,8 @@ package pl.ros1yn.attendancesoftware.coding.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import pl.ros1yn.attendancesoftware.lessons.dto.LessonDTO;
-import pl.ros1yn.attendancesoftware.student.dto.StudentDTO;
+import pl.ros1yn.attendancesoftware.lessons.dto.LessonResponse;
+import pl.ros1yn.attendancesoftware.student.dto.StudentResponse;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,15 +12,15 @@ import pl.ros1yn.attendancesoftware.student.dto.StudentDTO;
 @Setter
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CodingDTO {
+public class CodingResponse {
 
     private Integer id;
     private Integer group;
 
     @JsonProperty("student")
-    private StudentDTO studentDTO;
+    private StudentResponse studentResponse;
 
     @JsonProperty("lesson")
-    private LessonDTO lessonDTO;
+    private LessonResponse lessonResponse;
 
 }

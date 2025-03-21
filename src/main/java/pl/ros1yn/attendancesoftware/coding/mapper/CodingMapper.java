@@ -2,7 +2,7 @@ package pl.ros1yn.attendancesoftware.coding.mapper;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.ros1yn.attendancesoftware.coding.dto.CodingDTO;
+import pl.ros1yn.attendancesoftware.coding.dto.CodingResponse;
 import pl.ros1yn.attendancesoftware.coding.dto.CodingRequestDTO;
 import pl.ros1yn.attendancesoftware.coding.model.Coding;
 import pl.ros1yn.attendancesoftware.lessons.mapper.LessonMapper;
@@ -17,15 +17,15 @@ public class CodingMapper {
     private final StudentMapper studentMapper;
     private final LessonMapper lessonMapper;
 
-    public CodingDTO mapToDTO(Coding coding) {
+    public CodingResponse mapToDTO(Coding coding) {
 
-        return CodingDTO.builder()
+        return CodingResponse.builder()
                 .id(coding.getId())
                 .group(coding.getGroup())
-                .studentDTO(
+                .studentResponse(
                         studentMapper.mapToDTO(coding.getStudent())
                 )
-                .lessonDTO(
+                .lessonResponse(
                         lessonMapper.mapToDTO(coding.getLesson())
                 ).build();
     }

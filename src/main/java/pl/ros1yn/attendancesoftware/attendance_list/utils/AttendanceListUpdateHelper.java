@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
 
 @Component
 @AllArgsConstructor
-public class AttendanceUpdateHelper {
+public class AttendanceListUpdateHelper {
 
     private final ClassFinder classFinder;
 

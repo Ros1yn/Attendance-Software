@@ -1,28 +1,29 @@
 package pl.ros1yn.attendancesoftware.lessons.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.ros1yn.attendancesoftware.lessons.dto.LessonDTO;
+import pl.ros1yn.attendancesoftware.attendance_list.repository.AttendanceListRepository;
+import pl.ros1yn.attendancesoftware.lessons.dto.LessonResponse;
 import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
 import pl.ros1yn.attendancesoftware.lessons.repository.LessonRepository;
-
-import java.util.Optional;
+import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
 @Service
 @AllArgsConstructor
 public class LessonDeleteService {
 
     private final LessonRepository lessonRepository;
+    private final ClassFinder classFinder;
+    private final AttendanceListRepository attendanceListRepository;
 
-    //TODO Powiązane z innymi danymi przez klucz obcy -> do naprawy
-    public ResponseEntity<LessonDTO> deleteLesson(Integer id) {
+    @Transactional
+    public ResponseEntity<LessonResponse> deleteLesson(Integer id) {
 
-        Optional<Lesson> optionalLesson = lessonRepository.findById(id);
-        if (optionalLesson.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        optionalLesson.ifPresent(lessonRepository::delete);
+        Lesson lesson = classFinder.findLesson(id);
+        attendanceListRepository.deleteByLesson(lesson);
+        lessonRepository.deleteById(id);
 
         return ResponseEntity.noContent().build();
     }

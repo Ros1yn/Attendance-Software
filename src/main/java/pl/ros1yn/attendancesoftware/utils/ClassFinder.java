@@ -1,6 +1,7 @@
 package pl.ros1yn.attendancesoftware.utils;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class ClassFinder {
 
     private final AttendanceRepository attendanceRepository;

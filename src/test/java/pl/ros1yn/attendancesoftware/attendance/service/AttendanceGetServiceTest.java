@@ -23,16 +23,16 @@ import static org.mockito.Mockito.*;
 class AttendanceGetServiceTest {
 
     @Mock
-    AttendanceRepository attendanceRepository;
+    private AttendanceRepository attendanceRepository;
 
     @Mock
-    AttendanceMapper attendanceMapper;
+    private AttendanceMapper attendanceMapper;
 
     @InjectMocks
-    AttendanceGetService attendanceGetService;
+    private AttendanceGetService attendanceGetService;
 
-    Attendance attendance;
-    AttendanceResponse attendanceResponse;
+    private Attendance attendance;
+    private AttendanceResponse attendanceResponse;
 
     @BeforeEach
     void setUp() {

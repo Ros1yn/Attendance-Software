@@ -3,7 +3,7 @@ package pl.ros1yn.attendancesoftware.lessons.service;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.ros1yn.attendancesoftware.lessons.dto.LessonDTO;
+import pl.ros1yn.attendancesoftware.lessons.dto.LessonResponse;
 import pl.ros1yn.attendancesoftware.lessons.mapper.LessonMapper;
 import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
 import pl.ros1yn.attendancesoftware.lessons.repository.LessonRepository;
@@ -18,10 +18,10 @@ public class LessonGetService {
     private final LessonRepository lessonRepository;
     private final LessonMapper lessonMapper;
 
-    public ResponseEntity<List<LessonDTO>> getAllLessons() {
+    public ResponseEntity<List<LessonResponse>> getAllLessons() {
 
         Iterable<Lesson> allLessons = lessonRepository.findAll();
-        List<LessonDTO> convertedLessons = new ArrayList<>();
+        List<LessonResponse> convertedLessons = new ArrayList<>();
         for (Lesson lesson : allLessons) {
             convertedLessons.add(lessonMapper.mapToDTO(lesson));
         }
@@ -29,7 +29,7 @@ public class LessonGetService {
         return ResponseEntity.ok(convertedLessons);
     }
 
-    public ResponseEntity<LessonDTO> getSingleLesson(Integer id) {
+    public ResponseEntity<LessonResponse> getSingleLesson(Integer id) {
 
         return lessonRepository.findById(id)
                 .map(lessonMapper::mapToDTO)

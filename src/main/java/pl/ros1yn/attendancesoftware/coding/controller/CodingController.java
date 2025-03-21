@@ -1,38 +1,62 @@
 package pl.ros1yn.attendancesoftware.coding.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.ros1yn.attendancesoftware.coding.dto.CodingDTO;
 import pl.ros1yn.attendancesoftware.coding.dto.CodingRequestDTO;
-import pl.ros1yn.attendancesoftware.coding.service.CodingService;
+import pl.ros1yn.attendancesoftware.coding.dto.CodingResponse;
+import pl.ros1yn.attendancesoftware.coding.service.CodingGetService;
+import pl.ros1yn.attendancesoftware.coding.service.CodingPostService;
+import pl.ros1yn.attendancesoftware.coding.service.CodingDeleteService;
+import pl.ros1yn.attendancesoftware.coding.service.CodingUpdateService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("coding")
 @AllArgsConstructor
+@Slf4j
 class CodingController {
 
-    private final CodingService codingService;
+    private final CodingDeleteService deleteService;
+    private final CodingUpdateService updateService;
+    private final CodingGetService getService;
+    private final CodingPostService postService;
 
     @GetMapping("/")
-    ResponseEntity<List<CodingDTO>> getAllCodings() {
-        return codingService.getAllCodings();
+    ResponseEntity<List<CodingResponse>> getAllCodings() {
+        log.info("Recived request for getAllCodings");
+        return getService.getAllCodings();
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<CodingDTO> getSingleCoding(@PathVariable Integer id) {
-        return codingService.getSingleCoding(id);
+    ResponseEntity<CodingResponse> getSingleCoding(@PathVariable Integer id) {
+        log.info("Recived request for getSingleCoding with id: {}", id);
+        return getService.getSingleCoding(id);
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<CodingDTO> deleteCoding(@PathVariable Integer id) {
-        return codingService.deleteCoding(id);
+    ResponseEntity<CodingResponse> deleteCoding(@PathVariable Integer id) {
+        log.info("Recived request for deleteCoding with id: {}", id);
+        return deleteService.deleteCoding(id);
     }
 
     @PostMapping("/")
-    ResponseEntity<CodingDTO> addCoding(@RequestBody CodingRequestDTO codingRequestDTO) {
-        return codingService.addCoding(codingRequestDTO);
+    ResponseEntity<CodingResponse> addCoding(@RequestBody CodingRequestDTO codingRequestDTO) {
+        log.info("Recived request for addCoding with body: {}", codingRequestDTO);
+        return postService.addCoding(codingRequestDTO);
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<CodingResponse> updateCoding(@PathVariable Integer id, @RequestBody CodingRequestDTO requestDTO) {
+        log.info("Recived request for updateCoding with id: {} - and body: {}", id, requestDTO);
+        return updateService.updateCoding(id, requestDTO);
+    }
+
+    @PatchMapping("/{id}")
+    ResponseEntity<CodingResponse> updateCodingPartially(@PathVariable Integer id, @RequestBody CodingRequestDTO requestDTO){
+        log.info("Recived request for updateCodingPartially with id: {} - and body: {}", id, requestDTO);
+        return updateService.updateCodingPartially(id, requestDTO);
     }
 }

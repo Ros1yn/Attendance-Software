@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
-import pl.ros1yn.attendancesoftware.student.dto.StudentDTO;
+import pl.ros1yn.attendancesoftware.student.dto.StudentResponse;
 
 import java.time.LocalDate;
 
@@ -20,7 +20,7 @@ public class AttendanceResponse {
 
     private Integer id;
     @JsonProperty("student")
-    private StudentDTO studentDTO;
+    private StudentResponse studentResponse;
     private String isAttendance;
     private Integer activity;
     @JsonFormat(pattern = "dd-MM-yyyy")

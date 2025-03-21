@@ -19,15 +19,15 @@ import static org.mockito.Mockito.*;
 class AttendanceDeleteServiceTest {
 
     @Mock
-    AttendanceRepository attendanceRepository;
+    private AttendanceRepository attendanceRepository;
 
     @Mock
-    ClassFinder classFinder;
+    private ClassFinder classFinder;
 
     @InjectMocks
-    AttendanceDeleteService attendanceDeleteService;
+    private AttendanceDeleteService attendanceDeleteService;
 
-    Attendance attendance;
+    private Attendance attendance;
 
     @BeforeEach
     void setUp() {

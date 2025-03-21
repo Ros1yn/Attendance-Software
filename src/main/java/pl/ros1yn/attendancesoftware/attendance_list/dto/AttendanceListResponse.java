@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceResponse;
-import pl.ros1yn.attendancesoftware.lessons.dto.LessonDTO;
+import pl.ros1yn.attendancesoftware.lessons.dto.LessonResponse;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +21,7 @@ public class AttendanceListResponse {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate localDate;
     @JsonProperty("lesson")
-    private LessonDTO lessonDTO;
+    private LessonResponse lessonResponse;
     @JsonProperty("attendance_list")
     private List<AttendanceResponse> attendanceResponseList;
 

@@ -11,7 +11,7 @@ import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListRequestDTO
 import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListResponse;
 import pl.ros1yn.attendancesoftware.attendance_list.mapper.AttendanceListMapper;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
-import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendanceUpdateHelper;
+import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendanceListUpdateHelper;
 import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
 import pl.ros1yn.attendancesoftware.student.model.Student;
 import pl.ros1yn.attendancesoftware.utils.ClassFinder;
@@ -25,7 +25,7 @@ import java.util.Optional;
 public class AttedanceListUpdateService {
 
     private final AttendanceListMapper attendanceListMapper;
-    private final AttendanceUpdateHelper updateHelper;
+    private final AttendanceListUpdateHelper updateHelper;
     private final ClassFinder classFinder;
 
     @Transactional

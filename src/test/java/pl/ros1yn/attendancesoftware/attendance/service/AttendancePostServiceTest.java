@@ -8,44 +8,86 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceResponse;
+import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceUpdateDTO;
+import pl.ros1yn.attendancesoftware.attendance.mapper.AttendanceMapper;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
+import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
+import pl.ros1yn.attendancesoftware.student.model.Student;
+import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AttendancePostServiceTest {
 
     @Mock
-    AttendanceRepository attendanceRepository;
+    private AttendanceRepository attendanceRepository;
+
+    @Mock
+    private AttendanceMapper mapper;
+
+    @Mock
+    private ClassFinder classFinder;
 
     @InjectMocks
-    AttendancePostService postService;
+    private AttendancePostService postService;
 
-    Attendance attendance;
+    private AttendanceUpdateDTO updateDTO;
+    private AttendanceResponse attendanceResponse;
+    private Attendance attendance;
+    private Student student;
+    private AttendanceList attendanceList;
 
     @BeforeEach
-    void setUp(){
-        attendance = new Attendance();
-        attendance.setId(1);
+    void setUp() {
+
+        student = new Student();
+        student.setIndexNumber(123);
+
+        attendanceList = new AttendanceList();
+        attendanceList.setId(1);
+
+        attendance = Attendance.builder()
+                .student(student)
+                .attendanceList(attendanceList)
+                .isAttendance("PRESENT")
+                .activity(5)
+                .build();
+
+        attendanceResponse = new AttendanceResponse();
+
+        updateDTO = AttendanceUpdateDTO.builder().build();
+        updateDTO.setIndexNumber(123);
+        updateDTO.setListId(1);
+        updateDTO.setIsAttendance("PRESENT");
+        updateDTO.setActivity(5);
     }
 
     @Test
     void shouldSaveAttendanceAndReturnCreatedStatus(){
 
         //Given
-        when(attendanceRepository.save(attendance)).thenReturn(attendance);
+        when(classFinder.findStudent(updateDTO.getIndexNumber())).thenReturn(student);
+        when(classFinder.findAttendanceList(updateDTO.getListId())).thenReturn(attendanceList);
+        when(attendanceRepository.save(any(Attendance.class))).thenReturn(attendance);
+        when(mapper.mapToAttendanceResponse(attendance)).thenReturn(attendanceResponse);
 
         //When
-        ResponseEntity<Attendance> response = postService.addAttendance(attendance);
+        ResponseEntity<AttendanceResponse> response = postService.addAttendance(updateDTO);
 
         //Then
         assertNotNull(response);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals(attendance, response.getBody());
+        assertEquals(attendanceResponse, response.getBody());
 
-        verify(attendanceRepository, times(1)).save(attendance);
+        verify(attendanceRepository, times(1)).save(any(Attendance.class));
+        verify(classFinder, times(1)).findStudent(updateDTO.getIndexNumber());
+        verify(classFinder, times(1)).findAttendanceList(updateDTO.getListId());
+        verify(mapper, times(1)).mapToAttendanceResponse(attendance);
 
     }
 

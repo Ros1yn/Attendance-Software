@@ -1,6 +1,5 @@
 package pl.ros1yn.attendancesoftware.student.dto;
 
-
 import lombok.*;
 
 @AllArgsConstructor
@@ -8,9 +7,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @Builder
-public class StudentDTO {
+public class StudentRequestDTO {
 
-    private Integer indexNumber;
     private String name;
     private String surname;
 

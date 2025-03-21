@@ -8,6 +8,7 @@ import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceResponse;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.mapper.AttendanceMapper;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
+import pl.ros1yn.attendancesoftware.attendance.utils.AttendanceUpdateHelper;
 import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
 @Service
@@ -15,13 +16,14 @@ import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 public class AttendanceUpdateService {
 
     private final AttendanceMapper attendanceMapper;
+    private final AttendanceUpdateHelper updateHelper;
     private final ClassFinder classFinder;
 
     @Transactional
     public ResponseEntity<AttendanceResponse> updateAttendance(Integer id, AttendanceUpdateDTO updateDTO) {
 
         Attendance attendance = classFinder.findAttendance(id);
-        attendanceMapper.updateAttendanceFromPutDTO(updateDTO, attendance);
+        updateHelper.updateAttendanceFromPutDTO(updateDTO, attendance);
         return ResponseEntity.ok(attendanceMapper.mapToAttendanceResponse(attendance));
     }
 
@@ -29,7 +31,7 @@ public class AttendanceUpdateService {
     public ResponseEntity<AttendanceResponse> updatePartially(Integer id, AttendanceUpdateDTO updateDTO) {
 
         Attendance attendance = classFinder.findAttendance(id);
-        attendanceMapper.updateAttendanceFromPatchDTO(updateDTO, attendance);
+        updateHelper.updateAttendanceFromPatchDTO(updateDTO, attendance);
         return ResponseEntity.ok(attendanceMapper.mapToAttendanceResponse(attendance));
     }
 }

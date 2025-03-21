@@ -31,6 +31,6 @@ public class Lesson {
     @Column(name = "rok", nullable = false)
     private Integer year;
 
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Coding> coding;
 }

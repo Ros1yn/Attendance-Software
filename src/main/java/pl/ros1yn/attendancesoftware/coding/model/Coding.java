@@ -18,7 +18,7 @@ public class Coding {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "index_number", referencedColumnName = "index_number")
@@ -29,6 +29,6 @@ public class Coding {
     private Lesson lesson;
 
     @Column(name = "grupa", nullable = false)
-    private int group;
+    private Integer group;
 
 }

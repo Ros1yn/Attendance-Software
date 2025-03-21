@@ -26,7 +26,7 @@ public class AttendanceListMapper {
         return AttendanceListResponse.builder()
                 .id(attendanceList.getId())
                 .localDate(attendanceList.getDate())
-                .lessonDTO(lessonMapper.mapToDTO(attendanceList.getLesson()))
+                .lessonResponse(lessonMapper.mapToDTO(attendanceList.getLesson()))
                 .attendanceResponseList(attendanceResponseList)
                 .build();
     }
