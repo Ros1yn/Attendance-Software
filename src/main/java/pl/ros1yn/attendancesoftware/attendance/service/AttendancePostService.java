@@ -38,8 +38,9 @@ public class AttendancePostService {
                 .build();
 
         Attendance savedAttendance = attendanceRepository.save(newAttendance);
+        AttendanceResponse attendanceResponse = attendanceMapper.mapToAttendanceResponse(savedAttendance);
 
         log.info("Added succesfully. Saved body: {}", savedAttendance);
-        return ResponseEntity.status(HttpStatus.CREATED).body(attendanceMapper.mapToAttendanceResponse(savedAttendance));
+        return ResponseEntity.status(HttpStatus.CREATED).body(attendanceResponse);
     }
 }

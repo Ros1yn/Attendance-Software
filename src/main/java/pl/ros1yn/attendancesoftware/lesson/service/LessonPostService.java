@@ -1,6 +1,7 @@
 package pl.ros1yn.attendancesoftware.lesson.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import pl.ros1yn.attendancesoftware.lesson.repository.LessonRepository;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class LessonPostService {
 
     private final LessonRepository lessonRepository;
@@ -19,7 +21,10 @@ public class LessonPostService {
     public ResponseEntity<LessonResponse> addLesson(Lesson lesson) {
 
         Lesson savedLesson = lessonRepository.save(lesson);
-        return ResponseEntity.status(HttpStatus.CREATED).body(lessonMapper.mapToDTO(savedLesson));
+        LessonResponse lessonResponse = lessonMapper.mapToDTO(savedLesson);
+
+        log.info("Lesson has been added. Body: {}", lessonResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(lessonResponse);
     }
 
 }

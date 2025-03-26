@@ -29,9 +29,10 @@ public class CodingPostService {
         Coding coding = codingMapper.getNewCoding(requestDTO, student, lesson);
 
         Coding savedCoding = codingRepository.save(coding);
+        CodingResponse codingResponse = codingMapper.mapToDTO(savedCoding);
 
-        log.info("Coding added successfully. Saved coding: {}", savedCoding);
-        return ResponseEntity.ok(codingMapper.mapToDTO(savedCoding));
+        log.info("Coding added successfully. Saved coding: {}", codingResponse);
+        return ResponseEntity.ok(codingResponse);
     }
 
 }

@@ -40,10 +40,10 @@ public class AttedanceListUpdateService {
         attendanceList.setLesson(lesson);
 
         AttendanceList savedNewAttendanceList = updateHelper.getUpdatedAttendanceList(requestDTO, attendanceList, attendances);
+        AttendanceListResponse attendanceListResponse = attendanceListMapper.mapToResponseDTO(savedNewAttendanceList);
 
-        log.debug("Attendance list has been fully updated");
-
-        return ResponseEntity.ok(attendanceListMapper.mapToResponseDTO(savedNewAttendanceList));
+        log.debug("Attendance list has been fully updated. Body: {}", attendanceListResponse);
+        return ResponseEntity.ok(attendanceListResponse);
     }
 
     @Transactional
@@ -62,9 +62,10 @@ public class AttedanceListUpdateService {
                 .filter(newAttendanceList -> newAttendanceList.size() == attendanceList.getAttendances().size())
                 .ifPresent(newAttendanceList -> newAttendanceList.forEach(existingAttendance -> updateAttendance(existingAttendance, attendanceList.getAttendances())));
 
-        log.debug("Attendance list has been partially updated");
 
-        return ResponseEntity.ok(attendanceListMapper.mapToResponseDTO(attendanceList));
+        AttendanceListResponse attendanceListResponse = attendanceListMapper.mapToResponseDTO(attendanceList);
+        log.debug("Attendance list has been partially updated. Body: {}", attendanceListResponse);
+        return ResponseEntity.ok(attendanceListResponse);
     }
 
     private void updateAttendance(AttendanceDTOForList requestAttendance, List<Attendance> attendances) {

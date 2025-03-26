@@ -2,6 +2,7 @@ package pl.ros1yn.attendancesoftware.attendance_list.service;
 
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class AttendanceListPostService {
 
     private final AttendanceRepository attendanceRepository;
@@ -43,6 +45,7 @@ public class AttendanceListPostService {
 
         AttendanceListResponse attendanceListResponse = attendanceListMapper.mapToResponseDTO(savedList);
 
+        log.info("Attendance has been added. Body: {}", attendanceListResponse);
         return ResponseEntity.status(HttpStatus.CREATED).body(attendanceListResponse);
     }
 }

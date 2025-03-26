@@ -2,6 +2,7 @@ package pl.ros1yn.attendancesoftware.coding.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CodingUpdateService {
 
     private final ClassFinder classFinder;
@@ -37,8 +39,10 @@ public class CodingUpdateService {
                 .ifPresentOrElse(coding::setGroup, () -> {
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group must be filled");
                 });
+        CodingResponse codingResponse = codingMapper.mapToDTO(coding);
 
-        return ResponseEntity.ok(codingMapper.mapToDTO(coding));
+        getUpdatedCodingLog(codingResponse);
+        return ResponseEntity.ok(codingResponse);
     }
 
     @Transactional
@@ -61,6 +65,13 @@ public class CodingUpdateService {
         Optional.ofNullable(requestDTO.getGroup())
                 .ifPresent(coding::setGroup);
 
-        return ResponseEntity.ok(codingMapper.mapToDTO(coding));
+        CodingResponse codingResponse = codingMapper.mapToDTO(coding);
+
+        getUpdatedCodingLog(codingResponse);
+        return ResponseEntity.ok(codingResponse);
+    }
+
+    private static void getUpdatedCodingLog(CodingResponse codingResponse) {
+        log.info("Coding has been updated. New Body: {}", codingResponse);
     }
 }

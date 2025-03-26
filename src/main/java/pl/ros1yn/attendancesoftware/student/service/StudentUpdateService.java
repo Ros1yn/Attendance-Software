@@ -2,6 +2,7 @@ package pl.ros1yn.attendancesoftware.student.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.ros1yn.attendancesoftware.student.dto.StudentRequestDTO;
@@ -11,6 +12,7 @@ import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class StudentUpdateService {
 
     private final ClassFinder classFinder;
@@ -22,6 +24,7 @@ public class StudentUpdateService {
         Student existingStudent = classFinder.findStudent(indexNumber);
         Student updatedStudent = studentUpdate.update(existingStudent, newStudent);
 
+        log.info("Student has been updated. Body: {}", updatedStudent);
         return ResponseEntity.ok(updatedStudent);
     }
 }
