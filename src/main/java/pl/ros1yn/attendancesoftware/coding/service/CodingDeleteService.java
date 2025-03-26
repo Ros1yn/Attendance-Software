@@ -14,10 +14,10 @@ public class CodingDeleteService {
     private final CodingRepository codingRepository;
     private final ClassFinder classFinder;
 
-    public ResponseEntity<CodingResponse> deleteCoding(Integer id) {
+    public ResponseEntity<CodingResponse> deleteCoding(Integer codingId) {
 
-        classFinder.findCoding(id);
-        codingRepository.deleteById(id);
+        classFinder.findCoding(codingId);
+        codingRepository.deleteById(codingId);
 
         return ResponseEntity.noContent().build();
     }

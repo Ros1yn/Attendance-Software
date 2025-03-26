@@ -12,7 +12,7 @@ import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListResponse;
 import pl.ros1yn.attendancesoftware.attendance_list.mapper.AttendanceListMapper;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendanceListUpdateHelper;
-import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
+import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
 import pl.ros1yn.attendancesoftware.student.model.Student;
 import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
@@ -29,9 +29,9 @@ public class AttedanceListUpdateService {
     private final ClassFinder classFinder;
 
     @Transactional
-    public ResponseEntity<AttendanceListResponse> updateAttendanceList(Integer id, AttendanceListRequestDTO requestDTO) {
+    public ResponseEntity<AttendanceListResponse> updateAttendanceList(Integer listId, AttendanceListRequestDTO requestDTO) {
 
-        AttendanceList attendanceList = classFinder.findAttendanceList(id);
+        AttendanceList attendanceList = classFinder.findAttendanceList(listId);
         List<Attendance> attendances = attendanceList.getAttendances();
 
         attendanceList.setDate(requestDTO.getDate());
@@ -47,9 +47,9 @@ public class AttedanceListUpdateService {
     }
 
     @Transactional
-    public ResponseEntity<AttendanceListResponse> updateAttendanceListPartially(Integer id, AttendanceListRequestDTO requestDTO) {
+    public ResponseEntity<AttendanceListResponse> updateAttendanceListPartially(Integer listId, AttendanceListRequestDTO requestDTO) {
 
-        AttendanceList attendanceList = classFinder.findAttendanceList(id);
+        AttendanceList attendanceList = classFinder.findAttendanceList(listId);
 
         Optional.ofNullable(requestDTO.getLessonId())
                 .map(classFinder::findLesson)

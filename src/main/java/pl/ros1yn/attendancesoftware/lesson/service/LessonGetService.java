@@ -1,12 +1,12 @@
-package pl.ros1yn.attendancesoftware.lessons.service;
+package pl.ros1yn.attendancesoftware.lesson.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.ros1yn.attendancesoftware.lessons.dto.LessonResponse;
-import pl.ros1yn.attendancesoftware.lessons.mapper.LessonMapper;
-import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
-import pl.ros1yn.attendancesoftware.lessons.repository.LessonRepository;
+import pl.ros1yn.attendancesoftware.lesson.dto.LessonResponse;
+import pl.ros1yn.attendancesoftware.lesson.mapper.LessonMapper;
+import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
+import pl.ros1yn.attendancesoftware.lesson.repository.LessonRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +29,9 @@ public class LessonGetService {
         return ResponseEntity.ok(convertedLessons);
     }
 
-    public ResponseEntity<LessonResponse> getSingleLesson(Integer id) {
+    public ResponseEntity<LessonResponse> getSingleLesson(Integer lessonId) {
 
-        return lessonRepository.findById(id)
+        return lessonRepository.findById(lessonId)
                 .map(lessonMapper::mapToDTO)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());

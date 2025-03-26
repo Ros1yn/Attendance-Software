@@ -2,7 +2,7 @@ package pl.ros1yn.attendancesoftware.coding.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
+import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
 import pl.ros1yn.attendancesoftware.student.model.Student;
 
 @Entity

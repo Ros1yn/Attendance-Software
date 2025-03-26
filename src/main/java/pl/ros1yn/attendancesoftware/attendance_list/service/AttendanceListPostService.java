@@ -14,7 +14,7 @@ import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 import pl.ros1yn.attendancesoftware.attendance_list.repository.AttendanceListRepository;
 import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendanceListChecker;
 import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendencesListFromRequest;
-import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
+import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
 
 import java.util.List;
 

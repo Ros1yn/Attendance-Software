@@ -21,7 +21,7 @@ import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 public class AttendancePostService {
 
     private final AttendanceRepository attendanceRepository;
-    private final AttendanceMapper mapper;
+    private final AttendanceMapper attendanceMapper;
     private final ClassFinder classFinder;
 
     @Transactional
@@ -39,7 +39,7 @@ public class AttendancePostService {
 
         Attendance savedAttendance = attendanceRepository.save(newAttendance);
 
-        log.info("Added succesfully");
-        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.mapToAttendanceResponse(savedAttendance));
+        log.info("Added succesfully. Saved body: {}", savedAttendance);
+        return ResponseEntity.status(HttpStatus.CREATED).body(attendanceMapper.mapToAttendanceResponse(savedAttendance));
     }
 }

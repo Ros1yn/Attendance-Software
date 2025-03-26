@@ -1,4 +1,4 @@
-package pl.ros1yn.attendancesoftware.lessons.model;
+package pl.ros1yn.attendancesoftware.lesson.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

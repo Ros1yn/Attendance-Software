@@ -28,7 +28,7 @@ class AttendancePostServiceTest {
     private AttendanceRepository attendanceRepository;
 
     @Mock
-    private AttendanceMapper mapper;
+    private AttendanceMapper attendanceMapper;
 
     @Mock
     private ClassFinder classFinder;
@@ -74,7 +74,7 @@ class AttendancePostServiceTest {
         when(classFinder.findStudent(updateDTO.getIndexNumber())).thenReturn(student);
         when(classFinder.findAttendanceList(updateDTO.getListId())).thenReturn(attendanceList);
         when(attendanceRepository.save(any(Attendance.class))).thenReturn(attendance);
-        when(mapper.mapToAttendanceResponse(attendance)).thenReturn(attendanceResponse);
+        when(attendanceMapper.mapToAttendanceResponse(attendance)).thenReturn(attendanceResponse);
 
         //When
         ResponseEntity<AttendanceResponse> response = postService.addAttendance(updateDTO);
@@ -87,7 +87,7 @@ class AttendancePostServiceTest {
         verify(attendanceRepository, times(1)).save(any(Attendance.class));
         verify(classFinder, times(1)).findStudent(updateDTO.getIndexNumber());
         verify(classFinder, times(1)).findAttendanceList(updateDTO.getListId());
-        verify(mapper, times(1)).mapToAttendanceResponse(attendance);
+        verify(attendanceMapper, times(1)).mapToAttendanceResponse(attendance);
 
     }
 

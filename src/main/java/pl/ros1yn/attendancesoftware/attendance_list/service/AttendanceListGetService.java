@@ -28,9 +28,9 @@ public class AttendanceListGetService {
         return ResponseEntity.ok(attendanceListResponses);
     }
 
-    public ResponseEntity<AttendanceListResponse> getSingleAttendanceList(Integer id) {
+    public ResponseEntity<AttendanceListResponse> getSingleAttendanceList(Integer listId) {
 
-        return attendanceListRepository.findById(id)
+        return attendanceListRepository.findById(listId)
                 .map(attendanceListMapper::mapToResponseDTO)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());

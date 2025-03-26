@@ -17,21 +17,21 @@ import java.util.List;
 public class CodingGetService {
 
     private final CodingRepository codingRepository;
-    private final CodingMapper mapper;
+    private final CodingMapper codingMapper;
 
     public ResponseEntity<List<CodingResponse>> getAllCodings() {
 
         Iterable<Coding> codings = codingRepository.findAll();
         List<CodingResponse> codingResponseList = new ArrayList<>();
 
-        codings.forEach(coding -> codingResponseList.add(mapper.mapToDTO(coding)));
+        codings.forEach(coding -> codingResponseList.add(codingMapper.mapToDTO(coding)));
 
         return ResponseEntity.ok(codingResponseList);
     }
 
-    public ResponseEntity<CodingResponse> getSingleCoding(Integer id) {
-        return codingRepository.findById(id)
-                .map(mapper::mapToDTO)
+    public ResponseEntity<CodingResponse> getSingleCoding(Integer codingId) {
+        return codingRepository.findById(codingId)
+                .map(codingMapper::mapToDTO)
                 .map(ResponseEntity::ok)
                 .orElseThrow(CodingNotFoundException::new);
     }

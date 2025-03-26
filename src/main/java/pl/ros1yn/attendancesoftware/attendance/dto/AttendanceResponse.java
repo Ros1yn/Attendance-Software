@@ -24,5 +24,5 @@ public class AttendanceResponse {
     private String isAttendance;
     private Integer activity;
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate date;
+    private LocalDate DateofAttedence;
 }

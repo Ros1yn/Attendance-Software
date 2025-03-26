@@ -14,10 +14,10 @@ public class AttendanceListDeleteService {
     private final AttendanceListRepository attendanceListRepository;
     private final ClassFinder classFinder;
 
-    public ResponseEntity<AttendanceListResponse> deleteAttendanceList(Integer id) {
+    public ResponseEntity<AttendanceListResponse> removeAttendanceListById(Integer attendanceId) {
 
-        classFinder.findAttendanceList(id);
-        attendanceListRepository.deleteById(id);
+        classFinder.findAttendanceList(attendanceId);
+        attendanceListRepository.deleteById(attendanceId);
 
         return ResponseEntity.noContent().build();
     }

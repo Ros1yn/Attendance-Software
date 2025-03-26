@@ -30,16 +30,16 @@ class CodingController {
         return getService.getAllCodings();
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<CodingResponse> getSingleCoding(@PathVariable Integer id) {
-        log.info("Recived request for getSingleCoding with id: {}", id);
-        return getService.getSingleCoding(id);
+    @GetMapping("/{codingId}")
+    ResponseEntity<CodingResponse> getSingleCoding(@PathVariable Integer codingId) {
+        log.info("Recived request for getSingleCoding with id: {}", codingId);
+        return getService.getSingleCoding(codingId);
     }
 
-    @DeleteMapping("/{id}")
-    ResponseEntity<CodingResponse> deleteCoding(@PathVariable Integer id) {
-        log.info("Recived request for deleteCoding with id: {}", id);
-        return deleteService.deleteCoding(id);
+    @DeleteMapping("/{codingId}")
+    ResponseEntity<CodingResponse> deleteCoding(@PathVariable Integer codingId) {
+        log.info("Recived request for deleteCoding with id: {}", codingId);
+        return deleteService.deleteCoding(codingId);
     }
 
     @PostMapping("/")
@@ -48,15 +48,15 @@ class CodingController {
         return postService.addCoding(codingRequestDTO);
     }
 
-    @PutMapping("/{id}")
-    ResponseEntity<CodingResponse> updateCoding(@PathVariable Integer id, @RequestBody CodingRequestDTO requestDTO) {
-        log.info("Recived request for updateCoding with id: {} - and body: {}", id, requestDTO);
-        return updateService.updateCoding(id, requestDTO);
+    @PutMapping("/{codingId}")
+    ResponseEntity<CodingResponse> updateCoding(@PathVariable Integer codingId, @RequestBody CodingRequestDTO requestDTO) {
+        log.info("Recived request for updateCoding with id: {} - and body: {}", codingId, requestDTO);
+        return updateService.updateCoding(codingId, requestDTO);
     }
 
-    @PatchMapping("/{id}")
-    ResponseEntity<CodingResponse> updateCodingPartially(@PathVariable Integer id, @RequestBody CodingRequestDTO requestDTO){
-        log.info("Recived request for updateCodingPartially with id: {} - and body: {}", id, requestDTO);
-        return updateService.updateCodingPartially(id, requestDTO);
+    @PatchMapping("/{codingId}")
+    ResponseEntity<CodingResponse> updateCodingPartially(@PathVariable Integer codingId, @RequestBody CodingRequestDTO requestDTO){
+        log.info("Recived request for updateCodingPartially with id: {} - and body: {}", codingId, requestDTO);
+        return updateService.updateCodingPartially(codingId, requestDTO);
     }
 }

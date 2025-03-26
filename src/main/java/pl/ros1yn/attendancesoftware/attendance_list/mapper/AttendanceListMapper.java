@@ -6,7 +6,7 @@ import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceResponse;
 import pl.ros1yn.attendancesoftware.attendance.mapper.AttendanceMapper;
 import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListResponse;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
-import pl.ros1yn.attendancesoftware.lessons.mapper.LessonMapper;
+import pl.ros1yn.attendancesoftware.lesson.mapper.LessonMapper;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class AttendanceListMapper {
 
         return AttendanceListResponse.builder()
                 .id(attendanceList.getId())
-                .localDate(attendanceList.getDate())
+                .dateOfAttendanceList(attendanceList.getDate())
                 .lessonResponse(lessonMapper.mapToDTO(attendanceList.getLesson()))
                 .attendanceResponseList(attendanceResponseList)
                 .build();

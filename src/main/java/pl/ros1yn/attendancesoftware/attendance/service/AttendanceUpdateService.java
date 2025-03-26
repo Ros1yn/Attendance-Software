@@ -20,17 +20,17 @@ public class AttendanceUpdateService {
     private final ClassFinder classFinder;
 
     @Transactional
-    public ResponseEntity<AttendanceResponse> updateAttendance(Integer id, AttendanceUpdateDTO updateDTO) {
+    public ResponseEntity<AttendanceResponse> updateAttendance(Integer attendanceId, AttendanceUpdateDTO updateDTO) {
 
-        Attendance attendance = classFinder.findAttendance(id);
+        Attendance attendance = classFinder.findAttendance(attendanceId);
         updateHelper.updateAttendanceFromPutDTO(updateDTO, attendance);
         return ResponseEntity.ok(attendanceMapper.mapToAttendanceResponse(attendance));
     }
 
     @Transactional
-    public ResponseEntity<AttendanceResponse> updatePartially(Integer id, AttendanceUpdateDTO updateDTO) {
+    public ResponseEntity<AttendanceResponse> updatePartially(Integer attendanceId, AttendanceUpdateDTO updateDTO) {
 
-        Attendance attendance = classFinder.findAttendance(id);
+        Attendance attendance = classFinder.findAttendance(attendanceId);
         updateHelper.updateAttendanceFromPatchDTO(updateDTO, attendance);
         return ResponseEntity.ok(attendanceMapper.mapToAttendanceResponse(attendance));
     }

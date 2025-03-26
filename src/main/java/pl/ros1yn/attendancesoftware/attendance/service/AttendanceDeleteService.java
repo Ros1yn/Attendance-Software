@@ -18,10 +18,10 @@ public class AttendanceDeleteService {
     private final ClassFinder classFinder;
 
     @Transactional
-    public ResponseEntity<Attendance> deleteAttendance(Integer id) {
+    public ResponseEntity<Void> deleteAttendance(Integer attendanceId) {
 
-        classFinder.findAttendance(id);
-        attendanceRepository.deleteById(id);
+        classFinder.findAttendance(attendanceId);
+        attendanceRepository.deleteById(attendanceId);
 
         log.info("Deleted succesfully");
         return ResponseEntity.noContent().build();

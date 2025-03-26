@@ -16,9 +16,9 @@ public class AttendanceGetService {
     private final AttendanceRepository attendanceRepository;
     private final AttendanceMapper attendanceMapper;
 
-    public ResponseEntity<AttendanceResponse> getAttendance(int listId) {
+    public ResponseEntity<AttendanceResponse> getAttendance(int attendanceId) {
 
-        return attendanceRepository.findById(listId)
+        return attendanceRepository.findById(attendanceId)
                 .map(attendanceMapper::mapToAttendanceResponse)
                 .map(ResponseEntity::ok)
                 .orElseThrow(AttendanceNotFoundException::new);

@@ -1,4 +1,4 @@
-package pl.ros1yn.attendancesoftware.lessons.dto;
+package pl.ros1yn.attendancesoftware.lesson.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

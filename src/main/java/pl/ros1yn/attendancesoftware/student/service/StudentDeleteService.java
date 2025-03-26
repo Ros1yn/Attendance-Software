@@ -14,10 +14,10 @@ public class StudentDeleteService {
     private final StudentRepository studentRepository;
     private final ClassFinder classFinder;
 
-    public ResponseEntity<Student> deleteStudent(Integer id) {
+    public ResponseEntity<Student> deleteStudent(Integer studentId) {
 
-        classFinder.findStudent(id);
-        studentRepository.deleteById(id);
+        classFinder.findStudent(studentId);
+        studentRepository.deleteById(studentId);
 
         return ResponseEntity.noContent().build();
     }

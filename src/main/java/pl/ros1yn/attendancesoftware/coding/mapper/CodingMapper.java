@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import pl.ros1yn.attendancesoftware.coding.dto.CodingResponse;
 import pl.ros1yn.attendancesoftware.coding.dto.CodingRequestDTO;
 import pl.ros1yn.attendancesoftware.coding.model.Coding;
-import pl.ros1yn.attendancesoftware.lessons.mapper.LessonMapper;
-import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
+import pl.ros1yn.attendancesoftware.lesson.mapper.LessonMapper;
+import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
 import pl.ros1yn.attendancesoftware.student.mapper.StudentMapper;
 import pl.ros1yn.attendancesoftware.student.model.Student;
 

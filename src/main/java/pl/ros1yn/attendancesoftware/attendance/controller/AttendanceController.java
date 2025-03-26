@@ -25,38 +25,48 @@ class AttendanceController {
 
     @GetMapping("/")
     ResponseEntity<Iterable<Attendance>> getAllAttendances() {
-        log.info("Recived request for getAllAttendances");
-        return attendanceGetService.getAllAttendances();
+
+        ResponseEntity<Iterable<Attendance>> response = attendanceGetService.getAllAttendances();
+        log.info("Recived request for getAllAttendances. Response: {}", response.getBody());
+        return response;
     }
 
     @GetMapping("/{attendanceId}")
     ResponseEntity<AttendanceResponse> getSingleAttendance(@PathVariable Integer attendanceId) {
-        log.info("Recived request for getSingleAttendance with id: {}", attendanceId);
-        return attendanceGetService.getAttendance(attendanceId);
+
+        ResponseEntity<AttendanceResponse> response = attendanceGetService.getAttendance(attendanceId);
+        log.info("Recived request for getSingleAttendance with id: {}. Response: {}", attendanceId, response.getBody());
+        return response;
     }
 
     @DeleteMapping("/{attendanceId}")
-    ResponseEntity<Attendance> deleteAttendance(@PathVariable Integer attendanceId) {
-        log.info("Recived request for deleteAttendance with id: {}", attendanceId);
-        return attendanceDeleteService.deleteAttendance(attendanceId);
+    ResponseEntity<Void> deleteAttendance(@PathVariable Integer attendanceId) {
+
+        ResponseEntity<Void> response = attendanceDeleteService.deleteAttendance(attendanceId);
+        log.info("Recived request for deleteAttendance with id: {}. Response status: {}", attendanceId, response.getStatusCode());
+        return response;
     }
 
     @PostMapping("/")
     ResponseEntity<AttendanceResponse> addAttendance(@RequestBody AttendanceUpdateDTO updateDTO) {
-        log.info("Recived request for addAttendance with body: {}", updateDTO);
-        return attendancePostService.addAttendance(updateDTO);
+        ResponseEntity<AttendanceResponse> response = attendancePostService.addAttendance(updateDTO);
+        log.info("Recived request for addAttendance with body: {}. Response: {}", updateDTO, response.getBody());
+        return response;
     }
 
     @PutMapping("/{attendanceId}")
     ResponseEntity<AttendanceResponse> updateFullAttendance(@PathVariable Integer attendanceId, @RequestBody AttendanceUpdateDTO updateDTO) {
-        log.info("Recived request for updateFullAttendance with id: {} - and body: {}", attendanceId, updateDTO);
-        return attendanceUpdateService.updateAttendance(attendanceId, updateDTO);
+        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updateAttendance(attendanceId, updateDTO);
+        log.info("Recived request for updateFullAttendance with id: {} - and body: {}. Response: {}", attendanceId, updateDTO, response.getBody());
+        return response;
     }
 
     @PatchMapping("/{attendanceId}")
     ResponseEntity<AttendanceResponse> updateAttendancePartially(@PathVariable Integer attendanceId, @RequestBody AttendanceUpdateDTO updateDTO) {
-        log.info("Recived request for updateAttendancePartially with id: {} - and body: {}", attendanceId, updateDTO);
-        return attendanceUpdateService.updatePartially(attendanceId, updateDTO);
+
+        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updatePartially(attendanceId, updateDTO);
+        log.info("Recived request for updateAttendancePartially with id: {} - and body: {}. Response: {}", attendanceId, updateDTO, response.getBody());
+        return response;
     }
 }
 

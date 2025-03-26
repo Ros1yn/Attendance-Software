@@ -30,16 +30,16 @@ class AttendanceListController {
         return attendanceListGetService.getAllAttendanceLists();
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<AttendanceListResponse> getSingleAttendanceList(@PathVariable Integer id) {
-        log.info("Recived request for getSingleAttendanceList with id: {}", id);
-        return attendanceListGetService.getSingleAttendanceList(id);
+    @GetMapping("/{listId}")
+    ResponseEntity<AttendanceListResponse> getSingleAttendanceList(@PathVariable Integer listId) {
+        log.info("Recived request for getSingleAttendanceList with id: {}", listId);
+        return attendanceListGetService.getSingleAttendanceList(listId);
     }
 
-    @DeleteMapping("/{id}")
-    ResponseEntity<AttendanceListResponse> deleteAttendanceList(@PathVariable Integer id) {
-        log.info("Recived request for deleteAttendanceList id: {}", id);
-        return attendanceListDeleteService.deleteAttendanceList(id);
+    @DeleteMapping("/{listId}")
+    ResponseEntity<AttendanceListResponse> deleteAttendanceList(@PathVariable Integer listId) {
+        log.info("Recived request for deleteAttendanceList id: {}", listId);
+        return attendanceListDeleteService.removeAttendanceListById(listId);
     }
 
     @PostMapping("/")
@@ -48,16 +48,16 @@ class AttendanceListController {
         return attendanceListPostService.addNewAttendanceList(attendanceListDTO);
     }
 
-    @PutMapping("/{id}")
-    ResponseEntity<AttendanceListResponse> updateAttendanceList(@PathVariable Integer id, @RequestBody AttendanceListRequestDTO requestDTO) {
-        log.info("Recived request for updateAttendanceList with id: {} - and body: {}", id, requestDTO);
-        return attedanceListUpdateService.updateAttendanceList(id, requestDTO);
+    @PutMapping("/{listId}")
+    ResponseEntity<AttendanceListResponse> updateAttendanceList(@PathVariable Integer listId, @RequestBody AttendanceListRequestDTO requestDTO) {
+        log.info("Recived request for updateAttendanceList with id: {} - and body: {}", listId, requestDTO);
+        return attedanceListUpdateService.updateAttendanceList(listId, requestDTO);
     }
 
-    @PatchMapping("/{id}")
-    ResponseEntity<AttendanceListResponse> updateAttendanceListPartially(@PathVariable Integer id, @RequestBody AttendanceListRequestDTO requestDTO) {
-        log.info("Recived request for updateAttendanceListPartially with id: {} - and body: {}", id, requestDTO);
-        return attedanceListUpdateService.updateAttendanceListPartially(id, requestDTO);
+    @PatchMapping("/{listId}")
+    ResponseEntity<AttendanceListResponse> updateAttendanceListPartially(@PathVariable Integer listId, @RequestBody AttendanceListRequestDTO requestDTO) {
+        log.info("Recived request for updateAttendanceListPartially with id: {} - and body: {}", listId, requestDTO);
+        return attedanceListUpdateService.updateAttendanceListPartially(listId, requestDTO);
     }
 }
 

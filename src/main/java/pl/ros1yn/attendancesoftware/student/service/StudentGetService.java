@@ -29,9 +29,9 @@ public class StudentGetService {
         return ResponseEntity.ok(studentList);
     }
 
-    public ResponseEntity<Student> getSingleStudent(Integer id) {
+    public ResponseEntity<Student> getSingleStudent(Integer indexNumber) {
 
-        Student student = classFinder.findStudent(id);
+        Student student = classFinder.findStudent(indexNumber);
         return ResponseEntity.ok(student);
     }
 }

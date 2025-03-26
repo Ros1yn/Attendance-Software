@@ -10,8 +10,8 @@ import pl.ros1yn.attendancesoftware.attendance_list.repository.AttendanceListRep
 import pl.ros1yn.attendancesoftware.coding.model.Coding;
 import pl.ros1yn.attendancesoftware.coding.repository.CodingRepository;
 import pl.ros1yn.attendancesoftware.exception.*;
-import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
-import pl.ros1yn.attendancesoftware.lessons.repository.LessonRepository;
+import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
+import pl.ros1yn.attendancesoftware.lesson.repository.LessonRepository;
 import pl.ros1yn.attendancesoftware.student.model.Student;
 import pl.ros1yn.attendancesoftware.student.repository.StudentRepository;
 
@@ -28,13 +28,13 @@ public class ClassFinder {
     private final LessonRepository lessonRepository;
     private final CodingRepository codingRepository;
 
-    public Attendance findAttendance(Integer id) {
-        return attendanceRepository.findById(id)
+    public Attendance findAttendance(Integer attendanceId) {
+        return attendanceRepository.findById(attendanceId)
                 .orElseThrow(AttendanceNotFoundException::new);
     }
 
-    public Coding findCoding(Integer id) {
-        return codingRepository.findById(id)
+    public Coding findCoding(Integer codingId) {
+        return codingRepository.findById(codingId)
                 .orElseThrow(CodingNotFoundException::new);
     }
 
@@ -48,9 +48,9 @@ public class ClassFinder {
                 .orElseThrow(AttendanceListNotFoundException::new);
     }
 
-    public Attendance findAttendanceByIdFromList(Integer id, List<Attendance> attendanceList) {
+    public Attendance findAttendanceByIdFromList(Integer attendanceId, List<Attendance> attendanceList) {
         return attendanceList.stream()
-                .filter(attendance -> attendance.getId().equals(id))
+                .filter(attendance -> attendance.getId().equals(attendanceId))
                 .findFirst()
                 .orElseThrow(AttendanceNotFoundException::new);
     }

@@ -10,7 +10,7 @@ import pl.ros1yn.attendancesoftware.coding.dto.CodingRequestDTO;
 import pl.ros1yn.attendancesoftware.coding.dto.CodingResponse;
 import pl.ros1yn.attendancesoftware.coding.mapper.CodingMapper;
 import pl.ros1yn.attendancesoftware.coding.model.Coding;
-import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
+import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
 import pl.ros1yn.attendancesoftware.student.model.Student;
 import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
@@ -21,12 +21,12 @@ import java.util.Optional;
 public class CodingUpdateService {
 
     private final ClassFinder classFinder;
-    private final CodingMapper mapper;
+    private final CodingMapper codingMapper;
 
     @Transactional
-    public ResponseEntity<CodingResponse> updateCoding(Integer id, CodingRequestDTO requestDTO) {
+    public ResponseEntity<CodingResponse> updateCoding(Integer codingId, CodingRequestDTO requestDTO) {
 
-        Coding coding = classFinder.findCoding(id);
+        Coding coding = classFinder.findCoding(codingId);
         Student student = classFinder.findStudent(requestDTO.getIndexNumber());
         Lesson lesson = classFinder.findLesson(requestDTO.getLessonId());
 
@@ -38,13 +38,13 @@ public class CodingUpdateService {
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group must be filled");
                 });
 
-        return ResponseEntity.ok(mapper.mapToDTO(coding));
+        return ResponseEntity.ok(codingMapper.mapToDTO(coding));
     }
 
     @Transactional
-    public ResponseEntity<CodingResponse> updateCodingPartially(Integer id, CodingRequestDTO requestDTO) {
+    public ResponseEntity<CodingResponse> updateCodingPartially(Integer codingId, CodingRequestDTO requestDTO) {
 
-        Coding coding = classFinder.findCoding(id);
+        Coding coding = classFinder.findCoding(codingId);
 
         Optional.ofNullable(requestDTO.getIndexNumber())
                 .ifPresent(indexNumber -> {
@@ -61,6 +61,6 @@ public class CodingUpdateService {
         Optional.ofNullable(requestDTO.getGroup())
                 .ifPresent(coding::setGroup);
 
-        return ResponseEntity.ok(mapper.mapToDTO(coding));
+        return ResponseEntity.ok(codingMapper.mapToDTO(coding));
     }
 }

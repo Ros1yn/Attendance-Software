@@ -1,13 +1,12 @@
 package pl.ros1yn.attendancesoftware.student.utils;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.student.dto.StudentResponse;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BuildStudentDTO {
-
-    private BuildStudentDTO() {
-        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
-    }
 
     public static StudentResponse build(Attendance attendance) {
         return StudentResponse.builder()
