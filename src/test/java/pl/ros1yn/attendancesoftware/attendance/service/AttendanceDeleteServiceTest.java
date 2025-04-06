@@ -44,7 +44,7 @@ class AttendanceDeleteServiceTest {
         when(classFinder.findAttendance(attendanceId)).thenReturn(attendance);
 
         //When
-        ResponseEntity<Attendance> response = attendanceDeleteService.deleteAttendance(attendanceId);
+        ResponseEntity<Void> response = attendanceDeleteService.deleteAttendance(attendanceId);
 
         //Then
         assertNotNull(response);

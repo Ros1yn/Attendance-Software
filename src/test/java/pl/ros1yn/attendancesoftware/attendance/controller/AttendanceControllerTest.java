@@ -74,7 +74,7 @@ class AttendanceControllerTest {
                 .thenReturn(ResponseEntity.ok(attendances));
 
         //When
-        ResponseEntity<Iterable<Attendance>> response = attendanceGetService.getAllAttendances();
+        ResponseEntity<List<Attendance>> response = attendanceGetService.getAllAttendances();
 
         //Then
         assertNotNull(response);
@@ -110,7 +110,7 @@ class AttendanceControllerTest {
                 .thenReturn(ResponseEntity.noContent().build());
 
         //When
-        ResponseEntity<Attendance> response = attendanceDeleteService.deleteAttendance(attendanceId);
+        ResponseEntity<Void> response = attendanceDeleteService.deleteAttendance(attendanceId);
 
         //Then
         assertNotNull(response);

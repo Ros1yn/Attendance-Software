@@ -4,13 +4,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import pl.ros1yn.attendancesoftware.student.dto.StudentResponse;
 
 import java.time.LocalDate;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Builder
 @JsonPropertyOrder({"id", "student", "isAttendance", "activity", "date"})
 @JsonInclude(JsonInclude.Include.NON_NULL)

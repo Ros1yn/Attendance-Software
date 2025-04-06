@@ -84,7 +84,7 @@ class AttendanceGetServiceTest {
         when(attendanceRepository.findAll()).thenReturn(attendances);
 
         //When
-        ResponseEntity<Iterable<Attendance>> response = attendanceGetService.getAllAttendances();
+        ResponseEntity<List<Attendance>> response = attendanceGetService.getAllAttendances();
 
         //Then
         assertNotNull(response);

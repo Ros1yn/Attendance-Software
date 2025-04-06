@@ -39,7 +39,7 @@ public class AttendanceUpdateService {
         updateHelper.updateAttendanceFromPatchDTO(updateDTO, newAttendance);
         AttendanceResponse attendanceResponse = attendanceMapper.mapToAttendanceResponse(newAttendance);
         getUpdateLog(attendanceResponse);
-        return ResponseEntity.ok(attendanceMapper.mapToAttendanceResponse(newAttendance));
+        return ResponseEntity.ok(attendanceResponse);
     }
 
     private static void getUpdateLog(AttendanceResponse updatedAttendance) {

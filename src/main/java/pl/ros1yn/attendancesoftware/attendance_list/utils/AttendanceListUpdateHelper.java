@@ -59,6 +59,7 @@ public class AttendanceListUpdateHelper {
                 });
 
         if (requestAttendances.size() != attendances.size()) {
+            log.warn("The Size of the list must be the same as existing one");
             throw new AttendanceListRequestExceptionHandler("The Size of the list must be the same as existing one");
         }
 
@@ -82,6 +83,6 @@ public class AttendanceListUpdateHelper {
     }
 
     private static void getEmptyAttendanceListLog() {
-        log.error(getAttendanceListRequestErrorReason());
+        log.warn(getAttendanceListRequestErrorReason());
     }
 }
