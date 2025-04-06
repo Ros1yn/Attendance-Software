@@ -1,5 +1,6 @@
 package pl.ros1yn.attendancesoftware.coding.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
@@ -26,6 +27,7 @@ public class Coding {
 
     @ManyToOne
     @JoinColumn(name = "id_zajec", referencedColumnName = "id")
+    @JsonBackReference("lesson-coding")
     private Lesson lesson;
 
     @Column(name = "grupa", nullable = false)

@@ -12,6 +12,8 @@ import pl.ros1yn.attendancesoftware.attendance.service.AttendanceGetService;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendancePostService;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendanceUpdateService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("attendance")
 @AllArgsConstructor
@@ -24,9 +26,9 @@ class AttendanceController {
     private final AttendanceUpdateService attendanceUpdateService;
 
     @GetMapping("/")
-    ResponseEntity<Iterable<Attendance>> getAllAttendances() {
+    ResponseEntity<List<Attendance>> getAllAttendances() {
 
-        ResponseEntity<Iterable<Attendance>> response = attendanceGetService.getAllAttendances();
+        ResponseEntity<List<Attendance>> response = attendanceGetService.getAllAttendances();
         log.info("Recived request for getAllAttendances. Response: {}", response.getBody());
         return response;
     }

@@ -1,6 +1,7 @@
 package pl.ros1yn.attendancesoftware.attendance_list.utils;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceDTOForList;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
@@ -18,6 +19,7 @@ import java.util.stream.IntStream;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class AttendanceListUpdateHelper {
 
     private final ClassFinder classFinder;
@@ -25,13 +27,17 @@ public class AttendanceListUpdateHelper {
     public Lesson setNewLesson(AttendanceListRequestDTO requestDTO) {
         return Optional.ofNullable(requestDTO.getLessonId())
                 .map(classFinder::findLesson)
-                .orElseThrow(() -> new AttendanceListRequestExceptionHandler("LessonId cannot be empty"));
+                .orElseThrow(() -> {
+                    log.error("Lesson ID cannot be empty");
+                    return new AttendanceListRequestExceptionHandler("LessonId cannot be empty");
+                });
     }
 
     public AttendanceList getUpdatedAttendanceList(AttendanceListRequestDTO requestDTO, AttendanceList attendanceList, List<Attendance> attendances) {
 
         if (requestDTO.getAttendances() == null) {
-            throw new AttendanceListRequestExceptionHandler("List of attendances cannot be empty");
+            getEmptyAttendanceListLog();
+            throw new AttendanceListRequestExceptionHandler(getAttendanceListRequestErrorReason());
         }
 
         List<AttendanceDTOForList> newListOfAttendances = requestDTO.getAttendances();
@@ -47,7 +53,10 @@ public class AttendanceListUpdateHelper {
     private List<Attendance> setNewListOfAttendances(AttendanceListRequestDTO requestDTO, List<Attendance> attendances) {
 
         List<AttendanceDTOForList> requestAttendances = Optional.ofNullable(requestDTO.getAttendances())
-                .orElseThrow(() -> new AttendanceListRequestExceptionHandler("List of attendances cannot be empty"));
+                .orElseThrow(() -> {
+                    getEmptyAttendanceListLog();
+                    return new AttendanceListRequestExceptionHandler(EmptyAttendanceListLog.EMPTY_ATTENDANCE_LIST_LOG.getMessageLog());
+                });
 
         if (requestAttendances.size() != attendances.size()) {
             throw new AttendanceListRequestExceptionHandler("The Size of the list must be the same as existing one");
@@ -68,4 +77,11 @@ public class AttendanceListUpdateHelper {
                 }).toList();
     }
 
+    private static String getAttendanceListRequestErrorReason() {
+        return EmptyAttendanceListLog.EMPTY_ATTENDANCE_LIST_LOG.getMessageLog();
+    }
+
+    private static void getEmptyAttendanceListLog() {
+        log.error(getAttendanceListRequestErrorReason());
+    }
 }

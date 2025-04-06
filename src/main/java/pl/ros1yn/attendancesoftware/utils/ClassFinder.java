@@ -30,33 +30,51 @@ public class ClassFinder {
 
     public Attendance findAttendance(Integer attendanceId) {
         return attendanceRepository.findById(attendanceId)
-                .orElseThrow(AttendanceNotFoundException::new);
+                .orElseThrow(() -> {
+                    log.error("Attendance was not found");
+                    return new AttendanceNotFoundException();
+                });
     }
 
     public Coding findCoding(Integer codingId) {
         return codingRepository.findById(codingId)
-                .orElseThrow(CodingNotFoundException::new);
+                .orElseThrow(() -> {
+                    log.error("Coding was not found");
+                    return new CodingNotFoundException();
+                });
     }
 
     public Student findStudent(Integer indexNumber) {
         return studentRepository.findById(indexNumber)
-                .orElseThrow(StudentNotFoundException::new);
+                .orElseThrow(() -> {
+                    log.error("Student was not found");
+                    return new StudentNotFoundException();
+                });
     }
 
     public AttendanceList findAttendanceList(Integer listId) {
         return attendanceListRepository.findById(listId)
-                .orElseThrow(AttendanceListNotFoundException::new);
+                .orElseThrow(() -> {
+                    log.error("Attendance list was not found");
+                    return new AttendanceListNotFoundException();
+                });
     }
 
     public Attendance findAttendanceByIdFromList(Integer attendanceId, List<Attendance> attendanceList) {
         return attendanceList.stream()
                 .filter(attendance -> attendance.getId().equals(attendanceId))
                 .findFirst()
-                .orElseThrow(AttendanceNotFoundException::new);
+                .orElseThrow(() -> {
+                    log.error("Attendance from list was not found");
+                    return new AttendanceNotFoundException();
+                });
     }
 
     public Lesson findLesson(Integer lessonId) {
         return lessonRepository.findById(lessonId)
-                .orElseThrow(LessonNotFoundException::new);
+                .orElseThrow(() ->  {
+                    log.error("Lesson was not found");
+                    return new LessonNotFoundException();
+                });
     }
 }

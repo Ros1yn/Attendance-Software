@@ -1,6 +1,7 @@
 package pl.ros1yn.attendancesoftware.attendance.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
@@ -34,5 +35,6 @@ public class Attendance {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "lista_obecnosci_id", referencedColumnName = "id")
+    @JsonIgnore
     private AttendanceList attendanceList;
 }

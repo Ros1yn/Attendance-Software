@@ -1,5 +1,6 @@
 package pl.ros1yn.attendancesoftware.lesson.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class Lesson {
     @Column(name = "rok", nullable = false)
     private Integer year;
 
+    @JsonManagedReference("lesson-coding")
     @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Coding> coding;
 }

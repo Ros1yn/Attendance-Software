@@ -37,6 +37,7 @@ public class CodingUpdateService {
 
         Optional.ofNullable(requestDTO.getGroup())
                 .ifPresentOrElse(coding::setGroup, () -> {
+                    log.error("Group must be filled");
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group must be filled");
                 });
         CodingResponse codingResponse = codingMapper.mapToDTO(coding);
