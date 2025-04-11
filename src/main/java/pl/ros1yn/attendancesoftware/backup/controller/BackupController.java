@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.ros1yn.attendancesoftware.backup.service.BackupService;
 
-import java.io.IOException;
-
 @Controller
 @RequestMapping("backup")
 @AllArgsConstructor
@@ -20,22 +18,13 @@ class BackupController {
     private final BackupService backupService;
 
     @GetMapping("/")
-    ResponseEntity<String> createBackup() throws IOException {
+    ResponseEntity<String> createBackup() {
 
 
         log.info("Recived request for backupDataBase.");
         backupService.createBackup();
 
-        log.info("backup has been created");
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/restore")
-    ResponseEntity<String> restoreBackup() {
-
-        log.info("Recived request for restoreBackup.");
-
-        log.info("backup has been imported");
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
 }

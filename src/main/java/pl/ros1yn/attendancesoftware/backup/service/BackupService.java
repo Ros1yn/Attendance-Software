@@ -28,13 +28,8 @@ public class BackupService {
 
     private static final String BACKUP_FAILED = "Backup failed: ";
 
-    private static void getBackupErrorLog(BackupExceptionHandler e) {
-
-        log.error(BACKUP_FAILED + "{}", e.getMessage());
-    }
-
     @Scheduled(cron = "0 0 * * * *")
-    public void createBackup() throws IOException {
+    public void createBackup() {
 
         File backupDir = new File(BackupFiles.TEMPORARY_DIRECTORY_PATH.getPath());
 
@@ -44,7 +39,8 @@ public class BackupService {
 
             try {
                 FileUtils.deleteDirectory(backupDir);
-            } catch (BackupExceptionHandler e) {
+            } catch (IOException e) {
+
                 getBackupErrorLog(e);
                 throw new BackupExceptionHandler(BACKUP_FAILED + e.getMessage());
             }
@@ -63,13 +59,18 @@ public class BackupService {
 
             ZipPacker.addAllFilesToZip(fos, filesToZip);
             FileUtils.deleteDirectory(backupDir);
-        } catch (BackupExceptionHandler e) {
+        } catch (IOException e) {
 
             getBackupErrorLog(e);
             throw new BackupExceptionHandler(BACKUP_FAILED + e.getMessage());
         }
 
 
+    }
+
+    private static void getBackupErrorLog(IOException e) {
+
+        log.error(BACKUP_FAILED + "{}", e.getMessage());
     }
 }
 
