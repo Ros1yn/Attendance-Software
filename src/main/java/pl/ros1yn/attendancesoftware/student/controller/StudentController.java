@@ -23,32 +23,38 @@ class StudentController {
     private final StudentGetService getService;
     private final StudentPostService postService;
     private final StudentUpdateService updateService;
+
     @GetMapping("/")
     ResponseEntity<List<Student>> getAllStudents() {
+
         log.info("Recived request for getAllStudents");
         return getService.getAllStudents();
     }
 
     @GetMapping("/{indexNumber}")
     ResponseEntity<Student> getSingleStudent(@PathVariable Integer indexNumber) {
+
         log.info("Recived request for getSingleStudent with indexNumber: {}", indexNumber);
         return getService.getSingleStudent(indexNumber);
     }
 
     @DeleteMapping("/{indexNumber}")
     ResponseEntity<Student> deleteStudent(@PathVariable Integer indexNumber) {
+
         log.info("Recived request for deleteLesson with id: {}", indexNumber);
         return deleteService.deleteStudent(indexNumber);
     }
 
     @PostMapping("/")
     ResponseEntity<Student> addStudent(@RequestBody Student student) {
+
         log.info("Recived request for addStudent with body: {}", student);
         return postService.addStudent(student);
     }
 
     @PutMapping("/{indexNumber}")
     ResponseEntity<Student> updateStudent(@PathVariable Integer indexNumber, @RequestBody StudentRequestDTO requestDTO) {
+
         log.info("Recived request for updateStudent with id: {} - and body: {}", indexNumber, requestDTO);
         return updateService.updateStudent(requestDTO, indexNumber);
     }

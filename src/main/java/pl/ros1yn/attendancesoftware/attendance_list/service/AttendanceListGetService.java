@@ -24,7 +24,7 @@ public class AttendanceListGetService {
 
     public ResponseEntity<List<AttendanceListResponse>> getAllAttendanceLists() {
 
-        Iterable<AttendanceList> all = attendanceListRepository.findAll();
+        List<AttendanceList> all = attendanceListRepository.findAll();
         List<AttendanceListResponse> attendanceListResponses = new ArrayList<>();
         all.forEach(attendanceList -> attendanceListResponses.add(attendanceListMapper.mapToResponseDTO(attendanceList)));
 
