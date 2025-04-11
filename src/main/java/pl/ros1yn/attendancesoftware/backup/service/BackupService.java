@@ -22,9 +22,8 @@ public class BackupService {
     private AttendanceListBackup attendanceListBackup;
     private AttendanceBackup attendanceBackup;
     private StudentBackup studentBackup;
-    private ZipPacker zipPacker;
 
-    @Scheduled(cron = "0 * * * *")
+    @Scheduled(cron = "0 0 * * * *")
     public void createBackup() throws IOException {
 
         File backupDir = new File("backupCSV");
