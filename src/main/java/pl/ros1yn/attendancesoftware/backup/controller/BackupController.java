@@ -20,15 +20,11 @@ class BackupController {
     private final BackupService backupService;
 
     @GetMapping("/")
-    ResponseEntity<String> createBackup() {
+    ResponseEntity<String> createBackup() throws IOException {
 
-        try {
 
-            log.info("Recived request for backupDataBase.");
-            backupService.createBackup();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        log.info("Recived request for backupDataBase.");
+        backupService.createBackup();
 
         log.info("backup has been created");
         return ResponseEntity.status(HttpStatus.OK).build();

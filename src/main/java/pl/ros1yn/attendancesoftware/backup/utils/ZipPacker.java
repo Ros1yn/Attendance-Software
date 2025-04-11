@@ -2,7 +2,6 @@ package pl.ros1yn.attendancesoftware.backup.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-@Component
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ZipPacker {
 

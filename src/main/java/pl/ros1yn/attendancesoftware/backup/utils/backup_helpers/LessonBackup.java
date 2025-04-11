@@ -1,11 +1,11 @@
-package pl.ros1yn.attendancesoftware.backup.utils;
+package pl.ros1yn.attendancesoftware.backup.utils.backup_helpers;
 
 import com.opencsv.CSVWriter;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import pl.ros1yn.attendancesoftware.backup.exception.BackupExceptionHandler;
+import pl.ros1yn.attendancesoftware.backup.utils.BackupFiles;
 import pl.ros1yn.attendancesoftware.lesson.repository.LessonRepository;
 
 import java.io.File;
@@ -21,7 +21,7 @@ public class LessonBackup {
     private final LessonRepository lessonRepository;
 
     public void createBackup(List<String> filesToZip) {
-        File lessonBackup = new File("backupCSV/lesson.csv");
+        File lessonBackup = new File(BackupFiles.LESSON_PATH.getPath());
         try (CSVWriter writer = new CSVWriter(new FileWriter(lessonBackup))) {
             writer.writeNext(new String[]{"id", "title", "semester", "year"});
 

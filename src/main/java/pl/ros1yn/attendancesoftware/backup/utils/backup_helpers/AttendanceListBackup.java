@@ -1,4 +1,4 @@
-package pl.ros1yn.attendancesoftware.backup.utils;
+package pl.ros1yn.attendancesoftware.backup.utils.backup_helpers;
 
 import com.opencsv.CSVWriter;
 import lombok.AllArgsConstructor;
@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import pl.ros1yn.attendancesoftware.attendance_list.repository.AttendanceListRepository;
 import pl.ros1yn.attendancesoftware.backup.exception.BackupExceptionHandler;
+import pl.ros1yn.attendancesoftware.backup.utils.BackupFiles;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,7 +21,7 @@ public class AttendanceListBackup {
     private final AttendanceListRepository attendanceListRepository;
 
     public void createBackup(List<String> filesToZip) {
-        File attendanceListBackup = new File("backupCSV/attendanceList.csv");
+        File attendanceListBackup = new File(BackupFiles.ATTENDANCE_LIST_PATH.getPath());
         try (CSVWriter writer = new CSVWriter(new FileWriter(attendanceListBackup))) {
             writer.writeNext(new String[]{"id", "date", "lessonId", "attendances"});
 

@@ -5,7 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import pl.ros1yn.attendancesoftware.backup.utils.*;
+import pl.ros1yn.attendancesoftware.backup.exception.BackupExceptionHandler;
+import pl.ros1yn.attendancesoftware.backup.utils.BackupFiles;
+import pl.ros1yn.attendancesoftware.backup.utils.ZipPacker;
+import pl.ros1yn.attendancesoftware.backup.utils.backup_helpers.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,15 +26,28 @@ public class BackupService {
     private AttendanceBackup attendanceBackup;
     private StudentBackup studentBackup;
 
+    private static final String BACKUP_FAILED = "Backup failed: ";
+
+    private static void getBackupErrorLog(BackupExceptionHandler e) {
+
+        log.error(BACKUP_FAILED + "{}", e.getMessage());
+    }
+
     @Scheduled(cron = "0 0 * * * *")
     public void createBackup() throws IOException {
 
-        File backupDir = new File("backupCSV");
+        File backupDir = new File(BackupFiles.TEMPORARY_DIRECTORY_PATH.getPath());
 
         if (!backupDir.exists()) {
             backupDir.mkdir();
         } else {
-            FileUtils.deleteDirectory(backupDir);
+
+            try {
+                FileUtils.deleteDirectory(backupDir);
+            } catch (BackupExceptionHandler e) {
+                getBackupErrorLog(e);
+                throw new BackupExceptionHandler(BACKUP_FAILED + e.getMessage());
+            }
             backupDir.mkdir();
         }
 
@@ -43,14 +59,18 @@ public class BackupService {
         attendanceListBackup.createBackup(filesToZip);
         attendanceBackup.createBackup(filesToZip);
 
-        FileOutputStream fos = new FileOutputStream("backup/compressed.zip");
+        try (FileOutputStream fos = new FileOutputStream(BackupFiles.COMPRESSED_ZIP_PATH.getPath())) {
 
-        ZipPacker.addAllFilesToZip(fos, filesToZip);
+            ZipPacker.addAllFilesToZip(fos, filesToZip);
+            FileUtils.deleteDirectory(backupDir);
+        } catch (BackupExceptionHandler e) {
 
-        FileUtils.deleteDirectory(backupDir);
+            getBackupErrorLog(e);
+            throw new BackupExceptionHandler(BACKUP_FAILED + e.getMessage());
+        }
+
+
     }
-
-
 }
 
 
