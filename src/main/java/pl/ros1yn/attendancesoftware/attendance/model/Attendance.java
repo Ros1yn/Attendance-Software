@@ -1,6 +1,7 @@
 package pl.ros1yn.attendancesoftware.attendance.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
@@ -26,7 +27,7 @@ public class Attendance {
     private Student student;
 
     @Column(name = "czy_obecny", nullable = false)
-    private Boolean isAttendance;
+    private String isAttendance;
 
     @Column(name = "aktywnosc", nullable = false)
     private Integer activity;
@@ -34,7 +35,6 @@ public class Attendance {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "lista_obecnosci_id", referencedColumnName = "id")
+    @JsonIgnore
     private AttendanceList attendanceList;
-
-
 }

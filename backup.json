@@ -1,0 +1,998 @@
+{
+  "coding" : [ {
+    "id" : 1,
+    "student" : {
+      "indexNumber" : 1002,
+      "surname" : "Nowak",
+      "name" : "Anna"
+    },
+    "group" : 3
+  }, {
+    "id" : 3,
+    "student" : {
+      "indexNumber" : 1003,
+      "surname" : "Wiśniewski",
+      "name" : "Piotr"
+    },
+    "group" : 2
+  }, {
+    "id" : 4,
+    "student" : {
+      "indexNumber" : 1004,
+      "surname" : "Dąbrowski",
+      "name" : "Ewa"
+    },
+    "group" : 2
+  }, {
+    "id" : 5,
+    "student" : {
+      "indexNumber" : 1005,
+      "surname" : "Lewandowski",
+      "name" : "Kamil"
+    },
+    "group" : 1
+  }, {
+    "id" : 6,
+    "student" : {
+      "indexNumber" : 1006,
+      "surname" : "Wójcik",
+      "name" : "Monika"
+    },
+    "group" : 2
+  }, {
+    "id" : 7,
+    "student" : {
+      "indexNumber" : 1007,
+      "surname" : "Kamiński",
+      "name" : "Paweł"
+    },
+    "group" : 1
+  }, {
+    "id" : 8,
+    "student" : {
+      "indexNumber" : 1008,
+      "surname" : "Zielińska",
+      "name" : "Karolina"
+    },
+    "group" : 2
+  }, {
+    "id" : 9,
+    "student" : {
+      "indexNumber" : 1009,
+      "surname" : "Szymański",
+      "name" : "Tomasz"
+    },
+    "group" : 1
+  }, {
+    "id" : 10,
+    "student" : {
+      "indexNumber" : 1010,
+      "surname" : "Woźniak",
+      "name" : "Marta"
+    },
+    "group" : 2
+  }, {
+    "id" : 11,
+    "student" : {
+      "indexNumber" : 162553,
+      "surname" : "Kwiatkowski",
+      "name" : "Mateusz"
+    },
+    "group" : 2
+  }, {
+    "id" : 12,
+    "student" : {
+      "indexNumber" : 62687,
+      "surname" : "Gryczka",
+      "name" : "Łukasz"
+    },
+    "group" : 2
+  } ],
+  "attendanceLists" : [ {
+    "id" : 3,
+    "date" : "12-01-2024",
+    "lesson" : {
+      "id" : 3,
+      "title" : "Informatyka",
+      "semester" : 2,
+      "year" : 2024,
+      "coding" : [ {
+        "id" : 5,
+        "student" : {
+          "indexNumber" : 1005,
+          "surname" : "Lewandowski",
+          "name" : "Kamil"
+        },
+        "group" : 1
+      }, {
+        "id" : 6,
+        "student" : {
+          "indexNumber" : 1006,
+          "surname" : "Wójcik",
+          "name" : "Monika"
+        },
+        "group" : 2
+      }, {
+        "id" : 11,
+        "student" : {
+          "indexNumber" : 162553,
+          "surname" : "Kwiatkowski",
+          "name" : "Mateusz"
+        },
+        "group" : 2
+      }, {
+        "id" : 12,
+        "student" : {
+          "indexNumber" : 62687,
+          "surname" : "Gryczka",
+          "name" : "Łukasz"
+        },
+        "group" : 2
+      } ]
+    },
+    "attendances" : [ {
+      "id" : 5,
+      "student" : {
+        "indexNumber" : 1005,
+        "surname" : "Lewandowski",
+        "name" : "Kamil"
+      },
+      "isAttendance" : "NOT_PRESENT",
+      "activity" : 1
+    }, {
+      "id" : 6,
+      "student" : {
+        "indexNumber" : 1006,
+        "surname" : "Wójcik",
+        "name" : "Monika"
+      },
+      "isAttendance" : "PRESENT",
+      "activity" : 3
+    } ]
+  }, {
+    "id" : 4,
+    "date" : "13-02-2024",
+    "lesson" : {
+      "id" : 4,
+      "title" : "Biologia",
+      "semester" : 2,
+      "year" : 2024,
+      "coding" : [ {
+        "id" : 7,
+        "student" : {
+          "indexNumber" : 1007,
+          "surname" : "Kamiński",
+          "name" : "Paweł"
+        },
+        "group" : 1
+      }, {
+        "id" : 8,
+        "student" : {
+          "indexNumber" : 1008,
+          "surname" : "Zielińska",
+          "name" : "Karolina"
+        },
+        "group" : 2
+      } ]
+    },
+    "attendances" : [ {
+      "id" : 8,
+      "student" : {
+        "indexNumber" : 1008,
+        "surname" : "Zielińska",
+        "name" : "Karolina"
+      },
+      "isAttendance" : "NOT_PRESENT",
+      "activity" : 2
+    }, {
+      "id" : 18,
+      "student" : {
+        "indexNumber" : 1009,
+        "surname" : "Szymański",
+        "name" : "Tomasz"
+      },
+      "isAttendance" : "EXEMPT",
+      "activity" : 3
+    } ]
+  }, {
+    "id" : 5,
+    "date" : "14-02-2024",
+    "lesson" : {
+      "id" : 5,
+      "title" : "Chemia",
+      "semester" : 3,
+      "year" : 2024,
+      "coding" : [ {
+        "id" : 9,
+        "student" : {
+          "indexNumber" : 1009,
+          "surname" : "Szymański",
+          "name" : "Tomasz"
+        },
+        "group" : 1
+      }, {
+        "id" : 10,
+        "student" : {
+          "indexNumber" : 1010,
+          "surname" : "Woźniak",
+          "name" : "Marta"
+        },
+        "group" : 2
+      } ]
+    },
+    "attendances" : [ {
+      "id" : 9,
+      "student" : {
+        "indexNumber" : 1009,
+        "surname" : "Szymański",
+        "name" : "Tomasz"
+      },
+      "isAttendance" : "EXEMPT",
+      "activity" : 4
+    }, {
+      "id" : 10,
+      "student" : {
+        "indexNumber" : 1010,
+        "surname" : "Woźniak",
+        "name" : "Marta"
+      },
+      "isAttendance" : "NOT_PRESENT",
+      "activity" : 3
+    } ]
+  }, {
+    "id" : 23,
+    "date" : "19-02-2025",
+    "lesson" : {
+      "id" : 5,
+      "title" : "Chemia",
+      "semester" : 3,
+      "year" : 2024,
+      "coding" : [ {
+        "id" : 9,
+        "student" : {
+          "indexNumber" : 1009,
+          "surname" : "Szymański",
+          "name" : "Tomasz"
+        },
+        "group" : 1
+      }, {
+        "id" : 10,
+        "student" : {
+          "indexNumber" : 1010,
+          "surname" : "Woźniak",
+          "name" : "Marta"
+        },
+        "group" : 2
+      } ]
+    },
+    "attendances" : [ {
+      "id" : 20,
+      "student" : {
+        "indexNumber" : 162553,
+        "surname" : "Kwiatkowski",
+        "name" : "Mateusz"
+      },
+      "isAttendance" : "EXEMPT",
+      "activity" : 2
+    }, {
+      "id" : 21,
+      "student" : {
+        "indexNumber" : 1009,
+        "surname" : "Szymański",
+        "name" : "Tomasz"
+      },
+      "isAttendance" : "PRESENT",
+      "activity" : 0
+    } ]
+  }, {
+    "id" : 24,
+    "date" : "19-02-2025",
+    "lesson" : {
+      "id" : 5,
+      "title" : "Chemia",
+      "semester" : 3,
+      "year" : 2024,
+      "coding" : [ {
+        "id" : 9,
+        "student" : {
+          "indexNumber" : 1009,
+          "surname" : "Szymański",
+          "name" : "Tomasz"
+        },
+        "group" : 1
+      }, {
+        "id" : 10,
+        "student" : {
+          "indexNumber" : 1010,
+          "surname" : "Woźniak",
+          "name" : "Marta"
+        },
+        "group" : 2
+      } ]
+    },
+    "attendances" : [ {
+      "id" : 22,
+      "student" : {
+        "indexNumber" : 1008,
+        "surname" : "Zielińska",
+        "name" : "Karolina"
+      },
+      "isAttendance" : "EXEMPT",
+      "activity" : 2
+    }, {
+      "id" : 23,
+      "student" : {
+        "indexNumber" : 62687,
+        "surname" : "Gryczka",
+        "name" : "Łukasz"
+      },
+      "isAttendance" : "NOT_PRESENT",
+      "activity" : 0
+    } ]
+  }, {
+    "id" : 25,
+    "date" : "19-02-2025",
+    "lesson" : {
+      "id" : 5,
+      "title" : "Chemia",
+      "semester" : 3,
+      "year" : 2024,
+      "coding" : [ {
+        "id" : 9,
+        "student" : {
+          "indexNumber" : 1009,
+          "surname" : "Szymański",
+          "name" : "Tomasz"
+        },
+        "group" : 1
+      }, {
+        "id" : 10,
+        "student" : {
+          "indexNumber" : 1010,
+          "surname" : "Woźniak",
+          "name" : "Marta"
+        },
+        "group" : 2
+      } ]
+    },
+    "attendances" : [ {
+      "id" : 24,
+      "student" : {
+        "indexNumber" : 1008,
+        "surname" : "Zielińska",
+        "name" : "Karolina"
+      },
+      "isAttendance" : "EXEMPT",
+      "activity" : 4
+    }, {
+      "id" : 25,
+      "student" : {
+        "indexNumber" : 62687,
+        "surname" : "Gryczka",
+        "name" : "Łukasz"
+      },
+      "isAttendance" : "PRESENT",
+      "activity" : 0
+    } ]
+  }, {
+    "id" : 26,
+    "date" : "03-02-2024",
+    "lesson" : {
+      "id" : 2,
+      "title" : "Fizyka",
+      "semester" : 1,
+      "year" : 2024,
+      "coding" : [ {
+        "id" : 1,
+        "student" : {
+          "indexNumber" : 1002,
+          "surname" : "Nowak",
+          "name" : "Anna"
+        },
+        "group" : 3
+      }, {
+        "id" : 3,
+        "student" : {
+          "indexNumber" : 1003,
+          "surname" : "Wiśniewski",
+          "name" : "Piotr"
+        },
+        "group" : 2
+      }, {
+        "id" : 4,
+        "student" : {
+          "indexNumber" : 1004,
+          "surname" : "Dąbrowski",
+          "name" : "Ewa"
+        },
+        "group" : 2
+      } ]
+    },
+    "attendances" : [ {
+      "id" : 26,
+      "student" : {
+        "indexNumber" : 1001,
+        "surname" : "Kowalski",
+        "name" : "Jan"
+      },
+      "isAttendance" : "EXEMPT",
+      "activity" : 2
+    }, {
+      "id" : 27,
+      "student" : {
+        "indexNumber" : 1002,
+        "surname" : "Nowak",
+        "name" : "Anna"
+      },
+      "isAttendance" : "PRESENT",
+      "activity" : 0
+    } ]
+  }, {
+    "id" : 27,
+    "date" : "03-02-2024",
+    "lesson" : {
+      "id" : 2,
+      "title" : "Fizyka",
+      "semester" : 1,
+      "year" : 2024,
+      "coding" : [ {
+        "id" : 1,
+        "student" : {
+          "indexNumber" : 1002,
+          "surname" : "Nowak",
+          "name" : "Anna"
+        },
+        "group" : 3
+      }, {
+        "id" : 3,
+        "student" : {
+          "indexNumber" : 1003,
+          "surname" : "Wiśniewski",
+          "name" : "Piotr"
+        },
+        "group" : 2
+      }, {
+        "id" : 4,
+        "student" : {
+          "indexNumber" : 1004,
+          "surname" : "Dąbrowski",
+          "name" : "Ewa"
+        },
+        "group" : 2
+      } ]
+    },
+    "attendances" : [ {
+      "id" : 28,
+      "student" : {
+        "indexNumber" : 1001,
+        "surname" : "Kowalski",
+        "name" : "Jan"
+      },
+      "isAttendance" : "EXEMPT",
+      "activity" : 5
+    }, {
+      "id" : 29,
+      "student" : {
+        "indexNumber" : 1002,
+        "surname" : "Nowak",
+        "name" : "Anna"
+      },
+      "isAttendance" : "NOT_PRESENT",
+      "activity" : 0
+    } ]
+  }, {
+    "id" : 28,
+    "date" : "03-03-2025",
+    "lesson" : {
+      "id" : 6,
+      "title" : "Historia",
+      "semester" : 3,
+      "year" : 2023,
+      "coding" : [ ]
+    },
+    "attendances" : [ {
+      "id" : 30,
+      "student" : {
+        "indexNumber" : 1004,
+        "surname" : "Dąbrowski",
+        "name" : "Ewa"
+      },
+      "isAttendance" : "NOT_PRESENT",
+      "activity" : 4
+    }, {
+      "id" : 31,
+      "student" : {
+        "indexNumber" : 1005,
+        "surname" : "Lewandowski",
+        "name" : "Kamil"
+      },
+      "isAttendance" : "PRESENT",
+      "activity" : 0
+    } ]
+  }, {
+    "id" : 29,
+    "date" : "03-03-2025",
+    "lesson" : {
+      "id" : 6,
+      "title" : "Historia",
+      "semester" : 3,
+      "year" : 2023,
+      "coding" : [ ]
+    },
+    "attendances" : [ ]
+  }, {
+    "id" : 30,
+    "date" : "03-03-2025",
+    "lesson" : {
+      "id" : 6,
+      "title" : "Historia",
+      "semester" : 3,
+      "year" : 2023,
+      "coding" : [ ]
+    },
+    "attendances" : [ ]
+  }, {
+    "id" : 31,
+    "date" : "03-03-2025",
+    "lesson" : {
+      "id" : 6,
+      "title" : "Historia",
+      "semester" : 3,
+      "year" : 2023,
+      "coding" : [ ]
+    },
+    "attendances" : [ ]
+  }, {
+    "id" : 32,
+    "date" : "04-05-2025",
+    "lesson" : {
+      "id" : 4,
+      "title" : "Biologia",
+      "semester" : 2,
+      "year" : 2024,
+      "coding" : [ {
+        "id" : 7,
+        "student" : {
+          "indexNumber" : 1007,
+          "surname" : "Kamiński",
+          "name" : "Paweł"
+        },
+        "group" : 1
+      }, {
+        "id" : 8,
+        "student" : {
+          "indexNumber" : 1008,
+          "surname" : "Zielińska",
+          "name" : "Karolina"
+        },
+        "group" : 2
+      } ]
+    },
+    "attendances" : [ ]
+  }, {
+    "id" : 33,
+    "date" : "04-05-2025",
+    "lesson" : {
+      "id" : 4,
+      "title" : "Biologia",
+      "semester" : 2,
+      "year" : 2024,
+      "coding" : [ {
+        "id" : 7,
+        "student" : {
+          "indexNumber" : 1007,
+          "surname" : "Kamiński",
+          "name" : "Paweł"
+        },
+        "group" : 1
+      }, {
+        "id" : 8,
+        "student" : {
+          "indexNumber" : 1008,
+          "surname" : "Zielińska",
+          "name" : "Karolina"
+        },
+        "group" : 2
+      } ]
+    },
+    "attendances" : [ {
+      "id" : 32,
+      "student" : {
+        "indexNumber" : 1009,
+        "surname" : "Szymański",
+        "name" : "Tomasz"
+      },
+      "isAttendance" : "NOT_PRESENT",
+      "activity" : 0
+    }, {
+      "id" : 33,
+      "student" : {
+        "indexNumber" : 1008,
+        "surname" : "Zielińska",
+        "name" : "Karolina"
+      },
+      "isAttendance" : "EXEMPT",
+      "activity" : 3
+    } ]
+  } ],
+  "students" : [ {
+    "indexNumber" : 1001,
+    "surname" : "Kowalski",
+    "name" : "Jan"
+  }, {
+    "indexNumber" : 1002,
+    "surname" : "Nowak",
+    "name" : "Anna"
+  }, {
+    "indexNumber" : 1003,
+    "surname" : "Wiśniewski",
+    "name" : "Piotr"
+  }, {
+    "indexNumber" : 1004,
+    "surname" : "Dąbrowski",
+    "name" : "Ewa"
+  }, {
+    "indexNumber" : 1005,
+    "surname" : "Lewandowski",
+    "name" : "Kamil"
+  }, {
+    "indexNumber" : 1006,
+    "surname" : "Wójcik",
+    "name" : "Monika"
+  }, {
+    "indexNumber" : 1007,
+    "surname" : "Kamiński",
+    "name" : "Paweł"
+  }, {
+    "indexNumber" : 1008,
+    "surname" : "Zielińska",
+    "name" : "Karolina"
+  }, {
+    "indexNumber" : 1009,
+    "surname" : "Szymański",
+    "name" : "Tomasz"
+  }, {
+    "indexNumber" : 1010,
+    "surname" : "Woźniak",
+    "name" : "Marta"
+  }, {
+    "indexNumber" : 3562,
+    "surname" : "Lewandowski",
+    "name" : "Robert"
+  }, {
+    "indexNumber" : 62687,
+    "surname" : "Gryczka",
+    "name" : "Łukasz"
+  }, {
+    "indexNumber" : 162553,
+    "surname" : "Kwiatkowski",
+    "name" : "Mateusz"
+  } ],
+  "attendance" : [ {
+    "id" : 5,
+    "student" : {
+      "indexNumber" : 1005,
+      "surname" : "Lewandowski",
+      "name" : "Kamil"
+    },
+    "isAttendance" : "NOT_PRESENT",
+    "activity" : 1
+  }, {
+    "id" : 6,
+    "student" : {
+      "indexNumber" : 1006,
+      "surname" : "Wójcik",
+      "name" : "Monika"
+    },
+    "isAttendance" : "PRESENT",
+    "activity" : 3
+  }, {
+    "id" : 8,
+    "student" : {
+      "indexNumber" : 1008,
+      "surname" : "Zielińska",
+      "name" : "Karolina"
+    },
+    "isAttendance" : "NOT_PRESENT",
+    "activity" : 2
+  }, {
+    "id" : 9,
+    "student" : {
+      "indexNumber" : 1009,
+      "surname" : "Szymański",
+      "name" : "Tomasz"
+    },
+    "isAttendance" : "EXEMPT",
+    "activity" : 4
+  }, {
+    "id" : 10,
+    "student" : {
+      "indexNumber" : 1010,
+      "surname" : "Woźniak",
+      "name" : "Marta"
+    },
+    "isAttendance" : "NOT_PRESENT",
+    "activity" : 3
+  }, {
+    "id" : 18,
+    "student" : {
+      "indexNumber" : 1009,
+      "surname" : "Szymański",
+      "name" : "Tomasz"
+    },
+    "isAttendance" : "EXEMPT",
+    "activity" : 3
+  }, {
+    "id" : 20,
+    "student" : {
+      "indexNumber" : 162553,
+      "surname" : "Kwiatkowski",
+      "name" : "Mateusz"
+    },
+    "isAttendance" : "EXEMPT",
+    "activity" : 2
+  }, {
+    "id" : 21,
+    "student" : {
+      "indexNumber" : 1009,
+      "surname" : "Szymański",
+      "name" : "Tomasz"
+    },
+    "isAttendance" : "PRESENT",
+    "activity" : 0
+  }, {
+    "id" : 22,
+    "student" : {
+      "indexNumber" : 1008,
+      "surname" : "Zielińska",
+      "name" : "Karolina"
+    },
+    "isAttendance" : "EXEMPT",
+    "activity" : 2
+  }, {
+    "id" : 23,
+    "student" : {
+      "indexNumber" : 62687,
+      "surname" : "Gryczka",
+      "name" : "Łukasz"
+    },
+    "isAttendance" : "NOT_PRESENT",
+    "activity" : 0
+  }, {
+    "id" : 24,
+    "student" : {
+      "indexNumber" : 1008,
+      "surname" : "Zielińska",
+      "name" : "Karolina"
+    },
+    "isAttendance" : "EXEMPT",
+    "activity" : 4
+  }, {
+    "id" : 25,
+    "student" : {
+      "indexNumber" : 62687,
+      "surname" : "Gryczka",
+      "name" : "Łukasz"
+    },
+    "isAttendance" : "PRESENT",
+    "activity" : 0
+  }, {
+    "id" : 26,
+    "student" : {
+      "indexNumber" : 1001,
+      "surname" : "Kowalski",
+      "name" : "Jan"
+    },
+    "isAttendance" : "EXEMPT",
+    "activity" : 2
+  }, {
+    "id" : 27,
+    "student" : {
+      "indexNumber" : 1002,
+      "surname" : "Nowak",
+      "name" : "Anna"
+    },
+    "isAttendance" : "PRESENT",
+    "activity" : 0
+  }, {
+    "id" : 28,
+    "student" : {
+      "indexNumber" : 1001,
+      "surname" : "Kowalski",
+      "name" : "Jan"
+    },
+    "isAttendance" : "EXEMPT",
+    "activity" : 5
+  }, {
+    "id" : 29,
+    "student" : {
+      "indexNumber" : 1002,
+      "surname" : "Nowak",
+      "name" : "Anna"
+    },
+    "isAttendance" : "NOT_PRESENT",
+    "activity" : 0
+  }, {
+    "id" : 30,
+    "student" : {
+      "indexNumber" : 1004,
+      "surname" : "Dąbrowski",
+      "name" : "Ewa"
+    },
+    "isAttendance" : "NOT_PRESENT",
+    "activity" : 4
+  }, {
+    "id" : 31,
+    "student" : {
+      "indexNumber" : 1005,
+      "surname" : "Lewandowski",
+      "name" : "Kamil"
+    },
+    "isAttendance" : "PRESENT",
+    "activity" : 0
+  }, {
+    "id" : 32,
+    "student" : {
+      "indexNumber" : 1009,
+      "surname" : "Szymański",
+      "name" : "Tomasz"
+    },
+    "isAttendance" : "NOT_PRESENT",
+    "activity" : 0
+  }, {
+    "id" : 33,
+    "student" : {
+      "indexNumber" : 1008,
+      "surname" : "Zielińska",
+      "name" : "Karolina"
+    },
+    "isAttendance" : "EXEMPT",
+    "activity" : 3
+  }, {
+    "id" : 36,
+    "student" : {
+      "indexNumber" : 1009,
+      "surname" : "Szymański",
+      "name" : "Tomasz"
+    },
+    "isAttendance" : "NOT_PRESENT",
+    "activity" : 0
+  } ],
+  "lessons" : [ {
+    "id" : 2,
+    "title" : "Fizyka",
+    "semester" : 1,
+    "year" : 2024,
+    "coding" : [ {
+      "id" : 1,
+      "student" : {
+        "indexNumber" : 1002,
+        "surname" : "Nowak",
+        "name" : "Anna"
+      },
+      "group" : 3
+    }, {
+      "id" : 3,
+      "student" : {
+        "indexNumber" : 1003,
+        "surname" : "Wiśniewski",
+        "name" : "Piotr"
+      },
+      "group" : 2
+    }, {
+      "id" : 4,
+      "student" : {
+        "indexNumber" : 1004,
+        "surname" : "Dąbrowski",
+        "name" : "Ewa"
+      },
+      "group" : 2
+    } ]
+  }, {
+    "id" : 3,
+    "title" : "Informatyka",
+    "semester" : 2,
+    "year" : 2024,
+    "coding" : [ {
+      "id" : 5,
+      "student" : {
+        "indexNumber" : 1005,
+        "surname" : "Lewandowski",
+        "name" : "Kamil"
+      },
+      "group" : 1
+    }, {
+      "id" : 6,
+      "student" : {
+        "indexNumber" : 1006,
+        "surname" : "Wójcik",
+        "name" : "Monika"
+      },
+      "group" : 2
+    }, {
+      "id" : 11,
+      "student" : {
+        "indexNumber" : 162553,
+        "surname" : "Kwiatkowski",
+        "name" : "Mateusz"
+      },
+      "group" : 2
+    }, {
+      "id" : 12,
+      "student" : {
+        "indexNumber" : 62687,
+        "surname" : "Gryczka",
+        "name" : "Łukasz"
+      },
+      "group" : 2
+    } ]
+  }, {
+    "id" : 4,
+    "title" : "Biologia",
+    "semester" : 2,
+    "year" : 2024,
+    "coding" : [ {
+      "id" : 7,
+      "student" : {
+        "indexNumber" : 1007,
+        "surname" : "Kamiński",
+        "name" : "Paweł"
+      },
+      "group" : 1
+    }, {
+      "id" : 8,
+      "student" : {
+        "indexNumber" : 1008,
+        "surname" : "Zielińska",
+        "name" : "Karolina"
+      },
+      "group" : 2
+    } ]
+  }, {
+    "id" : 5,
+    "title" : "Chemia",
+    "semester" : 3,
+    "year" : 2024,
+    "coding" : [ {
+      "id" : 9,
+      "student" : {
+        "indexNumber" : 1009,
+        "surname" : "Szymański",
+        "name" : "Tomasz"
+      },
+      "group" : 1
+    }, {
+      "id" : 10,
+      "student" : {
+        "indexNumber" : 1010,
+        "surname" : "Woźniak",
+        "name" : "Marta"
+      },
+      "group" : 2
+    } ]
+  }, {
+    "id" : 6,
+    "title" : "Historia",
+    "semester" : 3,
+    "year" : 2023,
+    "coding" : [ ]
+  }, {
+    "id" : 7,
+    "title" : "Geografia",
+    "semester" : 4,
+    "year" : 2023,
+    "coding" : [ ]
+  }, {
+    "id" : 8,
+    "title" : "Język Angielski",
+    "semester" : 4,
+    "year" : 2023,
+    "coding" : [ ]
+  }, {
+    "id" : 9,
+    "title" : "Fotografia",
+    "semester" : 5,
+    "year" : 2024,
+    "coding" : [ ]
+  } ]
+}

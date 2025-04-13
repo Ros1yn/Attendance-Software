@@ -1,62 +1,75 @@
 package pl.ros1yn.attendancesoftware.attendance.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceResponse;
-import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceUpdateDTO;
+import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceResponse;
+import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendanceDeleteService;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendanceGetService;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendancePostService;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendanceUpdateService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("attendance")
 @AllArgsConstructor
-public class AttendanceController {
+@Slf4j
+class AttendanceController {
 
     private final AttendanceDeleteService attendanceDeleteService;
-
     private final AttendanceGetService attendanceGetService;
-
     private final AttendancePostService attendancePostService;
-
     private final AttendanceUpdateService attendanceUpdateService;
 
-
     @GetMapping("/")
-    public ResponseEntity<Iterable<Attendance>> getAllAttendances() {
-        return attendanceGetService.getAllAttendances();
+    ResponseEntity<List<Attendance>> getAllAttendances() {
+
+        ResponseEntity<List<Attendance>> response = attendanceGetService.getAllAttendances();
+        log.info("Recived request for getAllAttendances. Response: {}", response.getBody());
+        return response;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Attendance> getSingleAttendance(@PathVariable Integer id) {
-        return attendanceGetService.getAttendance(id);
+    @GetMapping("/{attendanceId}")
+    ResponseEntity<AttendanceResponse> getSingleAttendance(@PathVariable Integer attendanceId) {
+
+        ResponseEntity<AttendanceResponse> response = attendanceGetService.getAttendance(attendanceId);
+        log.info("Recived request for getSingleAttendance with id: {}. Response: {}", attendanceId, response.getBody());
+        return response;
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Attendance> deleteAttendance(@PathVariable Integer id) {
-        return attendanceDeleteService.deleteAttendance(id);
+    @DeleteMapping("/{attendanceId}")
+    ResponseEntity<Void> deleteAttendance(@PathVariable Integer attendanceId) {
+
+        ResponseEntity<Void> response = attendanceDeleteService.deleteAttendance(attendanceId);
+        log.info("Recived request for deleteAttendance with id: {}. Response status: {}", attendanceId, response.getStatusCode());
+        return response;
     }
 
     @PostMapping("/")
-    public ResponseEntity<Attendance> addAttendance(@RequestBody Attendance attendance) {
-        return attendancePostService.addAttendance(attendance);
+    ResponseEntity<AttendanceResponse> addAttendance(@RequestBody AttendanceUpdateDTO updateDTO) {
+        ResponseEntity<AttendanceResponse> response = attendancePostService.addAttendance(updateDTO);
+        log.info("Recived request for addAttendance with body: {}. Response: {}", updateDTO, response.getBody());
+        return response;
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<AttendanceResponse> updateFullAttendance(@PathVariable Integer id, @RequestBody AttendanceUpdateDTO updateDTO) {
+    @PutMapping("/{attendanceId}")
+    ResponseEntity<AttendanceResponse> updateFullAttendance(@PathVariable Integer attendanceId, @RequestBody AttendanceUpdateDTO updateDTO) {
 
-        return attendanceUpdateService.updateAttendance(id, updateDTO);
-
+        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updateAttendance(attendanceId, updateDTO);
+        log.info("Recived request for updateFullAttendance with id: {} - and body: {}. Response: {}", attendanceId, updateDTO, response.getBody());
+        return response;
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<AttendanceResponse> updateAttendancePartially(@PathVariable Integer id, @RequestBody AttendanceUpdateDTO updateDTO) {
-        return attendanceUpdateService.updatePartially(id, updateDTO);
+    @PatchMapping("/{attendanceId}")
+    ResponseEntity<AttendanceResponse> updateAttendancePartially(@PathVariable Integer attendanceId, @RequestBody AttendanceUpdateDTO updateDTO) {
+
+        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updatePartially(attendanceId, updateDTO);
+        log.info("Recived request for updateAttendancePartially with id: {} - and body: {}. Response: {}", attendanceId, updateDTO, response.getBody());
+        return response;
     }
-
-
 }
 

@@ -1,43 +1,48 @@
 package pl.ros1yn.attendancesoftware.attendance.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceResponse;
-import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceUpdateDTO;
+import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceResponse;
+import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.mapper.AttendanceMapper;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
-import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
-import pl.ros1yn.attendancesoftware.attendance.utils.FindAttendanceById;
+import pl.ros1yn.attendancesoftware.attendance.utils.AttendanceUpdateHelper;
+import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class AttendanceUpdateService {
 
-    private final AttendanceRepository attendanceRepository;
-
     private final AttendanceMapper attendanceMapper;
+    private final AttendanceUpdateHelper updateHelper;
+    private final ClassFinder classFinder;
 
-    private final FindAttendanceById findAttendanceById;
+    @Transactional
+    public ResponseEntity<AttendanceResponse> updateAttendance(Integer attendanceId, AttendanceUpdateDTO updateDTO) {
 
-    public ResponseEntity<AttendanceResponse> updateAttendance(Integer id, AttendanceUpdateDTO updateDTO) {
+        Attendance newAttendance = classFinder.findAttendance(attendanceId);
+        updateHelper.updateAttendanceFromPutDTO(updateDTO, newAttendance);
+        AttendanceResponse attendanceResponse = attendanceMapper.mapToAttendanceResponse(newAttendance);
 
-        Attendance attendance = findAttendanceById.find(id);
-
-        attendanceMapper.updateAttendanceFromPutDTO(updateDTO, attendance);
-        Attendance savedAttendance = attendanceRepository.save(attendance);
-
-        return ResponseEntity.ok(attendanceMapper.mapToAttendanceResponse(savedAttendance));
+        getUpdateLog(attendanceResponse);
+        return ResponseEntity.ok(attendanceResponse);
     }
 
+    @Transactional
+    public ResponseEntity<AttendanceResponse> updatePartially(Integer attendanceId, AttendanceUpdateDTO updateDTO) {
 
-    public ResponseEntity<AttendanceResponse> updatePartially(Integer id, AttendanceUpdateDTO updateDTO) {
+        Attendance newAttendance = classFinder.findAttendance(attendanceId);
+        updateHelper.updateAttendanceFromPatchDTO(updateDTO, newAttendance);
+        AttendanceResponse attendanceResponse = attendanceMapper.mapToAttendanceResponse(newAttendance);
+        getUpdateLog(attendanceResponse);
+        return ResponseEntity.ok(attendanceResponse);
+    }
 
-        Attendance attendance = findAttendanceById.find(id);
-
-        attendanceMapper.updateAttendanceFromPatchDTO(updateDTO, attendance);
-        Attendance savedAttendance = attendanceRepository.save(attendance);
-
-        return ResponseEntity.ok(attendanceMapper.mapToAttendanceResponse(savedAttendance));
+    private static void getUpdateLog(AttendanceResponse updatedAttendance) {
+        log.info("Attendance has been updated. New body: {}", updatedAttendance);
     }
 }

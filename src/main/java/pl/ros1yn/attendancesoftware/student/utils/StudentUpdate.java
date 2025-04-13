@@ -1,21 +1,21 @@
 package pl.ros1yn.attendancesoftware.student.utils;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import pl.ros1yn.attendancesoftware.student.dto.StudentRequestDTO;
 import pl.ros1yn.attendancesoftware.student.model.Student;
-import pl.ros1yn.attendancesoftware.student.repository.StudentRepository;
 
 @Component
 @AllArgsConstructor
 public class StudentUpdate {
 
-    private final StudentRepository studentRepository;
+    @Transactional
+    public Student update(Student existingStudent, StudentRequestDTO requestDTO) {
 
-    public Student update(Student existingStudent, Student student) {
+        existingStudent.setName(requestDTO.getName());
+        existingStudent.setSurname(requestDTO.getSurname());
 
-        existingStudent.setName(student.getName());
-        existingStudent.setSurname(student.getSurname());
-
-        return studentRepository.save(existingStudent);
+        return existingStudent;
     }
 }
