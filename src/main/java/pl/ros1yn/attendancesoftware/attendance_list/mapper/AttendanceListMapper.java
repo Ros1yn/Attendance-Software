@@ -2,11 +2,11 @@ package pl.ros1yn.attendancesoftware.attendance_list.mapper;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceResponse;
+import pl.ros1yn.attendancesoftware.attendance.DTO.AttendanceResponse;
 import pl.ros1yn.attendancesoftware.attendance.mapper.AttendanceMapper;
-import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListResponse;
+import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListDTO;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
-import pl.ros1yn.attendancesoftware.lesson.mapper.LessonMapper;
+import pl.ros1yn.attendancesoftware.lessons.DTO.LessonSimpleDTO;
 
 import java.util.List;
 
@@ -15,20 +15,33 @@ import java.util.List;
 public class AttendanceListMapper {
 
     private final AttendanceMapper attendanceMapper;
-    private final LessonMapper lessonMapper;
 
-    public AttendanceListResponse mapToResponseDTO(AttendanceList attendanceList) {
+    public AttendanceListDTO convertToDTO(AttendanceList attendanceList) {
 
-        List<AttendanceResponse> attendanceResponseList = attendanceList.getAttendances().stream()
+        List<AttendanceResponse> attendanceResponseList = attendanceList.getAttendanceList().stream()
                 .map(attendanceMapper::mapToAttendanceResponse)
                 .toList();
 
-        return AttendanceListResponse.builder()
-                .id(attendanceList.getId())
-                .dateOfAttendanceList(attendanceList.getDate())
-                .lessonResponse(lessonMapper.mapToDTO(attendanceList.getLesson()))
-                .attendanceResponseList(attendanceResponseList)
-                .build();
+        LessonSimpleDTO lessonSimpleDTO = new LessonSimpleDTO(
+                attendanceList.getLesson().getId(),
+                attendanceList.getLesson().getTitle(),
+                attendanceList.getLesson().getSemester(),
+                attendanceList.getLesson().getYear()
+        );
+
+        return new AttendanceListDTO(
+                attendanceList.getId(),
+                attendanceList.getDate(),
+                lessonSimpleDTO,
+                attendanceResponseList
+        );
+    }
+
+
+    public void transfer(Iterable<AttendanceList> all, List<AttendanceListDTO> attendanceListDTOList) {
+        for (AttendanceList attendanceListDTO : all) {
+            attendanceListDTOList.add(convertToDTO(attendanceListDTO));
+        }
     }
 
 }

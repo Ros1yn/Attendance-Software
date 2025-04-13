@@ -1,62 +1,51 @@
 package pl.ros1yn.attendancesoftware.student.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.ros1yn.attendancesoftware.student.dto.StudentRequestDTO;
 import pl.ros1yn.attendancesoftware.student.model.Student;
-import pl.ros1yn.attendancesoftware.student.service.StudentGetService;
-import pl.ros1yn.attendancesoftware.student.service.StudentPostService;
-import pl.ros1yn.attendancesoftware.student.service.StudentDeleteService;
-import pl.ros1yn.attendancesoftware.student.service.StudentUpdateService;
+import pl.ros1yn.attendancesoftware.student.service.StudentService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("student")
 @AllArgsConstructor
-@Slf4j
-class StudentController {
+public class StudentController {
 
-    private final StudentDeleteService deleteService;
-    private final StudentGetService getService;
-    private final StudentPostService postService;
-    private final StudentUpdateService updateService;
+    private final StudentService studentService;
 
-    @GetMapping("/")
-    ResponseEntity<List<Student>> getAllStudents() {
 
-        log.info("Recived request for getAllStudents");
-        return getService.getAllStudents();
+    @GetMapping("student")
+    public ResponseEntity<List<Student>> getAllStudents() {
+
+        return studentService.getAllStudents();
     }
 
-    @GetMapping("/{indexNumber}")
-    ResponseEntity<Student> getSingleStudent(@PathVariable Integer indexNumber) {
+    @GetMapping("student/{indexNumber}")
+    public ResponseEntity<Optional<Student>> getSingleStudent(@PathVariable Integer indexNumber) {
 
-        log.info("Recived request for getSingleStudent with indexNumber: {}", indexNumber);
-        return getService.getSingleStudent(indexNumber);
+        return studentService.getSingleStudent(indexNumber);
+
     }
 
-    @DeleteMapping("/{indexNumber}")
-    ResponseEntity<Student> deleteStudent(@PathVariable Integer indexNumber) {
+    @DeleteMapping("student/{id}")
+    public ResponseEntity<Student> deleteStudent(@PathVariable Integer id) {
 
-        log.info("Recived request for deleteLesson with id: {}", indexNumber);
-        return deleteService.deleteStudent(indexNumber);
+        return studentService.deleteStudent(id);
     }
 
-    @PostMapping("/")
-    ResponseEntity<Student> addStudent(@RequestBody Student student) {
+    @PostMapping("student")
+    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
 
-        log.info("Recived request for addStudent with body: {}", student);
-        return postService.addStudent(student);
+        return studentService.addStudent(student);
+
     }
 
-    @PutMapping("/{indexNumber}")
-    ResponseEntity<Student> updateStudent(@PathVariable Integer indexNumber, @RequestBody StudentRequestDTO requestDTO) {
-
-        log.info("Recived request for updateStudent with id: {} - and body: {}", indexNumber, requestDTO);
-        return updateService.updateStudent(requestDTO, indexNumber);
+    //name and surname update only
+    @PutMapping("student/{indexNumber}")
+    public ResponseEntity<Student> updateStudent(@PathVariable Integer indexNumber, @RequestBody Student student) {
+        return studentService.updateFullStudent(student, indexNumber);
     }
 
 }

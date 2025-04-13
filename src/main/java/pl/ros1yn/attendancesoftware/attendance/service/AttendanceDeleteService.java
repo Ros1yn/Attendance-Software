@@ -1,29 +1,37 @@
 package pl.ros1yn.attendancesoftware.attendance.service;
 
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 public class AttendanceDeleteService {
 
     private final AttendanceRepository attendanceRepository;
-    private final ClassFinder classFinder;
 
-    @Transactional
-    public ResponseEntity<Void> deleteAttendance(Integer attendanceId) {
+    public ResponseEntity<Attendance> deleteAttendance(Integer id) {
 
-        Attendance attendance = classFinder.findAttendance(attendanceId);
-        attendanceRepository.deleteById(attendanceId);
+        Optional<Attendance> optionalAttendance = attendanceRepository.findById(id);
 
-        log.info("Deleted succesfully. Body: {}", attendance);
+        if (optionalAttendance.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        attendanceRepository.deleteById(id);
+
         return ResponseEntity.noContent().build();
     }
+
+
+
+
+
+
+
+
 }

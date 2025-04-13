@@ -1,28 +1,30 @@
 package pl.ros1yn.attendancesoftware.attendance_list.service;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListResponse;
+import pl.ros1yn.attendancesoftware.attendance_list.DTO.AttendanceListDTO;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 import pl.ros1yn.attendancesoftware.attendance_list.repository.AttendanceListRepository;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 public class AttendanceListDeleteService {
 
     private final AttendanceListRepository attendanceListRepository;
-    private final ClassFinder classFinder;
 
-    public ResponseEntity<AttendanceListResponse> removeAttendanceListById(Integer attendanceId) {
+    public ResponseEntity<AttendanceListDTO> deleteAttendanceList(Integer id) {
 
-        AttendanceList attendanceList = classFinder.findAttendanceList(attendanceId);
-        attendanceListRepository.deleteById(attendanceId);
+        Optional<AttendanceList> optionalAttendanceList = attendanceListRepository.findById(id);
 
-        log.info("AttendanceList has been deleted. Body: {}", attendanceList);
+        if (optionalAttendanceList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        attendanceListRepository.deleteById(id);
+
         return ResponseEntity.noContent().build();
     }
 
