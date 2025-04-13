@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
-import pl.ros1yn.attendancesoftware.lessons.model.Lesson;
+import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class AttendanceList {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "attendanceList", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Attendance> attendanceList = new ArrayList<>();
+    private List<Attendance> attendances = new ArrayList<>();
 
 
 }
