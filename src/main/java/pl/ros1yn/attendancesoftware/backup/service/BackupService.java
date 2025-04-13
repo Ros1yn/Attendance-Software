@@ -21,10 +21,10 @@ import java.util.ArrayList;
 public class BackupService {
 
     private final LessonBackup lessonBackup;
-    private CodingBackup codingBackup;
-    private AttendanceListBackup attendanceListBackup;
-    private AttendanceBackup attendanceBackup;
-    private StudentBackup studentBackup;
+    private final CodingBackup codingBackup;
+    private final AttendanceListBackup attendanceListBackup;
+    private final AttendanceBackup attendanceBackup;
+    private final StudentBackup studentBackup;
 
     private static final String BACKUP_FAILED = "Backup failed: ";
 
@@ -64,7 +64,7 @@ public class BackupService {
             getBackupErrorLog(e);
             throw new BackupExceptionHandler(BACKUP_FAILED + e.getMessage());
         }
-
+        log.info("Backup has been created");
 
     }
 
