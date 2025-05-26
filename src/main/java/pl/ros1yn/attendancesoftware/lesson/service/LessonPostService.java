@@ -20,8 +20,6 @@ public class LessonPostService {
 
     public ResponseEntity<LessonResponse> addLesson(Lesson lesson) {
 
-        log.info("Lesson: title={}, year={}, semester={}", lesson.getTitle(), lesson.getYear(), lesson.getSemester());
-
         Lesson save = lessonRepository.save(lesson);
         LessonResponse lessonResponse = lessonMapper.mapToDTO(save);
 
