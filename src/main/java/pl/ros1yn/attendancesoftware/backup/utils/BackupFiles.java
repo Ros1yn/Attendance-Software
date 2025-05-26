@@ -13,7 +13,8 @@ public enum BackupFiles {
     CODING_PATH("backupCSV/coding.csv"),
     LESSON_PATH("backupCSV/lesson.csv"),
     COMPRESSED_ZIP_PATH("backup/compressed.zip"),
-    TEMPORARY_DIRECTORY_PATH("backupCSV");
+    TEMPORARY_DIRECTORY_PATH("backupCSV"),
+    BACKUP_FOLDER_PATH("backup");
 
     private final String path;
 }

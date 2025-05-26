@@ -20,8 +20,10 @@ public class LessonPostService {
 
     public ResponseEntity<LessonResponse> addLesson(Lesson lesson) {
 
-        Lesson savedLesson = lessonRepository.save(lesson);
-        LessonResponse lessonResponse = lessonMapper.mapToDTO(savedLesson);
+        log.info("Lesson: title={}, year={}, semester={}", lesson.getTitle(), lesson.getYear(), lesson.getSemester());
+
+        Lesson save = lessonRepository.save(lesson);
+        LessonResponse lessonResponse = lessonMapper.mapToDTO(save);
 
         log.info("Lesson has been added. Body: {}", lessonResponse);
         return ResponseEntity.status(HttpStatus.CREATED).body(lessonResponse);

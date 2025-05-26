@@ -2,20 +2,19 @@ package pl.ros1yn.attendancesoftware.lesson.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pl.ros1yn.attendancesoftware.coding.model.Coding;
 
 import java.util.List;
 
 @Entity
-@Table(name = "zajecia")
+@Table(name = "lesson")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@ToString
 public class Lesson {
 
     @Id
@@ -23,13 +22,13 @@ public class Lesson {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "nazwa", nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "semestr", nullable = false)
+    @Column(name = "semester", nullable = false)
     private Integer semester;
 
-    @Column(name = "rok", nullable = false)
+    @Column(name = "year", nullable = false)
     private Integer year;
 
     @JsonManagedReference("lesson-coding")

@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class LessonSimpleDTO {
+public class LessonRequest {
 
     private Integer id;
     private String title;

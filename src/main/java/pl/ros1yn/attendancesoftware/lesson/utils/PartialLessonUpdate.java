@@ -2,7 +2,7 @@ package pl.ros1yn.attendancesoftware.lesson.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import pl.ros1yn.attendancesoftware.lesson.dto.LessonSimpleDTO;
+import pl.ros1yn.attendancesoftware.lesson.dto.LessonRequest;
 import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
 
 import java.util.Optional;
@@ -11,15 +11,15 @@ import java.util.Optional;
 @Slf4j
 public class PartialLessonUpdate {
 
-    public Lesson update(LessonSimpleDTO lessonSimpleDTO, Lesson existingLesson) {
+    public Lesson update(LessonRequest lessonRequest, Lesson existingLesson) {
 
-        Optional.ofNullable(lessonSimpleDTO.getTitle())
+        Optional.ofNullable(lessonRequest.getTitle())
                 .ifPresent(existingLesson::setTitle);
 
-        Optional.ofNullable(lessonSimpleDTO.getSemester())
+        Optional.ofNullable(lessonRequest.getSemester())
                 .ifPresent(existingLesson::setSemester);
 
-        Optional.ofNullable(lessonSimpleDTO.getYear())
+        Optional.ofNullable(lessonRequest.getYear())
                 .ifPresent(existingLesson::setYear);
 
         log.info("Lesson has been updated. Body: {}", existingLesson);

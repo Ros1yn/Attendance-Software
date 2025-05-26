@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ros1yn.attendancesoftware.lesson.dto.LessonResponse;
-import pl.ros1yn.attendancesoftware.lesson.dto.LessonSimpleDTO;
+import pl.ros1yn.attendancesoftware.lesson.dto.LessonRequest;
 import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
 import pl.ros1yn.attendancesoftware.lesson.service.LessonDeleteService;
 import pl.ros1yn.attendancesoftware.lesson.service.LessonGetService;
@@ -43,19 +43,19 @@ class LessonController {
     }
 
     @PostMapping("/")
-    ResponseEntity<LessonResponse> addLesson(Lesson lesson){
+    ResponseEntity<LessonResponse> addLesson(@RequestBody Lesson lesson){
         log.info("Recived request for addLesson with body: {}", lesson);
         return postService.addLesson(lesson);
     }
 
     @PutMapping("/{lessonId}")
-    ResponseEntity<Lesson> updateFullLesson(@PathVariable Integer lessonId, @RequestBody LessonSimpleDTO simpleDTO) {
+    ResponseEntity<Lesson> updateFullLesson(@PathVariable Integer lessonId, @RequestBody LessonRequest simpleDTO) {
         log.info("Recived request for updateFullLesson with id: {} - and body: {}", lessonId, simpleDTO);
         return updateService.fullUpdate(lessonId, simpleDTO);
     }
 
     @PatchMapping("/{lessonId}")
-    ResponseEntity<Lesson> updateLessonPartially(@PathVariable Integer lessonId, @RequestBody LessonSimpleDTO simpleDTO) {
+    ResponseEntity<Lesson> updateLessonPartially(@PathVariable Integer lessonId, @RequestBody LessonRequest simpleDTO) {
         log.info("Recived request for updateLessonPartially with id: {} - and body: {}", lessonId, simpleDTO);
         return updateService.updatePartially(lessonId, simpleDTO);
     }
