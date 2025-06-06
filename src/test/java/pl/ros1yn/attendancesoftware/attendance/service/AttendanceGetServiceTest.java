@@ -76,21 +76,5 @@ class AttendanceGetServiceTest {
         verify(attendanceMapper, never()).mapToAttendanceResponse(attendance);
     }
 
-    @Test
-    void shouldReturnAllAttendances() {
-
-        //given
-        List<Attendance> attendances = List.of(attendance);
-        when(attendanceRepository.findAll()).thenReturn(attendances);
-
-        //When
-        ResponseEntity<List<Attendance>> response = attendanceGetService.getAllAttendances();
-
-        //Then
-        assertNotNull(response);
-        assertEquals(ResponseEntity.ok(attendances), response);
-
-        verify(attendanceRepository, times(1)).findAll();
-    }
 
 }

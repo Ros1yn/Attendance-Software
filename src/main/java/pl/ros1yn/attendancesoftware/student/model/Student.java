@@ -9,9 +9,11 @@ import lombok.*;
 @Entity
 @Table(name = "student")
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@Builder
 public class Student {
 
     @Id

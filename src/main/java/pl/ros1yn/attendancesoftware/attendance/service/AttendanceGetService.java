@@ -31,7 +31,4 @@ public class AttendanceGetService {
                 });
     }
 
-    public ResponseEntity<List<Attendance>> getAllAttendances() {
-        return ResponseEntity.ok(attendanceRepository.findAll());
-    }
 }

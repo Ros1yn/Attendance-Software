@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceResponse;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
+import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendanceDeleteService;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendanceGetService;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendancePostService;
@@ -20,6 +21,7 @@ import java.util.List;
 @Slf4j
 class AttendanceController {
 
+    private final AttendanceRepository attendanceRepository;
     private final AttendanceDeleteService attendanceDeleteService;
     private final AttendanceGetService attendanceGetService;
     private final AttendancePostService attendancePostService;
@@ -28,9 +30,8 @@ class AttendanceController {
     @GetMapping("/")
     ResponseEntity<List<Attendance>> getAllAttendances() {
 
-        ResponseEntity<List<Attendance>> response = attendanceGetService.getAllAttendances();
-        log.info("Recived request for getAllAttendances. Response: {}", response.getBody());
-        return response;
+        log.info("Recived request for getAllAttendances.");
+        return ResponseEntity.ok(attendanceRepository.findAll());
     }
 
     @GetMapping("/{attendanceId}")

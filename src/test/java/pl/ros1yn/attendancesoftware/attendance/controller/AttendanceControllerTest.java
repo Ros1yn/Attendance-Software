@@ -12,6 +12,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceResponse;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
+import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendanceDeleteService;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendanceGetService;
 import pl.ros1yn.attendancesoftware.attendance.service.AttendancePostService;
@@ -19,8 +20,7 @@ import pl.ros1yn.attendancesoftware.attendance.service.AttendanceUpdateService;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @WebMvcTest(AttendanceController.class)
@@ -39,6 +39,9 @@ class AttendanceControllerTest {
 
     @MockitoBean
     private AttendanceUpdateService attendanceUpdateService;
+
+    @MockitoBean
+    private AttendanceRepository attendanceRepository;
 
     private Attendance attendance1;
     private Attendance attendance2;
@@ -68,19 +71,28 @@ class AttendanceControllerTest {
 
     @Test
     void shouldGetAllAttendancesAndReturnOk() {
+
         //Given
-        List<Attendance> attendances = List.of(attendance1, attendance2);
-        when(attendanceGetService.getAllAttendances())
-                .thenReturn(ResponseEntity.ok(attendances));
+        AttendanceController attendanceController = new AttendanceController(attendanceRepository,
+                attendanceDeleteService,
+                attendanceGetService,
+                attendancePostService,
+                attendanceUpdateService);
 
-        //When
-        ResponseEntity<List<Attendance>> response = attendanceGetService.getAllAttendances();
+        List<Attendance> attendanceList = List.of(attendance1, attendance2);
 
-        //Then
-        assertNotNull(response);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(attendances, response.getBody());
-        verify(attendanceGetService, times(1)).getAllAttendances();
+        when(attendanceRepository.findAll()).thenReturn(attendanceList);
+
+        //when
+
+        ResponseEntity<List<Attendance>> result = attendanceController.getAllAttendances();
+
+        //then
+        assertNotNull(result);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals(attendanceList, result.getBody());
+        verify(attendanceRepository, times(1)).findAll();
+
     }
 
     @Test

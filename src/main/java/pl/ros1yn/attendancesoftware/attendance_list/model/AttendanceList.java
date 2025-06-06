@@ -3,10 +3,7 @@ package pl.ros1yn.attendancesoftware.attendance_list.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
 
@@ -20,6 +17,7 @@ import java.util.List;
 @Table(name = "lista_obecnosci")
 @Getter
 @Setter
+@Builder
 public class AttendanceList {
 
     @Id
