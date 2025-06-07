@@ -60,7 +60,7 @@ class AttendanceController {
     @PutMapping("/{attendanceId}")
     ResponseEntity<AttendanceResponse> updateFullAttendance(@PathVariable Integer attendanceId, @RequestBody AttendanceUpdateDTO updateDTO) {
 
-        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updateAttendance(attendanceId, updateDTO);
+        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updateFullAttendance(attendanceId, updateDTO);
         log.info("Recived request for updateFullAttendance with id: {} - and body: {}. Response: {}", attendanceId, updateDTO, response.getBody());
         return response;
     }
@@ -68,7 +68,7 @@ class AttendanceController {
     @PatchMapping("/{attendanceId}")
     ResponseEntity<AttendanceResponse> updateAttendancePartially(@PathVariable Integer attendanceId, @RequestBody AttendanceUpdateDTO updateDTO) {
 
-        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updatePartially(attendanceId, updateDTO);
+        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updateAttendancePartially(attendanceId, updateDTO);
         log.info("Recived request for updateAttendancePartially with id: {} - and body: {}. Response: {}", attendanceId, updateDTO, response.getBody());
         return response;
     }

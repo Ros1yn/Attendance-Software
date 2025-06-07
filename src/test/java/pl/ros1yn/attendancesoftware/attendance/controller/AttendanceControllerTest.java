@@ -4,11 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceResponse;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
@@ -20,28 +20,31 @@ import pl.ros1yn.attendancesoftware.attendance.service.AttendanceUpdateService;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
-@WebMvcTest(AttendanceController.class)
 @ExtendWith(MockitoExtension.class)
 @Slf4j
 class AttendanceControllerTest {
 
-    @MockitoBean
+    @Mock
     private AttendanceGetService attendanceGetService;
 
-    @MockitoBean
+    @Mock
     private AttendanceDeleteService attendanceDeleteService;
 
-    @MockitoBean
+    @Mock
     private AttendancePostService attendancePostService;
 
-    @MockitoBean
+    @Mock
     private AttendanceUpdateService attendanceUpdateService;
 
-    @MockitoBean
+    @Mock
     private AttendanceRepository attendanceRepository;
+
+    @InjectMocks
+    private AttendanceController attendanceController;
 
     private Attendance attendance1;
     private Attendance attendance2;
@@ -73,12 +76,6 @@ class AttendanceControllerTest {
     void shouldGetAllAttendancesAndReturnOk() {
 
         //Given
-        AttendanceController attendanceController = new AttendanceController(attendanceRepository,
-                attendanceDeleteService,
-                attendanceGetService,
-                attendancePostService,
-                attendanceUpdateService);
-
         List<Attendance> attendanceList = List.of(attendance1, attendance2);
 
         when(attendanceRepository.findAll()).thenReturn(attendanceList);
@@ -104,7 +101,7 @@ class AttendanceControllerTest {
                 .thenReturn(ResponseEntity.ok(attendanceResponse));
 
         //When
-        ResponseEntity<AttendanceResponse> response = attendanceGetService.getAttendance(attendanceId);
+        ResponseEntity<AttendanceResponse> response = attendanceController.getSingleAttendance(attendanceId);
 
         //Given
         assertNotNull(response);
@@ -122,7 +119,7 @@ class AttendanceControllerTest {
                 .thenReturn(ResponseEntity.noContent().build());
 
         //When
-        ResponseEntity<Void> response = attendanceDeleteService.deleteAttendance(attendanceId);
+        ResponseEntity<Void> response = attendanceController.deleteAttendance(attendanceId);
 
         //Then
         assertNotNull(response);
@@ -140,7 +137,7 @@ class AttendanceControllerTest {
 
         //When
 
-        ResponseEntity<AttendanceResponse> response = attendancePostService.addAttendance(updateDTO);
+        ResponseEntity<AttendanceResponse> response = attendanceController.addAttendance(updateDTO);
 
         //Then
         assertNotNull(response);
@@ -155,18 +152,18 @@ class AttendanceControllerTest {
 
         //When
         int attendanceId = 1;
-        when(attendanceUpdateService.updateAttendance(attendanceId, updateDTO))
+        when(attendanceUpdateService.updateFullAttendance(attendanceId, updateDTO))
                 .thenReturn(ResponseEntity.ok(attendanceResponse));
 
         //When
-        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updateAttendance(attendanceId, updateDTO);
+        ResponseEntity<AttendanceResponse> response = attendanceController.updateFullAttendance(attendanceId, updateDTO);
 
         //Then
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(attendanceResponse, response.getBody());
 
-        verify(attendanceUpdateService, times(1)).updateAttendance(attendanceId, updateDTO);
+        verify(attendanceUpdateService, times(1)).updateFullAttendance(attendanceId, updateDTO);
     }
 
     @Test
@@ -174,18 +171,18 @@ class AttendanceControllerTest {
 
         //When
         int attendanceId = 1;
-        when(attendanceUpdateService.updatePartially(attendanceId, updateDTO))
+        when(attendanceUpdateService.updateAttendancePartially(attendanceId, updateDTO))
                 .thenReturn(ResponseEntity.ok(attendanceResponse));
 
         //When
-        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updatePartially(attendanceId, updateDTO);
+        ResponseEntity<AttendanceResponse> response = attendanceController.updateAttendancePartially(attendanceId, updateDTO);
 
         //Then
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(attendanceResponse, response.getBody());
 
-        verify(attendanceUpdateService, times(1)).updatePartially(attendanceId, updateDTO);
+        verify(attendanceUpdateService, times(1)).updateAttendancePartially(attendanceId, updateDTO);
     }
 
 

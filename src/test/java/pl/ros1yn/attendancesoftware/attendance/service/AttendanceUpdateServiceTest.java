@@ -58,7 +58,7 @@ class AttendanceUpdateServiceTest {
         when(attendanceMapper.mapToAttendanceResponse(attendance)).thenReturn(attendanceResponse);
 
         //When
-        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updateAttendance(attendanceId, updateDTO);
+        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updateFullAttendance(attendanceId, updateDTO);
 
         //Given
         assertNotNull(response);
@@ -78,7 +78,7 @@ class AttendanceUpdateServiceTest {
         when(attendanceMapper.mapToAttendanceResponse(attendance)).thenReturn(attendanceResponse);
 
         //When
-        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updatePartially(attendanceId, updateDTO);
+        ResponseEntity<AttendanceResponse> response = attendanceUpdateService.updateAttendancePartially(attendanceId, updateDTO);
 
         //Given
         assertNotNull(response);
@@ -99,7 +99,7 @@ class AttendanceUpdateServiceTest {
         when(classFinder.findAttendance(attendanceId)).thenThrow(new AttendanceNotFoundException());
 
         //Then
-        assertThrows(AttendanceNotFoundException.class, () -> attendanceUpdateService.updateAttendance(attendanceId, updateDTO));
+        assertThrows(AttendanceNotFoundException.class, () -> attendanceUpdateService.updateFullAttendance(attendanceId, updateDTO));
 
         verify(classFinder, times(1)).findAttendance(attendanceId);
         verify(attendanceMapper, never()).mapToAttendanceResponse(attendance);

@@ -22,7 +22,7 @@ public class AttendanceUpdateService {
     private final ClassFinder classFinder;
 
     @Transactional
-    public ResponseEntity<AttendanceResponse> updateAttendance(Integer attendanceId, AttendanceUpdateDTO updateDTO) {
+    public ResponseEntity<AttendanceResponse> updateFullAttendance(Integer attendanceId, AttendanceUpdateDTO updateDTO) {
 
         Attendance newAttendance = classFinder.findAttendance(attendanceId);
         updateHelper.updateAttendanceFromPutDTO(updateDTO, newAttendance);
@@ -33,7 +33,7 @@ public class AttendanceUpdateService {
     }
 
     @Transactional
-    public ResponseEntity<AttendanceResponse> updatePartially(Integer attendanceId, AttendanceUpdateDTO updateDTO) {
+    public ResponseEntity<AttendanceResponse> updateAttendancePartially(Integer attendanceId, AttendanceUpdateDTO updateDTO) {
 
         Attendance newAttendance = classFinder.findAttendance(attendanceId);
         updateHelper.updateAttendanceFromPatchDTO(updateDTO, newAttendance);
