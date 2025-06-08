@@ -12,8 +12,9 @@ import pl.ros1yn.attendancesoftware.attendance.mapper.AttendanceMapper;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
+import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendanceListFinder;
 import pl.ros1yn.attendancesoftware.student.model.Student;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+import pl.ros1yn.attendancesoftware.student.utils.StudentFinder;
 
 @Service
 @AllArgsConstructor
@@ -22,13 +23,14 @@ public class AttendancePostService {
 
     private final AttendanceRepository attendanceRepository;
     private final AttendanceMapper attendanceMapper;
-    private final ClassFinder classFinder;
+    private final StudentFinder studentFinder;
+    private final AttendanceListFinder attendanceListFinder;
 
     @Transactional
     public ResponseEntity<AttendanceResponse> addAttendance(AttendanceUpdateDTO updateDTO) {
 
-        Student student = classFinder.findStudent(updateDTO.getIndexNumber());
-        AttendanceList attendanceList = classFinder.findAttendanceList(updateDTO.getListId());
+        Student student = studentFinder.find(updateDTO.getIndexNumber());
+        AttendanceList attendanceList = attendanceListFinder.find(updateDTO.getListId());
 
         Attendance newAttendance = Attendance.builder()
                 .student(student)

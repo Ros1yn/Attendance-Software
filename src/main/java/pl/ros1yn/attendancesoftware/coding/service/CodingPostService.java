@@ -10,22 +10,25 @@ import pl.ros1yn.attendancesoftware.coding.mapper.CodingMapper;
 import pl.ros1yn.attendancesoftware.coding.model.Coding;
 import pl.ros1yn.attendancesoftware.coding.repository.CodingRepository;
 import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
+import pl.ros1yn.attendancesoftware.lesson.utils.LessonFinder;
 import pl.ros1yn.attendancesoftware.student.model.Student;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+import pl.ros1yn.attendancesoftware.student.utils.StudentFinder;
 
 @Service
 @AllArgsConstructor
 @Slf4j
 public class CodingPostService {
 
-    private final ClassFinder classFinder;
+    private final StudentFinder studentFinder;
+    private final LessonFinder lessonFinder;
+
     private final CodingMapper codingMapper;
     private final CodingRepository codingRepository;
 
     public ResponseEntity<CodingResponse> addCoding(CodingRequestDTO requestDTO) {
 
-        Student student = classFinder.findStudent(requestDTO.getIndexNumber());
-        Lesson lesson = classFinder.findLesson(requestDTO.getLessonId());
+        Student student = studentFinder.find(requestDTO.getIndexNumber());
+        Lesson lesson = lessonFinder.find(requestDTO.getLessonId());
         Coding coding = codingMapper.getNewCoding(requestDTO, student, lesson);
 
         Coding savedCoding = codingRepository.save(coding);

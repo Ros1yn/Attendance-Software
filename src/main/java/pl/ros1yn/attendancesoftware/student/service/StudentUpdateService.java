@@ -7,21 +7,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.ros1yn.attendancesoftware.student.dto.StudentRequestDTO;
 import pl.ros1yn.attendancesoftware.student.model.Student;
+import pl.ros1yn.attendancesoftware.student.utils.StudentFinder;
 import pl.ros1yn.attendancesoftware.student.utils.StudentUpdate;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
 @Service
 @AllArgsConstructor
 @Slf4j
 public class StudentUpdateService {
 
-    private final ClassFinder classFinder;
+    private final StudentFinder studentFinder;
     private final StudentUpdate studentUpdate;
 
     @Transactional
     public ResponseEntity<Student> updateStudent(StudentRequestDTO newStudent, Integer indexNumber) {
 
-        Student existingStudent = classFinder.findStudent(indexNumber);
+        Student existingStudent = studentFinder.find(indexNumber);
         Student updatedStudent = studentUpdate.update(existingStudent, newStudent);
 
         log.info("Student has been updated. Body: {}", updatedStudent);

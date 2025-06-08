@@ -7,8 +7,9 @@ import org.springframework.web.server.ResponseStatusException;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
+import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendanceListFinder;
 import pl.ros1yn.attendancesoftware.student.model.Student;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+import pl.ros1yn.attendancesoftware.student.utils.StudentFinder;
 
 import java.util.Optional;
 
@@ -16,13 +17,14 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AttendanceUpdateHelper {
 
-    private final ClassFinder classFinder;
+    private final StudentFinder studentFinder;
+    private final AttendanceListFinder attendanceListFinder;
 
     public void updateAttendanceFromPatchDTO(AttendanceUpdateDTO updateDTO, Attendance attendance) {
 
         Optional.ofNullable(updateDTO.getIndexNumber())
                 .ifPresent(indexNumber -> {
-                    Student student = classFinder.findStudent(updateDTO.getIndexNumber());
+                    Student student = studentFinder.find(updateDTO.getIndexNumber());
                     attendance.setStudent(student);
                 });
 
@@ -34,16 +36,16 @@ public class AttendanceUpdateHelper {
 
         Optional.ofNullable(updateDTO.getListId())
                 .ifPresent(listId -> {
-                    AttendanceList attendanceList = classFinder.findAttendanceList(listId);
+                    AttendanceList attendanceList = attendanceListFinder.find(listId);
                     attendance.setAttendanceList(attendanceList);
                 });
     }
 
     public void updateAttendanceFromPutDTO(AttendanceUpdateDTO updateDTO, Attendance attendance) {
 
-        AttendanceList attendanceList = classFinder.findAttendanceList(updateDTO.getListId());
+        AttendanceList attendanceList = attendanceListFinder.find(updateDTO.getListId());
         attendance.setAttendanceList(attendanceList);
-        Student student = classFinder.findStudent(updateDTO.getIndexNumber());
+        Student student = studentFinder.find(updateDTO.getIndexNumber());
         attendance.setStudent(student);
 
         Optional.ofNullable(updateDTO.getIsAttendance())

@@ -9,8 +9,8 @@ import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceResponse;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.mapper.AttendanceMapper;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
+import pl.ros1yn.attendancesoftware.attendance.utils.AttendanceFinder;
 import pl.ros1yn.attendancesoftware.attendance.utils.AttendanceUpdateHelper;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
 @Service
 @AllArgsConstructor
@@ -19,12 +19,12 @@ public class AttendanceUpdateService {
 
     private final AttendanceMapper attendanceMapper;
     private final AttendanceUpdateHelper updateHelper;
-    private final ClassFinder classFinder;
+    private final AttendanceFinder attendanceFinder;
 
     @Transactional
     public ResponseEntity<AttendanceResponse> updateFullAttendance(Integer attendanceId, AttendanceUpdateDTO updateDTO) {
 
-        Attendance newAttendance = classFinder.findAttendance(attendanceId);
+        Attendance newAttendance = attendanceFinder.find(attendanceId);
         updateHelper.updateAttendanceFromPutDTO(updateDTO, newAttendance);
         AttendanceResponse attendanceResponse = attendanceMapper.mapToAttendanceResponse(newAttendance);
 
@@ -35,7 +35,7 @@ public class AttendanceUpdateService {
     @Transactional
     public ResponseEntity<AttendanceResponse> updateAttendancePartially(Integer attendanceId, AttendanceUpdateDTO updateDTO) {
 
-        Attendance newAttendance = classFinder.findAttendance(attendanceId);
+        Attendance newAttendance = attendanceFinder.find(attendanceId);
         updateHelper.updateAttendanceFromPatchDTO(updateDTO, newAttendance);
         AttendanceResponse attendanceResponse = attendanceMapper.mapToAttendanceResponse(newAttendance);
         getUpdateLog(attendanceResponse);

@@ -7,14 +7,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceDTOForList;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
+import pl.ros1yn.attendancesoftware.attendance.utils.AttendanceFinder;
 import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListRequestDTO;
 import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListResponse;
 import pl.ros1yn.attendancesoftware.attendance_list.mapper.AttendanceListMapper;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
+import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendanceListFinder;
 import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendanceListUpdateHelper;
 import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
+import pl.ros1yn.attendancesoftware.lesson.utils.LessonFinder;
 import pl.ros1yn.attendancesoftware.student.model.Student;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+import pl.ros1yn.attendancesoftware.student.utils.StudentFinder;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,12 +29,15 @@ public class AttedanceListUpdateService {
 
     private final AttendanceListMapper attendanceListMapper;
     private final AttendanceListUpdateHelper updateHelper;
-    private final ClassFinder classFinder;
+    private final AttendanceListFinder attendanceListFinder;
+    private final LessonFinder lessonFinder;
+    private final AttendanceFinder attendanceFinder;
+    private final StudentFinder studentFinder;
 
     @Transactional
     public ResponseEntity<AttendanceListResponse> updateAttendanceList(Integer listId, AttendanceListRequestDTO requestDTO) {
 
-        AttendanceList attendanceList = classFinder.findAttendanceList(listId);
+        AttendanceList attendanceList = attendanceListFinder.find(listId);
         List<Attendance> attendances = attendanceList.getAttendances();
 
         attendanceList.setDate(requestDTO.getDate());
@@ -49,10 +55,10 @@ public class AttedanceListUpdateService {
     @Transactional
     public ResponseEntity<AttendanceListResponse> updateAttendanceListPartially(Integer listId, AttendanceListRequestDTO requestDTO) {
 
-        AttendanceList attendanceList = classFinder.findAttendanceList(listId);
+        AttendanceList attendanceList = attendanceListFinder.find(listId);
 
         Optional.ofNullable(requestDTO.getLessonId())
-                .map(classFinder::findLesson)
+                .map(lessonFinder::find)
                 .ifPresent(attendanceList::setLesson);
 
         Optional.ofNullable(requestDTO.getDate())
@@ -70,8 +76,8 @@ public class AttedanceListUpdateService {
 
     private void updateAttendance(AttendanceDTOForList requestAttendance, List<Attendance> attendances) {
 
-        Attendance existingAttendance = classFinder.findAttendanceByIdFromList(requestAttendance.getAttendanceId(), attendances);
-        Student student = classFinder.findStudent(requestAttendance.getIndexNumber());
+        Attendance existingAttendance = attendanceFinder.findAttendanceByIdFromList(requestAttendance.getAttendanceId(), attendances);
+        Student student = studentFinder.find(requestAttendance.getIndexNumber());
         existingAttendance.setStudent(student);
         existingAttendance.setIsAttendance(requestAttendance.getIsAttendance());
         existingAttendance.setActivity(requestAttendance.getActivity());

@@ -81,7 +81,6 @@ class AttendanceControllerTest {
         when(attendanceRepository.findAll()).thenReturn(attendanceList);
 
         //when
-
         ResponseEntity<List<Attendance>> result = attendanceController.getAllAttendances();
 
         //then
@@ -107,6 +106,7 @@ class AttendanceControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(attendanceResponse, response.getBody());
+
         verify(attendanceGetService, times(1)).getAttendance(attendanceId);
     }
 

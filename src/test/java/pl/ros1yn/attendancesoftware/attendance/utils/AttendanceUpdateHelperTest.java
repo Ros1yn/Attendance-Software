@@ -11,8 +11,9 @@ import org.springframework.web.server.ResponseStatusException;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
+import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendanceListFinder;
 import pl.ros1yn.attendancesoftware.student.model.Student;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+import pl.ros1yn.attendancesoftware.student.utils.StudentFinder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -27,7 +28,10 @@ class AttendanceUpdateHelperTest {
     private AttendanceList attendanceList;
 
     @Mock
-    private ClassFinder classFinder;
+    private AttendanceListFinder attendanceListFinder;
+
+    @Mock
+    private StudentFinder studentFinder;
 
     @InjectMocks
     private AttendanceUpdateHelper attendanceUpdateHelper;
@@ -68,9 +72,9 @@ class AttendanceUpdateHelperTest {
     @Test
     void shouldReturnUpdatedAttendanceDTOCorrectly() {
         //given
-        when(classFinder.findStudent(updateDTO.getIndexNumber()))
+        when(studentFinder.find(updateDTO.getIndexNumber()))
                 .thenReturn(studentAfterUpdate);
-        when(classFinder.findAttendanceList(updateDTO.getListId()))
+        when(attendanceListFinder.find(updateDTO.getListId()))
                 .thenReturn(attendanceList);
 
         //when
@@ -82,16 +86,16 @@ class AttendanceUpdateHelperTest {
         assertEquals(attendanceList.getId(), attendance.getAttendanceList().getId());
         assertEquals(studentAfterUpdate.getIndexNumber(), attendance.getStudent().getIndexNumber());
 
-        verify(classFinder, times(1)).findStudent(updateDTO.getIndexNumber());
-        verify(classFinder, times(1)).findAttendanceList(updateDTO.getListId());
+        verify(studentFinder, times(1)).find(updateDTO.getIndexNumber());
+        verify(attendanceListFinder, times(1)).find(updateDTO.getListId());
     }
 
     @Test
     void shouldReturnFullyUpdatedAttendanceDTOCorrectly() {
         //given
-        when(classFinder.findStudent(updateDTO.getIndexNumber()))
+        when(studentFinder.find(updateDTO.getIndexNumber()))
                 .thenReturn(studentAfterUpdate);
-        when(classFinder.findAttendanceList(updateDTO.getListId()))
+        when(attendanceListFinder.find(updateDTO.getListId()))
                 .thenReturn(attendanceList);
 
         //when
@@ -103,8 +107,8 @@ class AttendanceUpdateHelperTest {
         assertEquals(attendanceList.getId(), attendance.getAttendanceList().getId());
         assertEquals(studentAfterUpdate.getIndexNumber(), attendance.getStudent().getIndexNumber());
 
-        verify(classFinder, times(1)).findStudent(updateDTO.getIndexNumber());
-        verify(classFinder, times(1)).findAttendanceList(updateDTO.getListId());
+        verify(studentFinder, times(1)).find(updateDTO.getIndexNumber());
+        verify(attendanceListFinder, times(1)).find(updateDTO.getListId());
     }
 
     @Test
@@ -119,9 +123,9 @@ class AttendanceUpdateHelperTest {
                 .listId(1)
                 .build();
 
-        when(classFinder.findStudent(updateDTOwhereisAttendanceIsNull.getIndexNumber()))
+        when(studentFinder.find(updateDTOwhereisAttendanceIsNull.getIndexNumber()))
                 .thenReturn(studentAfterUpdate);
-        when(classFinder.findAttendanceList(updateDTOwhereisAttendanceIsNull.getListId()))
+        when(attendanceListFinder.find(updateDTOwhereisAttendanceIsNull.getListId()))
                 .thenReturn(attendanceList);
 
         //when
@@ -144,9 +148,9 @@ class AttendanceUpdateHelperTest {
                 .listId(1)
                 .build();
 
-        when(classFinder.findStudent(updateDTOwhereisAttendanceIsNull.getIndexNumber()))
+        when(studentFinder.find(updateDTOwhereisAttendanceIsNull.getIndexNumber()))
                 .thenReturn(studentAfterUpdate);
-        when(classFinder.findAttendanceList(updateDTOwhereisAttendanceIsNull.getListId()))
+        when(attendanceListFinder.find(updateDTOwhereisAttendanceIsNull.getListId()))
                 .thenReturn(attendanceList);
 
         //when

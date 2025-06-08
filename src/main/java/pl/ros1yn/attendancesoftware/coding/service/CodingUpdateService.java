@@ -11,9 +11,11 @@ import pl.ros1yn.attendancesoftware.coding.dto.CodingRequestDTO;
 import pl.ros1yn.attendancesoftware.coding.dto.CodingResponse;
 import pl.ros1yn.attendancesoftware.coding.mapper.CodingMapper;
 import pl.ros1yn.attendancesoftware.coding.model.Coding;
+import pl.ros1yn.attendancesoftware.coding.utils.CodingFinder;
 import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
+import pl.ros1yn.attendancesoftware.lesson.utils.LessonFinder;
 import pl.ros1yn.attendancesoftware.student.model.Student;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+import pl.ros1yn.attendancesoftware.student.utils.StudentFinder;
 
 import java.util.Optional;
 
@@ -22,15 +24,18 @@ import java.util.Optional;
 @Slf4j
 public class CodingUpdateService {
 
-    private final ClassFinder classFinder;
+    private final StudentFinder studentFinder;
+    private final LessonFinder lessonFinder;
+    private final CodingFinder codingFinder;
+
     private final CodingMapper codingMapper;
 
     @Transactional
     public ResponseEntity<CodingResponse> updateCoding(Integer codingId, CodingRequestDTO requestDTO) {
 
-        Coding coding = classFinder.findCoding(codingId);
-        Student student = classFinder.findStudent(requestDTO.getIndexNumber());
-        Lesson lesson = classFinder.findLesson(requestDTO.getLessonId());
+        Coding coding = codingFinder.find(codingId);
+        Student student = studentFinder.find(requestDTO.getIndexNumber());
+        Lesson lesson = lessonFinder.find(requestDTO.getLessonId());
 
         coding.setStudent(student);
         coding.setLesson(lesson);
@@ -38,7 +43,7 @@ public class CodingUpdateService {
         Optional.ofNullable(requestDTO.getGroup())
                 .ifPresentOrElse(coding::setGroup, () -> {
                     log.error("Group must be filled");
-                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group must be filled");
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Group must be filled");
                 });
         CodingResponse codingResponse = codingMapper.mapToDTO(coding);
 
@@ -49,17 +54,17 @@ public class CodingUpdateService {
     @Transactional
     public ResponseEntity<CodingResponse> updateCodingPartially(Integer codingId, CodingRequestDTO requestDTO) {
 
-        Coding coding = classFinder.findCoding(codingId);
+        Coding coding = codingFinder.find(codingId);
 
         Optional.ofNullable(requestDTO.getIndexNumber())
                 .ifPresent(indexNumber -> {
-                    Student student = classFinder.findStudent(requestDTO.getIndexNumber());
+                    Student student = studentFinder.find(requestDTO.getIndexNumber());
                     coding.setStudent(student);
                 });
 
         Optional.ofNullable(requestDTO.getLessonId())
                 .ifPresent(lessonId -> {
-                    Lesson lesson = classFinder.findLesson(lessonId);
+                    Lesson lesson = lessonFinder.find(lessonId);
                     coding.setLesson(lesson);
                 });
 

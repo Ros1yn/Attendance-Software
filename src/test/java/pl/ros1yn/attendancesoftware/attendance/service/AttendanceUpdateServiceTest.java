@@ -12,9 +12,9 @@ import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceResponse;
 import pl.ros1yn.attendancesoftware.attendance.dto.AttendanceUpdateDTO;
 import pl.ros1yn.attendancesoftware.attendance.mapper.AttendanceMapper;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
+import pl.ros1yn.attendancesoftware.attendance.utils.AttendanceFinder;
 import pl.ros1yn.attendancesoftware.attendance.utils.AttendanceUpdateHelper;
 import pl.ros1yn.attendancesoftware.exception.AttendanceNotFoundException;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -29,7 +29,7 @@ class AttendanceUpdateServiceTest {
     private AttendanceUpdateHelper updateHelper;
 
     @Mock
-    private ClassFinder classFinder;
+    private AttendanceFinder attendanceFinder;
 
     @InjectMocks
     private AttendanceUpdateService attendanceUpdateService;
@@ -54,7 +54,7 @@ class AttendanceUpdateServiceTest {
 
         //Given
         Integer attendanceId = 1;
-        when(classFinder.findAttendance(attendanceId)).thenReturn(attendance);
+        when(attendanceFinder.find(attendanceId)).thenReturn(attendance);
         when(attendanceMapper.mapToAttendanceResponse(attendance)).thenReturn(attendanceResponse);
 
         //When
@@ -65,7 +65,7 @@ class AttendanceUpdateServiceTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(attendanceResponse, response.getBody());
 
-        verify(classFinder, times(1)).findAttendance(attendanceId);
+        verify(attendanceFinder, times(1)).find(attendanceId);
         verify(updateHelper, times(1)).updateAttendanceFromPutDTO(updateDTO, attendance);
         verify(attendanceMapper, times(1)).mapToAttendanceResponse(attendance);
     }
@@ -74,7 +74,7 @@ class AttendanceUpdateServiceTest {
     void shouldReturnOkWhenAttendanceGetsUpdatedPartially() {
 
         Integer attendanceId = 1;
-        when(classFinder.findAttendance(attendanceId)).thenReturn(attendance);
+        when(attendanceFinder.find(attendanceId)).thenReturn(attendance);
         when(attendanceMapper.mapToAttendanceResponse(attendance)).thenReturn(attendanceResponse);
 
         //When
@@ -85,7 +85,7 @@ class AttendanceUpdateServiceTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(attendanceResponse, response.getBody());
 
-        verify(classFinder, times(1)).findAttendance(attendanceId);
+        verify(attendanceFinder, times(1)).find(attendanceId);
         verify(updateHelper, times(1)).updateAttendanceFromPatchDTO(updateDTO, attendance);
         verify(attendanceMapper, times(1)).mapToAttendanceResponse(attendance);
     }
@@ -96,12 +96,12 @@ class AttendanceUpdateServiceTest {
 
         //Given
         Integer attendanceId = 1;
-        when(classFinder.findAttendance(attendanceId)).thenThrow(new AttendanceNotFoundException());
+        when(attendanceFinder.find(attendanceId)).thenThrow(new AttendanceNotFoundException());
 
         //Then
         assertThrows(AttendanceNotFoundException.class, () -> attendanceUpdateService.updateFullAttendance(attendanceId, updateDTO));
 
-        verify(classFinder, times(1)).findAttendance(attendanceId);
+        verify(attendanceFinder, times(1)).find(attendanceId);
         verify(attendanceMapper, never()).mapToAttendanceResponse(attendance);
         verify(updateHelper, never()).updateAttendanceFromPutDTO(updateDTO, attendance);
         verify(updateHelper, never()).updateAttendanceFromPatchDTO(updateDTO, attendance);

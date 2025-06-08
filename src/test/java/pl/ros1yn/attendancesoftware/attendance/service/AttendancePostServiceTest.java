@@ -14,8 +14,9 @@ import pl.ros1yn.attendancesoftware.attendance.mapper.AttendanceMapper;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
+import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendanceListFinder;
 import pl.ros1yn.attendancesoftware.student.model.Student;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+import pl.ros1yn.attendancesoftware.student.utils.StudentFinder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -31,7 +32,10 @@ class AttendancePostServiceTest {
     private AttendanceMapper attendanceMapper;
 
     @Mock
-    private ClassFinder classFinder;
+    private StudentFinder studentFinder;
+
+    @Mock
+    private AttendanceListFinder attendanceListFinder;
 
     @InjectMocks
     private AttendancePostService postService;
@@ -71,8 +75,8 @@ class AttendancePostServiceTest {
     void shouldSaveAttendanceAndReturnCreatedStatus(){
 
         //Given
-        when(classFinder.findStudent(updateDTO.getIndexNumber())).thenReturn(student);
-        when(classFinder.findAttendanceList(updateDTO.getListId())).thenReturn(attendanceList);
+        when(studentFinder.find(updateDTO.getIndexNumber())).thenReturn(student);
+        when(attendanceListFinder.find(updateDTO.getListId())).thenReturn(attendanceList);
         when(attendanceRepository.save(any(Attendance.class))).thenReturn(attendance);
         when(attendanceMapper.mapToAttendanceResponse(attendance)).thenReturn(attendanceResponse);
 
@@ -85,8 +89,8 @@ class AttendancePostServiceTest {
         assertEquals(attendanceResponse, response.getBody());
 
         verify(attendanceRepository, times(1)).save(any(Attendance.class));
-        verify(classFinder, times(1)).findStudent(updateDTO.getIndexNumber());
-        verify(classFinder, times(1)).findAttendanceList(updateDTO.getListId());
+        verify(studentFinder, times(1)).find(updateDTO.getIndexNumber());
+        verify(attendanceListFinder, times(1)).find(updateDTO.getListId());
         verify(attendanceMapper, times(1)).mapToAttendanceResponse(attendance);
 
     }

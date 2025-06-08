@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.ros1yn.attendancesoftware.student.model.Student;
 import pl.ros1yn.attendancesoftware.student.repository.StudentRepository;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+import pl.ros1yn.attendancesoftware.student.utils.StudentFinder;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,7 +16,7 @@ import java.util.List;
 public class StudentGetService {
 
     private final StudentRepository studentRepository;
-    private final ClassFinder classFinder;
+    private final StudentFinder studentFinder;
 
     public ResponseEntity<List<Student>> getAllStudents() {
 
@@ -31,7 +31,7 @@ public class StudentGetService {
 
     public ResponseEntity<Student> getSingleStudent(Integer indexNumber) {
 
-        Student student = classFinder.findStudent(indexNumber);
+        Student student = studentFinder.find(indexNumber);
         return ResponseEntity.ok(student);
     }
 }

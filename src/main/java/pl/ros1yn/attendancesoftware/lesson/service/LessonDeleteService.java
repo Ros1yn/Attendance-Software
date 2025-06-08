@@ -9,7 +9,7 @@ import pl.ros1yn.attendancesoftware.attendance_list.repository.AttendanceListRep
 import pl.ros1yn.attendancesoftware.lesson.dto.LessonResponse;
 import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
 import pl.ros1yn.attendancesoftware.lesson.repository.LessonRepository;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+import pl.ros1yn.attendancesoftware.lesson.utils.LessonFinder;
 
 @Service
 @AllArgsConstructor
@@ -17,13 +17,13 @@ import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 public class LessonDeleteService {
 
     private final LessonRepository lessonRepository;
-    private final ClassFinder classFinder;
+    private final LessonFinder lessonFinder;
     private final AttendanceListRepository attendanceListRepository;
 
     @Transactional
     public ResponseEntity<LessonResponse> deleteLesson(Integer lessonId) {
 
-        Lesson lesson = classFinder.findLesson(lessonId);
+        Lesson lesson = lessonFinder.find(lessonId);
         attendanceListRepository.deleteByLesson(lesson);
         lessonRepository.deleteById(lessonId);
 
