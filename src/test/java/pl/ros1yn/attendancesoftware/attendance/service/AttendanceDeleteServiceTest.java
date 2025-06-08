@@ -9,8 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
+import pl.ros1yn.attendancesoftware.attendance.utils.AttendanceFinder;
 import pl.ros1yn.attendancesoftware.exception.AttendanceNotFoundException;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -22,7 +22,7 @@ class AttendanceDeleteServiceTest {
     private AttendanceRepository attendanceRepository;
 
     @Mock
-    private ClassFinder classFinder;
+    private AttendanceFinder attendanceFinder;
 
     @InjectMocks
     private AttendanceDeleteService attendanceDeleteService;
@@ -41,7 +41,7 @@ class AttendanceDeleteServiceTest {
 
         //Given
         Integer attendanceId = 1;
-        when(classFinder.findAttendance(attendanceId)).thenReturn(attendance);
+        when(attendanceFinder.find(attendanceId)).thenReturn(attendance);
 
         //When
         ResponseEntity<Void> response = attendanceDeleteService.deleteAttendance(attendanceId);
@@ -50,7 +50,7 @@ class AttendanceDeleteServiceTest {
         assertNotNull(response);
         assertEquals(ResponseEntity.noContent().build(), response);
 
-        verify(classFinder, times(1)).findAttendance(attendanceId);
+        verify(attendanceFinder, times(1)).find(attendanceId);
         verify(attendanceRepository, times(1)).deleteById(attendanceId);
     }
 
@@ -59,12 +59,12 @@ class AttendanceDeleteServiceTest {
 
         //Given
         Integer attendanceId = 1;
-        when(classFinder.findAttendance(attendanceId)).thenThrow(new AttendanceNotFoundException());
+        when(attendanceFinder.find(attendanceId)).thenThrow(new AttendanceNotFoundException());
 
         //When & Then
         assertThrows(AttendanceNotFoundException.class, () -> attendanceDeleteService.deleteAttendance(attendanceId));
 
-        verify(classFinder, times(1)).findAttendance(attendanceId);
+        verify(attendanceFinder, times(1)).find(attendanceId);
         verify(attendanceRepository, never()).deleteById(attendanceId);
     }
 }

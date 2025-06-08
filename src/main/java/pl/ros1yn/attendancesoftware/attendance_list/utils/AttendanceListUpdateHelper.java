@@ -9,8 +9,9 @@ import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListRequestDTO
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 import pl.ros1yn.attendancesoftware.exception.AttendanceListRequestExceptionHandler;
 import pl.ros1yn.attendancesoftware.lesson.model.Lesson;
+import pl.ros1yn.attendancesoftware.lesson.utils.LessonFinder;
 import pl.ros1yn.attendancesoftware.student.model.Student;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+import pl.ros1yn.attendancesoftware.student.utils.StudentFinder;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,11 +23,12 @@ import java.util.stream.IntStream;
 @Slf4j
 public class AttendanceListUpdateHelper {
 
-    private final ClassFinder classFinder;
+    private StudentFinder studentFinder;
+    private LessonFinder lessonFinder;
 
     public Lesson setNewLesson(AttendanceListRequestDTO requestDTO) {
         return Optional.ofNullable(requestDTO.getLessonId())
-                .map(classFinder::findLesson)
+                .map(lessonFinder::find)
                 .orElseThrow(() -> {
                     log.error("Lesson ID cannot be empty");
                     return new AttendanceListRequestExceptionHandler("LessonId cannot be empty");
@@ -68,7 +70,7 @@ public class AttendanceListUpdateHelper {
                     AttendanceDTOForList attendanceDTO = requestAttendances.get(index);
                     Attendance existingAttendance = attendances.get(index);
 
-                    Student student = classFinder.findStudent(attendanceDTO.getIndexNumber());
+                    Student student = studentFinder.find(attendanceDTO.getIndexNumber());
 
                     existingAttendance.setStudent(student);
                     existingAttendance.setIsAttendance(attendanceDTO.getIsAttendance());

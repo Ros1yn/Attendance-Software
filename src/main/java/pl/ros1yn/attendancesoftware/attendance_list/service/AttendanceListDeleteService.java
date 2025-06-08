@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import pl.ros1yn.attendancesoftware.attendance_list.dto.AttendanceListResponse;
 import pl.ros1yn.attendancesoftware.attendance_list.model.AttendanceList;
 import pl.ros1yn.attendancesoftware.attendance_list.repository.AttendanceListRepository;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+import pl.ros1yn.attendancesoftware.attendance_list.utils.AttendanceListFinder;
 
 @Service
 @AllArgsConstructor
@@ -15,11 +15,11 @@ import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 public class AttendanceListDeleteService {
 
     private final AttendanceListRepository attendanceListRepository;
-    private final ClassFinder classFinder;
+    private final AttendanceListFinder attendanceListFinder;
 
     public ResponseEntity<AttendanceListResponse> removeAttendanceListById(Integer attendanceId) {
 
-        AttendanceList attendanceList = classFinder.findAttendanceList(attendanceId);
+        AttendanceList attendanceList = attendanceListFinder.find(attendanceId);
         attendanceListRepository.deleteById(attendanceId);
 
         log.info("AttendanceList has been deleted. Body: {}", attendanceList);

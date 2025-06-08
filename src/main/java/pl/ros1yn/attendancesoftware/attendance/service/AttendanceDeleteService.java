@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.ros1yn.attendancesoftware.attendance.model.Attendance;
 import pl.ros1yn.attendancesoftware.attendance.repository.AttendanceRepository;
-import pl.ros1yn.attendancesoftware.utils.ClassFinder;
+import pl.ros1yn.attendancesoftware.attendance.utils.AttendanceFinder;
 
 @Service
 @AllArgsConstructor
@@ -15,12 +15,12 @@ import pl.ros1yn.attendancesoftware.utils.ClassFinder;
 public class AttendanceDeleteService {
 
     private final AttendanceRepository attendanceRepository;
-    private final ClassFinder classFinder;
+    private final AttendanceFinder attendanceFinder;
 
     @Transactional
     public ResponseEntity<Void> deleteAttendance(Integer attendanceId) {
 
-        Attendance attendance = classFinder.findAttendance(attendanceId);
+        Attendance attendance = attendanceFinder.find(attendanceId);
         attendanceRepository.deleteById(attendanceId);
 
         log.info("Deleted succesfully. Body: {}", attendance);

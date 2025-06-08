@@ -34,3 +34,4 @@ build/
 
 ### BACKUP FILES ###
 backup/
+/backupCSV/
